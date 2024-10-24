@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj",
+      "projectUniqueName": "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj",
       "projectName": "FITAPI.Application",
-      "projectPath": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj",
+      "projectPath": "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj",
       "packagesPath": "C:\\Users\\dimitar.kyuchukov\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Application\\obj\\",
+      "outputPath": "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dimitar.kyuchukov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {},
         "https://artifactory.kubdev.com/artifactory/api/nuget/v3/ews-nuget": {}
       },
@@ -46,7 +45,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       }
     },
     "frameworks": {
@@ -68,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.100-rc.2.24474.11/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {}
+    "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {
+    "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj",
         "projectName": "FITAPI.Infrastructure",
-        "projectPath": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\dimitar.kyuchukov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\dimitar.kyuchukov\\Desktop\\ST-Project\\FITAPI.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dimitar.kyuchukov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://artifactory.kubdev.com/artifactory/api/nuget/v3/ews-nuget": {}
         },
@@ -40,12 +39,28 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24474.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24474.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -62,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.100-rc.2.24474.11/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

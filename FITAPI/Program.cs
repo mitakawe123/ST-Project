@@ -1,8 +1,29 @@
 using FastEndpoints;
+using FastEndpoints.Security;
+using FastEndpoints.Swagger;
+using FITAPI.Infrastructure.Configurations;
 
 var bld = WebApplication.CreateBuilder();
-bld.Services.AddFastEndpoints();
+
+bld.Services
+    .AddInfrastructureServices(bld.Configuration)
+    .AddAuthenticationJwtBearer(s => s.SigningKey = "The secret used to sign tokens") 
+    .AddAuthorization()
+    .AddFastEndpoints()
+    .SwaggerDocument(o =>
+    {
+        o.DocumentSettings = s =>
+        {
+            s.Title = "FITAPI";
+            s.Version = "v1";
+        };
+    });
 
 var app = bld.Build();
-app.UseFastEndpoints();
+
+app.UseAuthentication() 
+    .UseAuthorization() 
+    .UseFastEndpoints()
+    .UseSwaggerGen();
+
 app.Run();

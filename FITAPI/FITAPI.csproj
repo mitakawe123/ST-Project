@@ -8,11 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="FastEndpoints" Version="5.30.0" />
+    <PackageReference Include="FastEndpoints.Security" Version="5.30.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.30.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Endpoints\" />
     <Folder Include="Middlewares\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FITAPI.Infrastructure\FITAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
