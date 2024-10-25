@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FITAPI.Application.Services.WgerService;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,4 +14,10 @@ public static class ServiceCollectionExtensions
         
         return services;
     }
-}
+    
+    public static IServiceCollection AddAppServices(this IServiceCollection services)
+    {
+        services.AddHttpClient<IWgerService, WgerService>();
+        return services;
+    }
+}   

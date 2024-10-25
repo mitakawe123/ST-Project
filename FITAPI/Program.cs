@@ -7,6 +7,7 @@ var bld = WebApplication.CreateBuilder();
 
 bld.Services
     .AddInfrastructureServices(bld.Configuration)
+    .AddAppServices()
     .AddAuthenticationJwtBearer(s => s.SigningKey = "The secret used to sign tokens") 
     .AddAuthorization()
     .AddFastEndpoints()

@@ -1,0 +1,13 @@
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\bin\Debug\net8.0\FITAPI.Application.deps.json
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\bin\Debug\net8.0\FITAPI.Application.dll
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\bin\Debug\net8.0\FITAPI.Application.pdb
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.csproj.AssemblyReference.cache
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.AssemblyInfoInputs.cache
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.AssemblyInfo.cs
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.csproj.CoreCompileInputs.cache
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.sourcelink.json
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.dll
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\refint\FITAPI.Application.dll
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\FITAPI.Application.pdb
+C:\Users\dimitar.kyuchukov\Desktop\ST-Project\FITAPI.Application\obj\Debug\net8.0\ref\FITAPI.Application.dll

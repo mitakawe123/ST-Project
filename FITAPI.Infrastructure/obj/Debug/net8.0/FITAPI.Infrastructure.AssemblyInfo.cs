@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FITAPI.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+466d7493e44617bd55addc8a8cad6f095240fd08")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c74b88296dce7a4d6d803695a3364d3eca6c278d")]
 [assembly: System.Reflection.AssemblyProductAttribute("FITAPI.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FITAPI.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
