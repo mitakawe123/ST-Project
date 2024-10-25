@@ -15,4 +15,10 @@
     <ProjectReference Include="..\FITAPI.Domain\FITAPI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Identity">
+      <HintPath>..\..\..\..\..\Program Files (x86)\dotnet\shared\Microsoft.AspNetCore.App\8.0.10\Microsoft.AspNetCore.Identity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

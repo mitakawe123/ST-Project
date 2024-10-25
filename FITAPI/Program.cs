@@ -2,8 +2,10 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using FITAPI.Application.Configurations;
+using FITAPI.Application.Services.EmailSender;
 using FITAPI.Domain.Models;
 using FITAPI.Infrastructure.Configurations;
+using Microsoft.AspNetCore.Identity;
 
 var bld = WebApplication.CreateBuilder();
 var jwtConfig  = bld.Configuration.GetSection(nameof(JwtConfiguration)).Get<JwtConfiguration>() ??
@@ -24,6 +26,8 @@ bld.Services
             s.Version = "v1";
         };
     });
+
+bld.Services.AddTransient<IEmailSender<MyUser>, EmailSender>();
 
 var app = bld.Build();
 
