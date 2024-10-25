@@ -1,6 +1,8 @@
-﻿namespace FITAPI.Application.Services.WgerService;
+﻿using FITAPI.Domain.DTOs;
+
+namespace FITAPI.Application.Services.WgerService;
 
 public interface IWgerService
 {
-    Task<string> GetExercisesAsync();
+    Task<ExerciseResponseDto> GetExercisesAsync();
 }

@@ -1,19 +1,32 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text.Json;
+using FITAPI.Application.Constants;
+using FITAPI.Domain.DTOs;
+using Microsoft.Extensions.Logging;
 
 namespace FITAPI.Application.Services.WgerService;
 
 public class WgerService(HttpClient httpClient, ILogger<WgerService> logger) : IWgerService
 {
-    public async Task<string> GetExercisesAsync()
+    public async Task<ExerciseResponseDto> GetExercisesAsync()
     {
-        const string requestUrl = "https://wger.de/api/v2";
-
         try
         {
-            var response = await httpClient.GetAsync($"{requestUrl}/exercise");
+            var response = await httpClient.GetAsync($"{AppConstants.WgerConstants.Url}/exercise");
             response.EnsureSuccessStatusCode();
+            
+            var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            return await response.Content.ReadAsStringAsync();
+            var exerciseApiResponse = JsonSerializer.Deserialize<ExerciseResponseDto>(jsonResponse, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true 
+            });
+
+            return exerciseApiResponse ?? new ExerciseResponseDto();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Request error: {ex.Message}");
+            throw;
         }
         catch (Exception ex)
         {

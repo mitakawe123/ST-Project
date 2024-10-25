@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FITAPI.Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace FITAPI.Infrastructure;
 
-public class FITDbContext : DbContext
+public class FITDbContext : IdentityDbContext<MyUser>
 {
     public FITDbContext()
     {

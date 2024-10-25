@@ -1,4 +1,6 @@
 ﻿using FITAPI.Application.Services.WgerService;
+using FITAPI.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,16 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
         services.AddHttpClient<IWgerService, WgerService>();
+        return services;
+    }
+
+    public static IServiceCollection AddIdentityServices(this IServiceCollection services)
+    {
+        services.AddIdentity<MyUser, IdentityRole>()
+            .AddEntityFrameworkStores<FITDbContext>()
+            .AddSignInManager<SignInManager<MyUser>>()
+            .AddDefaultTokenProviders();
+        
         return services;
     }
 }   
