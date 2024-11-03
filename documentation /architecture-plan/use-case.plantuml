@@ -1,0 +1,21 @@
+@startuml UseCase
+actor Admin
+actor User
+
+rectangle FitConnect {
+    User --> (Register)
+    User --> (Login)
+    User --> (Track Workout)
+    User --> (Track Food)
+    User --> (Track Water)
+    User --> (Create Workout)
+    User --> (Post on Social Feed)
+    User --> (View Social Feed)
+}
+
+rectangle AdminFunctions {
+    Admin --> (Manage Users)
+    Admin --> (Manage Workouts)
+}
+
+@enduml

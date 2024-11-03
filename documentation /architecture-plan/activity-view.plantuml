@@ -1,0 +1,36 @@
+@startuml ActivityView
+|User|
+start
+:Login to Application;
+:View Dashboard;
+
+:Choose an Action;
+
+partition "Workout Management" {
+    :Select Workout Module;
+    :Create New Workout Plan;
+    :Log a Workout;
+    :Track Activities;
+    :View Past Workouts;
+}
+
+partition "Nutrition Tracking" {
+    :Select Nutrition Module;
+    :Log Food Intake;
+    :Log Water Intake;
+    :View Nutrition Stats;
+    :Create Meal Plan;
+}
+
+partition "Social Interaction" {
+    :Select Social Feed Module;
+    :Post Update;
+    :Comment on Posts;
+    :Like Posts;
+    :View Notifications;
+}
+
+:Logout;
+
+stop
+@enduml

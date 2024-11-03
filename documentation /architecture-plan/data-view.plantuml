@@ -1,0 +1,99 @@
+@startuml DataView
+entity "User" {
+    + userId: int <<PK>>
+    + username: string
+    + email: string
+    + passwordHash: string
+    + createdAt: DateTime
+    + profilePicture: string
+}
+
+entity "Workout" {
+    + workoutId: int <<PK>>
+    + userId: int <<FK>>
+    + workoutDate: DateTime
+    + duration: int
+    + type: string
+    + notes: string
+}
+
+entity "Food" {
+    + nutritionId: int <<PK>>
+    + userId: int <<FK>>
+    + date: DateTime
+    + foodItem: string
+    + calories: int
+    + waterIntake: int
+}
+
+entity "MealPlan" {
+    + mealPlanId: int <<PK>>
+    + userId: int <<FK>>
+    + mealDescription: string
+    + servingSize: int
+    + date: DateTime
+}
+
+entity "SocialPost" {
+    + postId: int <<PK>>
+    + userId: int <<FK>>
+    + content: string
+    + createdAt: DateTime
+    + likes: int
+}
+
+entity "Notification" {
+    + notificationId: int <<PK>>
+    + userId: int <<FK>>
+    + message: string
+    + isRead: boolean
+    + createdAt: DateTime
+}
+
+entity "Goal" {
+    + goalId: int <<PK>>
+    + userId: int <<FK>>
+    + goalType: string
+    + targetValue: float
+    + currentValue: float
+    + deadline: DateTime
+}
+
+entity "Exercise" {
+    + exerciseId: int <<PK>>
+    + name: string
+    + category: string
+    + description: string
+    + duration: int
+    + caloriesBurned: int
+}
+
+entity "User_Exercise" {
+    + userExerciseId: int <<PK>>
+    + userId: int <<FK>>
+    + exerciseId: int <<FK>>
+    + sets: int
+    + repetitions: int
+    + date: DateTime
+}
+
+entity "ProgressJournal" {
+    + progressId: int <<PK>>
+    + userId: int <<FK>>
+    + date: DateTime
+    + weight: float
+    + bodyFatPercentage: float
+}
+
+' Relationships
+User ||--o{ Workout : "has"
+User ||--o{ Food : "has"
+User ||--o{ MealPlan : "has" 
+User ||--o{ SocialPost : "creates"  
+User ||--o{ Notification : "receives"
+User ||--o{ Goal : "sets"
+User ||--o{ User_Exercise : "records"
+Exercise ||--o{ User_Exercise : "is recorded in"
+User ||--o{ ProgressJournal : "maintains"
+
+@enduml

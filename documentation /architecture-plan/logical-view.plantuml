@@ -1,0 +1,48 @@
+@startuml LogicalView
+package "FitConnect" {
+    package "User Management" {
+        class "User Interface" as UI
+        class "User Admin Module" as UserAdmin
+    }
+
+    package "Workout Management" {
+        class "Workout Module" as WorkoutModule
+        class "Activity Tracking" as ActivityModule
+        class "Goal Setting" as GoalModule
+    }
+
+    package "Nutrition Tracking" {
+        class "Nutrition Module" as NutritionModule
+    }
+
+    package "Social Interaction" {
+        class "Social Feed Module" as SocialFeedModule
+        class "Notification System" as NotificationModule
+    }
+
+    package "Analytics" {
+        class "Analytics Module" as AnalyticsModule
+    }
+
+    UI --> UserAdmin : manages >
+    UI --> WorkoutModule : interacts >
+    UI --> NutritionModule : interacts >
+    UI --> SocialFeedModule : interacts >
+    UI --> ActivityModule : interacts >
+    UI --> GoalModule : interacts >
+    UI --> NotificationModule : interacts >
+    UI --> AnalyticsModule : displays >
+
+    UserAdmin --> WorkoutModule : manages >
+    UserAdmin --> NutritionModule : manages >
+    UserAdmin --> SocialFeedModule : manages >
+
+    WorkoutModule --> ActivityModule : logs workouts >
+    NutritionModule --> ActivityModule : logs food and water >
+    GoalModule --> ActivityModule : tracks goals >
+    SocialFeedModule --> NotificationModule : sends updates >
+    NotificationModule --> UI : displays notifications >
+    AnalyticsModule --> WorkoutModule : analyzes data >
+    AnalyticsModule --> NutritionModule : analyzes data >
+}
+@enduml

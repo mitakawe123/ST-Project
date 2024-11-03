@@ -1,0 +1,43 @@
+@startuml ImplementationView
+package "Изглед на имплементацията" {
+    [Потребителски интерфейс (UI)] as UI
+    [Логика на приложението (Business Logic)] as BL
+    [Достъп до данни (Data Access Layer)] as DAL
+    [Wger API] as WgerAPI
+}
+
+UI --> BL : "изпраща заявки"
+BL --> DAL : "извлича/записва данни"
+DAL --> BL : "връща данни"
+BL --> UI : "предоставя отговори"
+BL --> WgerAPI : "извиква API"
+
+note right of UI
+    Интерфейс за взаимодействие
+    с потребителя:
+    - HTML
+    - CSS
+    - JavaScript
+end note
+
+note right of BL
+    Обработка на бизнес правила
+    и логика:
+    - Валидиране на данни
+    - Управление на сесии
+    - Комуникация с Wger API
+end note
+
+note right of DAL
+    Комуникация с базата данни:
+    - SQL заявки
+    - ORM компоненти
+end note
+
+note right of WgerAPI
+    Външен API за:
+    - Управление на упражнения
+    - Хранителни режими
+end note
+
+@enduml
