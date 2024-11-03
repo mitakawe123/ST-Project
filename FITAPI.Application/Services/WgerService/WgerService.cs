@@ -7,7 +7,7 @@ namespace FITAPI.Application.Services.WgerService;
 
 public class WgerService(HttpClient httpClient, ILogger<WgerService> logger) : IWgerService
 {
-    private readonly JsonSerializerOptions JsonSerializerOptions = new()
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
@@ -16,23 +16,48 @@ public class WgerService(HttpClient httpClient, ILogger<WgerService> logger) : I
     {
         try
         {
-            var response = await httpClient.GetAsync($"{AppConstants.WgerConstants.Url}/exercise");
+            var response = await httpClient.GetAsync($"{AppConstants.WgerConstants.Url}/exercisebaseinfo");
             response.EnsureSuccessStatusCode();
             
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var exerciseApiResponse = JsonSerializer.Deserialize<ExerciseResponseDto>(jsonResponse, JsonSerializerOptions);
+            var exerciseApiResponse = JsonSerializer.Deserialize<ExerciseResponseDto>(jsonResponse, _jsonSerializerOptions);
 
             return exerciseApiResponse ?? new ExerciseResponseDto();
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Request error: {ex.Message}");
+            logger.LogError("Request error: {Message}", ex.Message);
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Error fetching exercises from Wger");
+            throw;
+        }
+    }
+
+    public async Task<IReadOnlyCollection<ExerciseCategoryDto>> GetExerciseCategoriesAsync()
+    {
+        try
+        {
+            var response = await httpClient.GetAsync($"{AppConstants.WgerConstants.Url}/exercisecategory");
+            response.EnsureSuccessStatusCode();
+        
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+        
+            var exerciseCategoriesResponse = JsonSerializer.Deserialize<IReadOnlyCollection<ExerciseCategoryDto>>(jsonResponse, _jsonSerializerOptions);
+        
+            return exerciseCategoriesResponse ?? new List<ExerciseCategoryDto>();
+        }
+        catch (HttpRequestException ex)
+        {
+            logger.LogError("Request error: {Message}", ex.Message);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error fetching exercises categories from Wger");
             throw;
         }
     }
