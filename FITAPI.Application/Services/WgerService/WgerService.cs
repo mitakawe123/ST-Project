@@ -7,6 +7,11 @@ namespace FITAPI.Application.Services.WgerService;
 
 public class WgerService(HttpClient httpClient, ILogger<WgerService> logger) : IWgerService
 {
+    private readonly JsonSerializerOptions JsonSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+    
     public async Task<ExerciseResponseDto> GetExercisesAsync()
     {
         try
@@ -16,10 +21,7 @@ public class WgerService(HttpClient httpClient, ILogger<WgerService> logger) : I
             
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var exerciseApiResponse = JsonSerializer.Deserialize<ExerciseResponseDto>(jsonResponse, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true 
-            });
+            var exerciseApiResponse = JsonSerializer.Deserialize<ExerciseResponseDto>(jsonResponse, JsonSerializerOptions);
 
             return exerciseApiResponse ?? new ExerciseResponseDto();
         }
