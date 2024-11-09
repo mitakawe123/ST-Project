@@ -1,4 +1,6 @@
-﻿using FITAPI.Application.Services.WgerService;
+﻿using FITAPI.Application.Services.ExerciseBaseInfo;
+using FITAPI.Application.Services.ExerciseCategory;
+using FITAPI.Application.Services.ExerciseSearch;
 using FITAPI.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<FITDbContext>(options =>
+        services.AddDbContext<FitDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         
         return services;
@@ -19,14 +21,17 @@ public static class ServiceCollectionExtensions
     
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
-        services.AddHttpClient<IWgerService, WgerService>();
+        services.AddHttpClient<IExerciseBaseInfo, ExerciseBaseInfo>();
+        services.AddHttpClient<IExerciseCategory, ExerciseCategory>();
+        services.AddHttpClient<IExerciseSearch, ExerciseSearch>();
+        
         return services;
     }
 
     public static IServiceCollection AddIdentityServices(this IServiceCollection services)
     {
         services.AddIdentity<MyUser, IdentityRole>()
-            .AddEntityFrameworkStores<FITDbContext>()
+            .AddEntityFrameworkStores<FitDbContext>()
             .AddSignInManager<SignInManager<MyUser>>()
             .AddDefaultTokenProviders();
         

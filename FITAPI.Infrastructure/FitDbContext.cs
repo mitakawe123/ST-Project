@@ -4,19 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FITAPI.Infrastructure;
 
-public class FITDbContext : IdentityDbContext<MyUser>
+public class FitDbContext : IdentityDbContext<MyUser>
 {
-    public FITDbContext()
+    public DbSet<Workouts> Workouts { get; init; }
+
+    public FitDbContext()
     {
     }
 
-    public FITDbContext(DbContextOptions<FITDbContext> options) : base(options)
+    public FitDbContext(DbContextOptions<FitDbContext> options) : base(options)
     {
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //Add config here
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(FitDbContext).Assembly);
     }
 }

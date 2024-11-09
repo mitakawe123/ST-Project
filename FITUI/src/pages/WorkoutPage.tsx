@@ -78,6 +78,7 @@ export default function WorkoutPage() {
 			<Tabs defaultValue="create">
 				<TabsList className="mb-4">
 					<TabsTrigger value="create">Create Workout</TabsTrigger>
+					<TabsTrigger value="your-workouts">View Your Workouts</TabsTrigger>
 					<TabsTrigger value="view">View Workouts</TabsTrigger>
 				</TabsList>
 				<TabsContent value="create">

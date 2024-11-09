@@ -1,10 +1,10 @@
 using FastEndpoints;
-using FITAPI.Application.Services.WgerService;
+using FITAPI.Application.Services.ExerciseCategory;
 using FITAPI.Domain.DTOs;
 
 namespace FITAPI.Endpoints;
 
-public class GetExercisesCategories(IWgerService wgerService) : EndpointWithoutRequest<IReadOnlyCollection<ExerciseCategoryDto>>
+public class GetExercisesCategoriesEndpoint(IExerciseCategory exerciseCategory) : EndpointWithoutRequest<IReadOnlyCollection<ExerciseCategoryDto>>
 {
     public override void Configure()
     {
@@ -13,7 +13,7 @@ public class GetExercisesCategories(IWgerService wgerService) : EndpointWithoutR
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var exercisesCategories = await wgerService.GetExerciseCategoriesAsync();
+        var exercisesCategories = await exerciseCategory.GetExerciseCategoriesAsync();
         await SendAsync(exercisesCategories, cancellation: ct).ConfigureAwait(false);
     }
 }

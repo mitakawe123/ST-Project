@@ -1,6 +1,6 @@
 ﻿namespace FITAPI.Domain.DTOs;
 
-public record ExerciseResponseDto
+public record ExerciseDto
 {
     public int Count { get; init; }
     public string? Next { get; init; }
@@ -8,7 +8,7 @@ public record ExerciseResponseDto
     public List<Exercise> Results { get; init; } = new();
 }
 
-public record Exercise
+public abstract record Exercise
 {
     public int Id { get; init; }
     public Guid Uuid { get; init; }

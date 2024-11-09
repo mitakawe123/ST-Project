@@ -132,8 +132,9 @@ export default function LandingPage() {
 									Join FitConnect Today
 								</h2>
 								<p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-									Start your fitness journey with a community that supports and
-									motivates you every step of the way.
+									Join our fitness community and stay inspired with the latest
+									tips, workouts, and motivation—delivered straight to your
+									inbox!
 								</p>
 							</div>
 							<div className="w-full max-w-sm space-y-2">
@@ -146,7 +147,7 @@ export default function LandingPage() {
 									<Button type="submit">Sign Up</Button>
 								</form>
 								<p className="text-xs text-muted-foreground">
-									By signing up, you agree to our{" "}
+									By signing up, you agree to our
 									<a className="underline underline-offset-2" href="#">
 										Terms & Conditions
 									</a>

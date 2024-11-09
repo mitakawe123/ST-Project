@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FITAPI.Infrastructure.Migrations
 {
-    [DbContext(typeof(FITDbContext))]
+    [DbContext(typeof(FitDbContext))]
     [Migration("20241025145117_InitialIdentitySetup")]
     partial class InitialIdentitySetup
     {
