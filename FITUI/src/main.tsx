@@ -6,47 +6,73 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage.tsx";
 import MainFeed from "./pages/MainFeedPage.tsx";
 import WorkoutPage from "./pages/WorkoutPage.tsx";
-import "./styles/index.scss";
 import HealthTracker from "./pages/HealthTrackerPage.tsx";
 import PricingPage from "./pages/PricingPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
+import RegisterPage from "./pages/RegisterPage.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
+import ProtectedRoute from "./components/configurations/ProtectedRoute.tsx";
+import { LoaderProvider } from "./app/context/LoaderContext.tsx";
+import { Loader } from "lucide-react";
+
+import "./styles/index.scss";
+
+const isAuthenticated = () => {
+	return !!localStorage.getItem("authToken");
+};
 
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <LandingPage />,
+		path: "/register",
+		element: <RegisterPage />,
 	},
 	{
-		path: "/feed",
-		element: <MainFeed />,
+		path: "/login",
+		element: <LoginPage />,
 	},
 	{
-		path: "/workouts",
-		element: <WorkoutPage />,
-	},
-	{
-		path: "/health-tracker",
-		element: <HealthTracker />,
-	},
-	{
-		path: "/pricing",
-		element: <PricingPage />,
-	},
-	{
-		path: "/about",
-		element: <AboutPage />,
-	},
-	{
-		path: "/contact",
-		element: <ContactPage />,
+		element: <ProtectedRoute isAuthenticated={isAuthenticated()} />,
+		children: [
+			{
+				path: "/",
+				element: <LandingPage />,
+			},
+			{
+				path: "/feed",
+				element: <MainFeed />,
+			},
+			{
+				path: "/workouts",
+				element: <WorkoutPage />,
+			},
+			{
+				path: "/health-tracker",
+				element: <HealthTracker />,
+			},
+			{
+				path: "/pricing",
+				element: <PricingPage />,
+			},
+			{
+				path: "/about",
+				element: <AboutPage />,
+			},
+			{
+				path: "/contact",
+				element: <ContactPage />,
+			},
+		],
 	},
 ]);
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<Provider store={store}>
-			<RouterProvider router={router} />
-		</Provider>
+		<LoaderProvider>
+			<Loader />
+			<Provider store={store}>
+				<RouterProvider router={router} />
+			</Provider>
+		</LoaderProvider>
 	</StrictMode>
 );

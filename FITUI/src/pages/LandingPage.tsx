@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dumbbell, Users, Trophy, Menu } from "lucide-react";
+import { Dumbbell, Users, Trophy } from "lucide-react";
 import Barbbell from "../assets/barbbel.svg";
 import { Link } from "react-router-dom";
 
