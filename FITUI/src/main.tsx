@@ -19,7 +19,7 @@ import { Loader } from "lucide-react";
 import "./styles/index.scss";
 
 const isAuthenticated = () => {
-	return !!localStorage.getItem("authToken");
+	return !!sessionStorage.getItem("authToken");
 };
 
 const router = createBrowserRouter([
@@ -69,7 +69,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<LoaderProvider>
-			<Loader />
 			<Provider store={store}>
 				<RouterProvider router={router} />
 			</Provider>

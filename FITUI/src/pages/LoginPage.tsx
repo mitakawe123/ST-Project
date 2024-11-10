@@ -10,8 +10,9 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Github, Loader2, Mail } from "lucide-react";
+import { useLoginMutation } from "@/app/api/auth/authApi";
 
 const Icons = {
 	gitHub: Github,
@@ -20,15 +21,24 @@ const Icons = {
 };
 
 export default function LoginPage() {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
+	const [login, { isLoading, error, isSuccess }] = useLoginMutation();
+
+	const navigate = useNavigate();
 
 	async function onSubmit(event: SyntheticEvent) {
 		event.preventDefault();
-		setIsLoading(true);
 
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 3000);
+		const response = await login({
+			email: email,
+			password: password,
+		}).unwrap();
+		console.log(response.accessToken);
+		if (response.accessToken) {
+			navigate("/");
+		}
 	}
 
 	return (
@@ -68,12 +78,20 @@ export default function LoginPage() {
 								id="email"
 								type="email"
 								placeholder="m@example.com"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
 								required
 							/>
 						</div>
 						<div className="grid gap-2 mt-2">
 							<Label htmlFor="password">Password</Label>
-							<Input id="password" type="password" required />
+							<Input
+								id="password"
+								type="password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								required
+							/>
 						</div>
 						<Button className="w-full mt-4" type="submit" disabled={isLoading}>
 							{isLoading && (

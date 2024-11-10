@@ -15,6 +15,7 @@ bld.Services
     .AddAuthenticationJwtBearer(s => s.SigningKey = jwtConfig.SigningKey) 
     .AddAuthorization()
     .AddFastEndpoints()
+    .AddCorsServices()
     .SwaggerDocument(o =>
     {
         o.DocumentSettings = s =>
@@ -30,6 +31,7 @@ app.UseAuthentication()
     .UseAuthorization() 
     .UseDefaultExceptionHandler()
     .UseFastEndpoints(c => c.Endpoints.RoutePrefix = "api")
-    .UseSwaggerGen();
+    .UseSwaggerGen()
+    .UseCors("CorsPolicy");
 
 app.Run();
