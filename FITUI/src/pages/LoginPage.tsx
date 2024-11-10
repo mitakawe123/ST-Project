@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { Github, Loader2, Mail } from "lucide-react";
 import { useLoginMutation } from "@/app/api/auth/authApi";
+import { signInWithGithub, signInWithGoogle } from "@/components/FirebaseAuth";
 
 const Icons = {
 	gitHub: Github,
@@ -50,11 +51,17 @@ export default function LoginPage() {
 				</CardHeader>
 				<CardContent className="grid gap-4">
 					<div className="grid grid-cols-2 gap-6">
-						<Button variant="outline">
+						<Button
+							variant="outline"
+							onClick={(e) => signInWithGithub(e, navigate)}
+						>
 							<Icons.gitHub className="mr-2 h-4 w-4" />
 							Github
 						</Button>
-						<Button variant="outline">
+						<Button
+							variant="outline"
+							onClick={(e) => signInWithGoogle(e, navigate)}
+						>
 							<Icons.google className="mr-2 h-4 w-4" />
 							Google
 						</Button>

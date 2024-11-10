@@ -12,14 +12,10 @@ import AboutPage from "./pages/AboutPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
-import ProtectedRoute from "./components/configurations/ProtectedRoute.tsx";
+import ProtectedRoute from "./configurations/ProtectedRoute.tsx";
 import { LoaderProvider } from "./app/context/LoaderContext.tsx";
 
 import "./styles/index.scss";
-
-const isAuthenticated = () => {
-	return !!sessionStorage.getItem("authToken");
-};
 
 const router = createBrowserRouter([
 	{
@@ -31,7 +27,7 @@ const router = createBrowserRouter([
 		element: <LoginPage />,
 	},
 	{
-		element: <ProtectedRoute isAuthenticated={isAuthenticated()} />,
+		element: <ProtectedRoute />,
 		children: [
 			{
 				path: "/",
