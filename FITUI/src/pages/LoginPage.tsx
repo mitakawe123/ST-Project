@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -22,7 +22,7 @@ const Icons = {
 export default function LoginPage() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
-	async function onSubmit(event: React.SyntheticEvent) {
+	async function onSubmit(event: SyntheticEvent) {
 		event.preventDefault();
 		setIsLoading(true);
 

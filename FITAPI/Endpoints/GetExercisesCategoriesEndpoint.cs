@@ -1,6 +1,7 @@
 using FastEndpoints;
 using FITAPI.Application.Services.ExerciseCategory;
 using FITAPI.Domain.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FITAPI.Endpoints;
 
@@ -9,6 +10,7 @@ public class GetExercisesCategoriesEndpoint(IExerciseCategory exerciseCategory) 
     public override void Configure()
     {
         Get("/exercises/categories");
+        AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
     }
 
     public override async Task HandleAsync(CancellationToken ct)

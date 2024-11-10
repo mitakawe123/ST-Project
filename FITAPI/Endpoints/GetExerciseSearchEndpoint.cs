@@ -1,15 +1,17 @@
 using FastEndpoints;
 using FITAPI.Application.Services.ExerciseSearch;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FITAPI.Endpoints;
 
-public abstract record ExerciseSearchRequest(string Term);
+public record ExerciseSearchRequest(string Term);
 
 public class GetExerciseSearchEndpoint(IExerciseSearch exerciseSearch) : Endpoint<ExerciseSearchRequest, IReadOnlyCollection<string>>
 {
     public override void Configure()
     {
         Get("/exercise-search");
+        AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
     }
 
     public override async Task HandleAsync(ExerciseSearchRequest req, CancellationToken ct)

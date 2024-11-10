@@ -5,7 +5,7 @@ public record CreateWorkoutDto(
     string Description,
     List<CreateWorkoutExerciseDto> Exercises);
     
-public abstract record CreateWorkoutExerciseDto(
+public record CreateWorkoutExerciseDto(
     string Name,
     ushort Sets,
     ushort Reps);

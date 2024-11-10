@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -81,7 +81,7 @@ export default function RegisterPage() {
 					</div>
 					<form onSubmit={onSubmit}>
 						<div className="grid gap-2">
-							<Label htmlFor="name">Name</Label>
+							<Label htmlFor="name">UserName</Label>
 							<Input id="name" type="text" placeholder="John Doe" required />
 						</div>
 						<div className="grid gap-2 mt-2">

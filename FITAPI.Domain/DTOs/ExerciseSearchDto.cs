@@ -7,12 +7,12 @@ public record ExerciseSearchDto
     public List<ExercisesDto> Suggestions { get; init; }
 }
 
-public abstract record ExercisesDto(
+public record ExercisesDto(
     string Value,
     ExerciseDataDto Data
 );
     
-public abstract record ExerciseDataDto(
+public record ExerciseDataDto(
     int Id,
     string Name,
     string Category,

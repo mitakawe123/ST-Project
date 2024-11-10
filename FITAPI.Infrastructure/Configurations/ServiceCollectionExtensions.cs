@@ -1,4 +1,5 @@
-﻿using FITAPI.Application.Services.ExerciseBaseInfo;
+﻿using FITAPI.Application.Services.Auth;
+using FITAPI.Application.Services.ExerciseBaseInfo;
 using FITAPI.Application.Services.ExerciseCategory;
 using FITAPI.Application.Services.ExerciseSearch;
 using FITAPI.Domain.Models;
@@ -24,6 +25,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IExerciseBaseInfo, ExerciseBaseInfo>();
         services.AddHttpClient<IExerciseCategory, ExerciseCategory>();
         services.AddHttpClient<IExerciseSearch, ExerciseSearch>();
+
+        services.AddScoped<IAuthService, AuthService>();
         
         return services;
     }
@@ -32,8 +35,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddIdentity<MyUser, IdentityRole>()
             .AddEntityFrameworkStores<FitDbContext>()
-            .AddSignInManager<SignInManager<MyUser>>()
-            .AddDefaultTokenProviders();
+            .AddSignInManager<SignInManager<MyUser>>();
         
         return services;
     }
