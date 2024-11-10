@@ -20,7 +20,7 @@ public class RegisterUserEndpoint(UserManager<MyUser> userManager, IAuthService 
         var existingUser = await userManager.FindByEmailAsync(req.Email);
         if (existingUser is not null)
         {
-            await SendAsync(new RegisterUserResponse("Email already exists", null, false), cancellation: ct);
+            await SendErrorsAsync(cancellation: ct);
             return;
         }
 
@@ -34,10 +34,10 @@ public class RegisterUserEndpoint(UserManager<MyUser> userManager, IAuthService 
         if (result.Succeeded)
         {
             var token = await authService.CreateToken(newUser);
-            await SendAsync(new RegisterUserResponse("Email registered", token, true), cancellation: ct);
+            await SendAsync(new RegisterUserResponse("Email registered", token), cancellation: ct);
             return;
         } 
         
-        await SendAsync(new RegisterUserResponse(string.Join("; ", result.Errors.Select(e => e.Description)), null,false), cancellation: ct);
+        await SendErrorsAsync(cancellation: ct);
     }
 }

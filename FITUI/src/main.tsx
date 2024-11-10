@@ -14,7 +14,6 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import ProtectedRoute from "./components/configurations/ProtectedRoute.tsx";
 import { LoaderProvider } from "./app/context/LoaderContext.tsx";
-import { Loader } from "lucide-react";
 
 import "./styles/index.scss";
 

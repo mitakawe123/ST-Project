@@ -24,7 +24,7 @@ export default function LoginPage() {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
-	const [login, { isLoading, error, isSuccess }] = useLoginMutation();
+	const [login, { isLoading }] = useLoginMutation();
 
 	const navigate = useNavigate();
 
@@ -35,10 +35,8 @@ export default function LoginPage() {
 			email: email,
 			password: password,
 		}).unwrap();
-		console.log(response.accessToken);
-		if (response.accessToken) {
-			navigate("/");
-		}
+
+		if (response.accessToken) navigate("/");
 	}
 
 	return (

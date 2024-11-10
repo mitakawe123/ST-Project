@@ -11,6 +11,16 @@ interface LoginResponse {
 	accessToken: string;
 }
 
+interface RegisterRequest {
+	username: string;
+	email: string;
+	password: string;
+}
+
+interface RegisterResponse {
+	accessToken: string;
+}
+
 export const authApi = createApi({
 	reducerPath: "authApi",
 	baseQuery: fetchBaseQuery({ baseUrl: ApiUrl }),
@@ -29,7 +39,20 @@ export const authApi = createApi({
 				return response;
 			},
 		}),
+		register: builder.mutation<RegisterResponse, RegisterRequest>({
+			query: (body: RegisterRequest) => ({
+				url: "/register",
+				method: HttpMethod.POST.toString(),
+				body: body,
+			}),
+			transformResponse: (response: RegisterResponse) => {
+				if (response.accessToken) {
+					sessionStorage.setItem("authToken", response.accessToken);
+				}
+				return response;
+			},
+		}),
 	}),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

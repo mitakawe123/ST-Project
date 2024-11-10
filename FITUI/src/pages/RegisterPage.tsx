@@ -10,8 +10,9 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Github, Loader2, Mail } from "lucide-react";
+import { useRegisterMutation } from "@/app/api/auth/authApi";
 
 const Icons = {
 	gitHub: Github,
@@ -20,33 +21,24 @@ const Icons = {
 };
 
 export default function RegisterPage() {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [email, setEmail] = useState<string>("");
+	const [username, setUsername] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 
-	// const { startLoading, stopLoading } = useLoaderContext();
+	const [register, { isLoading }] = useRegisterMutation();
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		startLoading();
-	// 		try {
-	// 			const response = await axios.get("/api/feed");
-	// 			console.log(response.data);
-	// 		} catch (error) {
-	// 			console.error("Error fetching data", error);
-	// 		} finally {
-	// 			stopLoading();
-	// 		}
-	// 	};
-
-	// 	fetchData();
-	// }, [startLoading, stopLoading]);
+	const navigate = useNavigate();
 
 	async function onSubmit(event: React.SyntheticEvent) {
 		event.preventDefault();
-		setIsLoading(true);
 
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 3000);
+		const response = await register({
+			email: email,
+			username: username,
+			password: password,
+		}).unwrap();
+
+		if (response.accessToken) navigate("/");
 	}
 
 	return (
@@ -81,8 +73,15 @@ export default function RegisterPage() {
 					</div>
 					<form onSubmit={onSubmit}>
 						<div className="grid gap-2">
-							<Label htmlFor="name">UserName</Label>
-							<Input id="name" type="text" placeholder="John Doe" required />
+							<Label htmlFor="username">UserName</Label>
+							<Input
+								id="username"
+								type="text"
+								placeholder="John Doe"
+								value={username}
+								onChange={(e) => setUsername(e.target.value)}
+								required
+							/>
 						</div>
 						<div className="grid gap-2 mt-2">
 							<Label htmlFor="email">Email</Label>
@@ -90,12 +89,20 @@ export default function RegisterPage() {
 								id="email"
 								type="email"
 								placeholder="m@example.com"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
 								required
 							/>
 						</div>
 						<div className="grid gap-2 mt-2">
 							<Label htmlFor="password">Password</Label>
-							<Input id="password" type="password" required />
+							<Input
+								id="password"
+								type="password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								required
+							/>
 						</div>
 						<Button className="w-full mt-4" type="submit" disabled={isLoading}>
 							{isLoading && (
