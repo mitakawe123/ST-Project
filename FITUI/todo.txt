@@ -1,0 +1,2 @@
+need to add some type of alerts like popups 
+need to create html template for the newsletter 

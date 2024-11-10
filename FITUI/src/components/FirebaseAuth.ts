@@ -3,6 +3,7 @@ import {
 	githubProvider,
 	googleProvider,
 } from "@/configurations/Firebase";
+import { SessionStorageKeys } from "@/constants/Enumerations";
 import { signInWithPopup, UserCredential } from "firebase/auth";
 import { SyntheticEvent } from "react";
 
@@ -18,7 +19,7 @@ async function signInWithGoogle(
 		const token = await result.user.getIdToken();
 
 		if (token) {
-			sessionStorage.setItem("authToken", token);
+			sessionStorage.setItem(SessionStorageKeys.AUTH_TOKEN.toString(), token);
 			navigate("/");
 		}
 	} catch (error) {
@@ -40,7 +41,7 @@ async function signInWithGithub(
 		const token = await result.user.getIdToken();
 
 		if (token) {
-			sessionStorage.setItem("authToken", token);
+			sessionStorage.setItem(SessionStorageKeys.AUTH_TOKEN.toString(), token);
 			navigate("/");
 		}
 	} catch (error) {

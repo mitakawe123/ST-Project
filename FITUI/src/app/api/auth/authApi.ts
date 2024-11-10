@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ApiUrl } from "@/constants/Constants";
-import { HttpMethod } from "@/constants/Enumerations";
+import { HttpMethod, SessionStorageKeys } from "@/constants/Enumerations";
 
 interface LoginRequest {
 	email: string;
@@ -21,9 +21,20 @@ interface RegisterResponse {
 	accessToken: string;
 }
 
-export const authApi = createApi({
-	reducerPath: "authApi",
-	baseQuery: fetchBaseQuery({ baseUrl: ApiUrl }),
+export const fitApi = createApi({
+	reducerPath: "fitApi",
+	baseQuery: fetchBaseQuery({
+		baseUrl: ApiUrl,
+		prepareHeaders: (headers) => {
+			const token = sessionStorage.getItem(
+				SessionStorageKeys.AUTH_TOKEN.toString()
+			);
+			if (token) {
+				headers.set("Authorization", `Bearer ${token}`);
+			}
+			return headers;
+		},
+	}),
 	tagTypes: ["Auth"],
 	endpoints: (builder) => ({
 		login: builder.mutation<LoginResponse, LoginRequest>({
@@ -34,7 +45,10 @@ export const authApi = createApi({
 			}),
 			transformResponse: (response: LoginResponse) => {
 				if (response.accessToken) {
-					sessionStorage.setItem("authToken", response.accessToken);
+					sessionStorage.setItem(
+						SessionStorageKeys.AUTH_TOKEN.toString(),
+						response.accessToken
+					);
 				}
 				return response;
 			},
@@ -47,7 +61,10 @@ export const authApi = createApi({
 			}),
 			transformResponse: (response: RegisterResponse) => {
 				if (response.accessToken) {
-					sessionStorage.setItem("authToken", response.accessToken);
+					sessionStorage.setItem(
+						SessionStorageKeys.AUTH_TOKEN.toString(),
+						response.accessToken
+					);
 				}
 				return response;
 			},
@@ -55,4 +72,4 @@ export const authApi = createApi({
 	}),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = fitApi;

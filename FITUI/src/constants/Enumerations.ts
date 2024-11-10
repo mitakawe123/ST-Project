@@ -4,3 +4,7 @@ export enum HttpMethod {
 	PATCH = "PATCH",
 	DELETE = "DELETE",
 }
+
+export enum SessionStorageKeys {
+	AUTH_TOKEN = "authToken",
+}

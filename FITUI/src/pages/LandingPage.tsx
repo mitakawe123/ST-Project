@@ -3,8 +3,22 @@ import { Input } from "@/components/ui/input";
 import { Dumbbell, Users, Trophy } from "lucide-react";
 import Barbbell from "../assets/barbbel.svg";
 import { Link } from "react-router-dom";
+import { SyntheticEvent, useState } from "react";
+import { useNewsletterMutation } from "@/app/api/newsletter/newsletterApi";
 
 export default function LandingPage() {
+	const [email, setEmail] = useState<string>("");
+
+	const [newsletter, {}] = useNewsletterMutation();
+
+	async function sendNewsletter(event: SyntheticEvent) {
+		event.preventDefault();
+
+		await newsletter({
+			email: email,
+		});
+	}
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<header className="px-4 lg:px-6 h-14 flex items-center">
@@ -138,11 +152,13 @@ export default function LandingPage() {
 								</p>
 							</div>
 							<div className="w-full max-w-sm space-y-2">
-								<form className="flex space-x-2">
+								<form className="flex space-x-2" onSubmit={sendNewsletter}>
 									<Input
 										className="max-w-lg flex-1"
 										placeholder="Enter your email"
 										type="email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
 									/>
 									<Button type="submit">Sign Up</Button>
 								</form>

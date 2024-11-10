@@ -1,12 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { SessionStorageKeys } from "@/constants/Enumerations";
 
 const ProtectedRoute = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
-		const token = sessionStorage.getItem("authToken");
+		const token = sessionStorage.getItem(
+			SessionStorageKeys.AUTH_TOKEN.toString()
+		);
 		setIsAuthenticated(!!token);
 		setLoading(false);
 	}, []);

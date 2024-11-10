@@ -2,6 +2,7 @@
 using FITAPI.Application.Services.ExerciseBaseInfo;
 using FITAPI.Application.Services.ExerciseCategory;
 using FITAPI.Application.Services.ExerciseSearch;
+using FITAPI.Application.Services.NewsletterEmailSender;
 using FITAPI.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,9 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IExerciseCategory, ExerciseCategory>();
         services.AddHttpClient<IExerciseSearch, ExerciseSearch>();
 
-        services.AddScoped<IAuthService, AuthService>();
+        services
+            .AddScoped<IAuthService, AuthService>()
+            .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();
         
         return services;
     }
