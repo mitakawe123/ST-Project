@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dumbbell, Users, Trophy } from "lucide-react";
-import Barbbell from "../assets/barbbel.svg";
 import { Link } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
 import { useNewsletterMutation } from "@/app/api/newsletter/newsletterApi";
+import Barbbell from "../assets/barbbel.svg";
 import useToast from "@/app/hooks/useToast";
 
 export default function LandingPage() {
@@ -17,11 +17,20 @@ export default function LandingPage() {
 	async function sendNewsletter(event: SyntheticEvent) {
 		event.preventDefault();
 
-		const response = await newsletter({
-			email: email,
-		}).unwrap();
-		
-		showToast("Succesfully send newsletter", "success");
+		try {
+			await newsletter({
+				email: email,
+			});
+
+			setEmail("");
+			showToast("Succesfully send newsletter", "success");
+		} catch (error) {
+			setEmail("");
+			showToast(
+				"There is problem with email sending please try again later",
+				"error"
+			);
+		}
 	}
 
 	return (

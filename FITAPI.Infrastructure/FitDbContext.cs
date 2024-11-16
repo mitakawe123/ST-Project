@@ -7,6 +7,10 @@ namespace FITAPI.Infrastructure;
 public class FitDbContext : IdentityDbContext<MyUser>
 {
     public DbSet<Workouts> Workouts { get; init; }
+    
+    public DbSet<Posts> Posts { get; init; }
+    
+    public DbSet<Comments> Comments { get; init; }
 
     public FitDbContext()
     {

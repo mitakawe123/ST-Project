@@ -9,7 +9,7 @@ public class Workouts
     
     public required string Name { get; init; }
     
-    public required string ExercisesJson { get; set; }
+    public required string ExercisesJson { get; init; }
 
     [NotMapped] 
     public List<Exercise>? Exercises

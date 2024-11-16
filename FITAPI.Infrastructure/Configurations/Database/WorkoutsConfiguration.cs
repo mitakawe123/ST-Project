@@ -1,3 +1,4 @@
+using FITAPI.Application.Constants;
 using FITAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,7 +9,7 @@ public class WorkoutsConfiguration : IEntityTypeConfiguration<Workouts>
 {
     public void Configure(EntityTypeBuilder<Workouts> builder)
     {
-        builder.ToTable(nameof(Workouts).ToLower());
+        builder.ToTable(nameof(Workouts).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
 
         builder.HasKey(w => w.Id); 
 

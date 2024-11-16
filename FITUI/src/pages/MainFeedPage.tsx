@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -60,7 +60,7 @@ export default function MainFeed() {
 	const [posts, setPosts] = useState<Post[]>(initialPosts);
 	const [newPost, setNewPost] = useState("");
 
-	const handlePostSubmit = (e: React.FormEvent) => {
+	const handlePostSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		if (newPost.trim()) {
 			const post: Post = {

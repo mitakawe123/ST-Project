@@ -6,4 +6,9 @@ public static class AppConstants
     {
         public const string Url = "https://wger.de/api/v2";
     }
+
+    public static class DatabaseConstants
+    {
+        public const string FitapiSchema = "fitapi";
+    }
 }

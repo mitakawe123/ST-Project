@@ -2,4 +2,7 @@
 
 namespace FITAPI.Domain.Models;
 
-public class MyUser : IdentityUser;
+public class MyUser : IdentityUser
+{
+    public string? AvatarImg { get; init; }
+}
