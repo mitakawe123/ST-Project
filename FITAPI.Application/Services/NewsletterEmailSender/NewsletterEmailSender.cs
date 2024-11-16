@@ -11,12 +11,18 @@ public class NewsletterEmailSender(IConfiguration configuration) : INewsletterEm
     {
         var mailSettings = configuration.GetSection(nameof(MailSettings)).Get<MailSettings>()
             ?? throw new ArgumentNullException(nameof(MailSettings));
-        
+
+        string apiProjectDirectory = Directory.GetCurrentDirectory();
+        string appProjectDirectory = Path.Combine(apiProjectDirectory, "../FITAPI.Application/Services/NewsletterEmailSender");
+        string emailTemplatePath = Path.Combine(appProjectDirectory, "newsletter.html");
+
+        string emailTemplate = await File.ReadAllTextAsync(emailTemplatePath);
+
         var message = new MailMessage
         {
             From = new MailAddress(mailSettings.FromEmail, mailSettings.FromName),
             Subject = "FIT API",
-            Body = "<div>Fit</div>",
+            Body = emailTemplate,
             IsBodyHtml = true
         };
 

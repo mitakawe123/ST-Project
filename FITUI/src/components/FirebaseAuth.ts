@@ -3,52 +3,62 @@ import {
 	githubProvider,
 	googleProvider,
 } from "@/configurations/Firebase";
-import { SessionStorageKeys } from "@/constants/Enumerations";
+import { FirebaseErrorAlreadyHaveAnAccount } from "@/constants/Constants";
+import { AuthenticationError } from "@/errors/AuthenticationError";
 import { signInWithPopup, UserCredential } from "firebase/auth";
-import { SyntheticEvent } from "react";
 
-async function signInWithGoogle(
-	event: SyntheticEvent,
-	navigate: (path: string) => void
-) {
-	event.preventDefault();
+interface FirebaseError extends Error {
+	code: string;
+	customData?: { [key: string]: any };
+}
 
+async function getGoogleIdToken(): Promise<string> {
 	try {
 		const result: UserCredential = await signInWithPopup(auth, googleProvider);
-
-		const token = await result.user.getIdToken();
-
-		if (token) {
-			sessionStorage.setItem(SessionStorageKeys.AUTH_TOKEN.toString(), token);
-			navigate("/");
-		}
+		return await result.user.getIdToken();
 	} catch (error) {
-		throw new Error(
-			"Cannot login with google right now please try again later"
-		);
+		if (
+			(error as FirebaseError).message.includes(
+				FirebaseErrorAlreadyHaveAnAccount
+			)
+		) {
+			const err = error as FirebaseError;
+			const email = err.customData?.email;
+
+			throw new AuthenticationError(
+				`You have already used this account (${email}) with another provider. Please log in using the original provider.`,
+				err.code,
+				err.customData
+			);
+		} else {
+			throw new Error(`Login failed: ${error}`);
+		}
 	}
 }
 
-async function signInWithGithub(
-	event: SyntheticEvent,
-	navigate: (path: string) => void
-) {
-	event.preventDefault();
-
+async function getGithubIdToken(): Promise<string> {
 	try {
 		const result: UserCredential = await signInWithPopup(auth, githubProvider);
-
-		const token = await result.user.getIdToken();
-
-		if (token) {
-			sessionStorage.setItem(SessionStorageKeys.AUTH_TOKEN.toString(), token);
-			navigate("/");
-		}
+		console.log(result);
+		return await result.user.getIdToken();
 	} catch (error) {
-		throw new Error(
-			"Cannot login with github right now please try again later"
-		);
+		if (
+			(error as FirebaseError).message.includes(
+				FirebaseErrorAlreadyHaveAnAccount
+			)
+		) {
+			const err = error as FirebaseError;
+			const email = err.customData?.email;
+
+			throw new AuthenticationError(
+				`You have already used this account (${email}) with another provider. Please log in using the original provider.`,
+				err.code,
+				err.customData
+			);
+		} else {
+			throw new Error(`Login failed: ${error}`);
+		}
 	}
 }
 
-export { signInWithGithub, signInWithGoogle };
+export { getGithubIdToken, getGoogleIdToken };

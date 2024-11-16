@@ -1,4 +1,5 @@
 using FastEndpoints.Security;
+using FirebaseAdmin.Auth;
 using FITAPI.Application.Configurations;
 using FITAPI.Domain.Models;
 using Microsoft.Extensions.Configuration;
@@ -24,5 +25,10 @@ public class AuthService(IConfiguration configuration) : IAuthService
             });
         
         return Task.FromResult(jwtToken);  
+    }
+
+    public async Task<FirebaseToken> ValidateTokenAsync(string idToken)
+    {
+        return await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
     }
 }

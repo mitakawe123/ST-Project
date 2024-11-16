@@ -5,18 +5,23 @@ import Barbbell from "../assets/barbbel.svg";
 import { Link } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
 import { useNewsletterMutation } from "@/app/api/newsletter/newsletterApi";
+import useToast from "@/app/hooks/useToast";
 
 export default function LandingPage() {
 	const [email, setEmail] = useState<string>("");
+
+	const { showToast } = useToast();
 
 	const [newsletter, {}] = useNewsletterMutation();
 
 	async function sendNewsletter(event: SyntheticEvent) {
 		event.preventDefault();
 
-		await newsletter({
+		const response = await newsletter({
 			email: email,
-		});
+		}).unwrap();
+		
+		showToast("Succesfully send newsletter", "success");
 	}
 
 	return (

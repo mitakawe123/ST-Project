@@ -23,6 +23,9 @@
     <Reference Include="FastEndpoints.Security">
       <HintPath>..\..\..\.nuget\packages\fastendpoints.security\5.30.0\lib\net8.0\FastEndpoints.Security.dll</HintPath>
     </Reference>
+    <Reference Include="FirebaseAdmin">
+      <HintPath>..\..\..\.nuget\packages\firebaseadmin\3.1.0\lib\net6.0\FirebaseAdmin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Identity">
       <HintPath>..\..\..\..\..\Program Files (x86)\dotnet\shared\Microsoft.AspNetCore.App\8.0.10\Microsoft.AspNetCore.Identity.dll</HintPath>
     </Reference>

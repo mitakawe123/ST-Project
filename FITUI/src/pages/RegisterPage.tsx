@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,7 +13,13 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { Github, Loader2, Mail } from "lucide-react";
 import { useRegisterMutation } from "@/app/api/auth/authApi";
-import { signInWithGithub, signInWithGoogle } from "@/components/FirebaseAuth";
+import { getGithubIdToken, getGoogleIdToken } from "@/components/FirebaseAuth";
+import {
+	useGithubAuthMutation,
+	useGoogleAuthMutation,
+} from "@/app/api/auth/firebaseApi";
+import { AuthenticationError } from "@/errors/AuthenticationError";
+import useToast from "@/app/hooks/useToast";
 
 const Icons = {
 	gitHub: Github,
@@ -26,11 +32,15 @@ export default function RegisterPage() {
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
+	const { showToast } = useToast();
+
 	const [register, { isLoading }] = useRegisterMutation();
+	const [googleAuth] = useGoogleAuthMutation();
+	const [githubAuth] = useGithubAuthMutation();
 
 	const navigate = useNavigate();
 
-	async function onSubmit(event: React.SyntheticEvent) {
+	async function onSubmit(event: SyntheticEvent) {
 		event.preventDefault();
 
 		const response = await register({
@@ -40,6 +50,51 @@ export default function RegisterPage() {
 		}).unwrap();
 
 		if (response.accessToken) navigate("/");
+	}
+
+	async function registerWithGoogle(event: SyntheticEvent) {
+		event.preventDefault();
+		try {
+			const idToken = await getGoogleIdToken();
+
+			const response = await googleAuth({
+				idToken: idToken,
+			}).unwrap();
+
+			if (response.accessToken) navigate("/");
+		} catch (error) {
+			if (error instanceof AuthenticationError) {
+				showToast(
+					`Authentication failed ${(error as AuthenticationError).message}`,
+					"error"
+				);
+			} else {
+				showToast(`Unknown error: ${(error as Error).message}`, "error");
+			}
+		}
+	}
+
+	async function registerWithGithub(event: SyntheticEvent) {
+		event.preventDefault();
+
+		try {
+			const idToken = await getGithubIdToken();
+
+			const response = await githubAuth({
+				idToken: idToken,
+			}).unwrap();
+
+			if (response.accessToken) navigate("/");
+		} catch (error) {
+			if (error instanceof AuthenticationError) {
+				showToast(
+					`Authentication failed ${(error as AuthenticationError).message}`,
+					"error"
+				);
+			} else {
+				showToast(`Unknown error: ${(error as Error).message}`, "error");
+			}
+		}
 	}
 
 	return (
@@ -53,17 +108,11 @@ export default function RegisterPage() {
 				</CardHeader>
 				<CardContent className="grid gap-4">
 					<div className="grid grid-cols-2 gap-6">
-						<Button
-							variant="outline"
-							onClick={(e) => signInWithGithub(e, navigate)}
-						>
+						<Button variant="outline" onClick={registerWithGithub}>
 							<Icons.gitHub className="mr-2 h-4 w-4" />
 							Github
 						</Button>
-						<Button
-							variant="outline"
-							onClick={(e) => signInWithGoogle(e, navigate)}
-						>
+						<Button variant="outline" onClick={registerWithGoogle}>
 							<Icons.google className="mr-2 h-4 w-4" />
 							Google
 						</Button>

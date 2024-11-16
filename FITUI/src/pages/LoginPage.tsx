@@ -13,7 +13,13 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { Github, Loader2, Mail } from "lucide-react";
 import { useLoginMutation } from "@/app/api/auth/authApi";
-import { signInWithGithub, signInWithGoogle } from "@/components/FirebaseAuth";
+import { getGithubIdToken, getGoogleIdToken } from "@/components/FirebaseAuth";
+import { AuthenticationError } from "@/errors/AuthenticationError";
+import {
+	useGithubAuthMutation,
+	useGoogleAuthMutation,
+} from "@/app/api/auth/firebaseApi";
+import useToast from "@/app/hooks/useToast";
 
 const Icons = {
 	gitHub: Github,
@@ -25,7 +31,11 @@ export default function LoginPage() {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
+	const { showToast } = useToast();
+
 	const [login, { isLoading }] = useLoginMutation();
+	const [googleAuth] = useGoogleAuthMutation();
+	const [githubAuth] = useGithubAuthMutation();
 
 	const navigate = useNavigate();
 
@@ -40,6 +50,51 @@ export default function LoginPage() {
 		if (response.accessToken) navigate("/");
 	}
 
+	async function loginWithGoogle(event: SyntheticEvent) {
+		event.preventDefault();
+		try {
+			const idToken = await getGoogleIdToken();
+
+			const response = await googleAuth({
+				idToken: idToken,
+			}).unwrap();
+
+			if (response.accessToken) navigate("/");
+		} catch (error) {
+			if (error instanceof AuthenticationError) {
+				showToast(
+					`Authentication failed ${(error as AuthenticationError).message}`,
+					"error"
+				);
+			} else {
+				showToast(`Unknown error: ${(error as Error).message}`, "error");
+			}
+		}
+	}
+
+	async function loginWithGithub(event: SyntheticEvent) {
+		event.preventDefault();
+
+		try {
+			const idToken = await getGithubIdToken();
+
+			const response = await githubAuth({
+				idToken: idToken,
+			}).unwrap();
+
+			if (response.accessToken) navigate("/");
+		} catch (error) {
+			if (error instanceof AuthenticationError) {
+				showToast(
+					`Authentication failed ${(error as AuthenticationError).message}`,
+					"error"
+				);
+			} else {
+				showToast(`Unknown error: ${(error as Error).message}`, "error");
+			}
+		}
+	}
+
 	return (
 		<div className="flex h-screen w-screen flex-col items-center justify-center">
 			<Card className="w-[350px]">
@@ -51,17 +106,11 @@ export default function LoginPage() {
 				</CardHeader>
 				<CardContent className="grid gap-4">
 					<div className="grid grid-cols-2 gap-6">
-						<Button
-							variant="outline"
-							onClick={(e) => signInWithGithub(e, navigate)}
-						>
+						<Button variant="outline" onClick={loginWithGithub}>
 							<Icons.gitHub className="mr-2 h-4 w-4" />
 							Github
 						</Button>
-						<Button
-							variant="outline"
-							onClick={(e) => signInWithGoogle(e, navigate)}
-						>
+						<Button variant="outline" onClick={loginWithGoogle}>
 							<Icons.google className="mr-2 h-4 w-4" />
 							Google
 						</Button>

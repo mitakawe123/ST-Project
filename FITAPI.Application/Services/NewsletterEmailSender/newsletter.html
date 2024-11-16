@@ -1,10 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITConnect Newsletter</title>
+    <style>
+        body, table, td, a {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        img {
+            border: 0;
+            max-width: 100%;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        /* Basic styling */
+        .email-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #0073e6;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .body-content {
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .intro {
+            font-size: 18px;
+            color: #333333;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 12px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            width: 30%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .footer {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+<div class="email-wrapper">
+    <table width="100%" class="header">
+        <tr>
+            <td>
+                <h1>FitConnect</h1>
+                <p>Your Fitness and Social Media in One Place!</p>
+            </td>
+        </tr>
+    </table>
 
+    <table width="100%" class="body-content">
+        <tr>
+            <td>
+<!--                <p class="intro">Hi [First Name],</p>-->
+                <p>We are excited to share some new features in FitConnect that will help you stay connected with your fitness journey while socializing with others!</p>
+                <p>Here are some new features you'll love:</p>
+
+                <div class="features">
+                    <div class="feature">
+                        <h3>Workout Plans</h3>
+                        <p>Create and share custom workout plans with your friends.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Progress Tracker</h3>
+                        <p>Track your progress and see improvements in real time.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Community Challenges</h3>
+                        <p>Participate in challenges and engage with the FitConnect community.</p>
+                    </div>
+                </div>
+
+                <p>Want to explore all these features and more? Click the button below to log in to your account:</p>
+                <a href="http://localhost:5173/" class="cta-btn">Log In to FitConnect</a>
+            </td>
+        </tr>
+    </table>
+
+    <table width="100%" class="footer">
+        <tr>
+            <td>
+                <p>&copy; 2024 FitConnect, All Rights Reserved</p>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

@@ -14,6 +14,7 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import ProtectedRoute from "./configurations/ProtectedRoute.tsx";
 import { LoaderProvider } from "./app/context/LoaderContext.tsx";
+import { ToastContainer } from "react-toastify";
 
 import "./styles/index.scss";
 
@@ -67,6 +68,7 @@ createRoot(document.getElementById("root")!).render(
 			<Provider store={store}>
 				<RouterProvider router={router} />
 			</Provider>
+			<ToastContainer />
 		</LoaderProvider>
 	</StrictMode>
 );
