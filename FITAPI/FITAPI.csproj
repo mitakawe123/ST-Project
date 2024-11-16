@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FITAPI.Application\FITAPI.Application.csproj" />
     <ProjectReference Include="..\FITAPI.Infrastructure\FITAPI.Infrastructure.csproj" />
   </ItemGroup>
 

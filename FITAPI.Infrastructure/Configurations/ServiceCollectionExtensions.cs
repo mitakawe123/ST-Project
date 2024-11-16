@@ -1,9 +1,4 @@
-﻿using FITAPI.Application.Services.Auth;
-using FITAPI.Application.Services.ExerciseBaseInfo;
-using FITAPI.Application.Services.ExerciseCategory;
-using FITAPI.Application.Services.ExerciseSearch;
-using FITAPI.Application.Services.NewsletterEmailSender;
-using FITAPI.Domain.Models;
+﻿using FITAPI.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -35,19 +30,6 @@ public static class ServiceCollectionExtensions
         
         return services;
     }
-    
-    public static IServiceCollection AddAppServices(this IServiceCollection services)
-    {
-        services.AddHttpClient<IExerciseBaseInfo, ExerciseBaseInfo>();
-        services.AddHttpClient<IExerciseCategory, ExerciseCategory>();
-        services.AddHttpClient<IExerciseSearch, ExerciseSearch>();
-
-        services
-            .AddScoped<IAuthService, AuthService>()
-            .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();
-        
-        return services;
-    }
 
     public static IServiceCollection AddIdentityServices(this IServiceCollection services)
     {
@@ -55,21 +37,6 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<FitDbContext>()
             .AddSignInManager<SignInManager<MyUser>>();
         
-        return services;
-    }
-
-    public static IServiceCollection AddCorsServices(this IServiceCollection services)
-    {
-        services.AddCors(options =>
-        {
-            options.AddPolicy(name: "CorsPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            });
-        });
-
         return services;
     }
 }   

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FITAPI.Application\FITAPI.Application.csproj" />
+    <ProjectReference Include="..\FITAPI.Domain\FITAPI.Domain.csproj" />
   </ItemGroup>
 
 </Project>
