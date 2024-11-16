@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FITAPI.Endpoints.Posts;
 
-public class GetAllPosts(IPostsService postsService) : EndpointWithoutRequest<IReadOnlyCollection<GetPostsResponse>>
+public class GetAllPostsEndpoint(IPostsService postsService) : EndpointWithoutRequest<IReadOnlyCollection<GetPostsResponse>>
 {
     public override void Configure()
     {
-        Get("/all-posts");
+        Get("/posts");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
     }
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await SendAsync(await postsService.GetPostsAsync(), cancellation: ct);
+        await SendAsync(await postsService.GetPostsAsync(), cancellation: ct).ConfigureAwait(false);
     }
 }

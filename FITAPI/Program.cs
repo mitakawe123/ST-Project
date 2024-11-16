@@ -21,14 +21,15 @@ bld.Services
     .AddAppServices()
     .AddAuthenticationJwtBearer(options => options.SigningKey = jwtConfig.SigningKey)
     .AddAuthorization()
-    .AddFastEndpoints()
     .AddCorsServices()
-    .SwaggerDocument(o =>
+    .AddFastEndpoints()
+    .SwaggerDocument(options =>
     {
-        o.DocumentSettings = s =>
+        options.DocumentSettings = s =>
         {
+            s.DocumentName = "Initial-Release";
             s.Title = "FITAPI";
-            s.Version = "v1";
+            s.Version = "v1.0";
         };
     });
 

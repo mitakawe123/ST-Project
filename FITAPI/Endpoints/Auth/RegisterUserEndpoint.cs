@@ -1,4 +1,5 @@
 using FastEndpoints;
+using FastEndpoints.Security;
 using FITAPI.Application.DTOs.Requests;
 using FITAPI.Application.DTOs.Responses;
 using FITAPI.Application.Services.Auth;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FITAPI.Endpoints;
 
-public class RegisterUserEndpoint(UserManager<MyUser> userManager, IAuthService authService) : Endpoint<RegisterUserRequest, RegisterUserResponse>
+public class RegisterUserEndpoint(UserManager<MyUser> userManager, IAuthService authService) : Endpoint<RegisterUserRequest, TokenResponse>
 {
     public override void Configure()
     {
@@ -34,7 +35,10 @@ public class RegisterUserEndpoint(UserManager<MyUser> userManager, IAuthService 
         if (result.Succeeded)
         {
             var token = await authService.CreateToken(newUser);
-            await SendAsync(new RegisterUserResponse("Email registered", token), cancellation: ct);
+            await SendAsync(new TokenResponse
+            {
+                AccessToken = token
+            }, cancellation: ct);
             return;
         } 
         

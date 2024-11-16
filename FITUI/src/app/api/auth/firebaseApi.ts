@@ -1,13 +1,7 @@
 import { HttpMethod, SessionStorageKeys } from "@/constants/Enumerations";
 import { fitApi } from "./authApi";
-
-interface FirebaseAuthResponse {
-	accessToken: string;
-}
-
-interface FirebaseAuthRequest {
-	idToken: string;
-}
+import { FirebaseAuthRequest } from "@/interfaces/api/auth/requests/firebase.interface";
+import { FirebaseAuthResponse } from "@/interfaces/api/auth/response/firebase.interface";
 
 const firebaseApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({

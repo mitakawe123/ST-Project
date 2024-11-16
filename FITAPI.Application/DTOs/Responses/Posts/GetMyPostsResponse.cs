@@ -2,7 +2,7 @@ using FITAPI.Domain.Models;
 
 namespace FITAPI.Application.DTOs.Responses.Posts;
 
-public record GetPostsResponse(
+public record GetMyPostsResponse(
     long Id,
     string Content,
     string? AvatarImg,

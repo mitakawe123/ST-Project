@@ -8,11 +8,11 @@ public class Comments
     
     public required long PostId { get; init; }
         
-    public required string Content { get; init; }
+    public required string Content { get; set; }
+
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
     
-    public required long Likes { get; init; } 
+    public virtual MyUser User { get; init; }
     
-    public virtual required MyUser User { get; init; }
-    
-    public virtual required Posts Post { get; init; }
+    public virtual Posts Post { get; init; }
 }

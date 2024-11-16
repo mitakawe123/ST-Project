@@ -1,15 +1,10 @@
 import { HttpMethod } from "@/constants/Enumerations";
 import { fitApi } from "../auth/authApi";
-
-interface NewsletterResponse {}
-
-interface NewsletterRequest {
-	email: string;
-}
+import { NewsletterRequest } from "@/interfaces/api/newsletter/requests/newsletter.interface";
 
 const newsletterApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({
-		newsletter: build.mutation<NewsletterResponse, NewsletterRequest>({
+		newsletter: build.mutation<void, NewsletterRequest>({
 			query: (body) => ({
 				url: "/newsletter-email-sender",
 				method: HttpMethod.POST.toString(),

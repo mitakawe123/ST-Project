@@ -1,8 +1,11 @@
 using FITAPI.Application.Services.Auth;
+using FITAPI.Application.Services.Comments;
+using FITAPI.Application.Services.CreateWorkout;
 using FITAPI.Application.Services.ExerciseBaseInfo;
 using FITAPI.Application.Services.ExerciseCategory;
 using FITAPI.Application.Services.ExerciseSearch;
 using FITAPI.Application.Services.NewsletterEmailSender;
+using FITAPI.Application.Services.Posts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FITAPI.Application.Configurations;
@@ -15,16 +18,17 @@ public static class  ServiceCollectionExtensions
         services.AddHttpClient<IExerciseCategory, ExerciseCategory>();
         services.AddHttpClient<IExerciseSearch, ExerciseSearch>();
 
-        services
+        return services
             .AddScoped<IAuthService, AuthService>()
+            .AddScoped<ICreateWorkoutService, CreateWorkoutService>()
+            .AddScoped<IPostsService, PostsService>()
+            .AddScoped<ICommentsService, CommentsService>()
             .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();
-            
-        return services;
     }
     
     public static IServiceCollection AddCorsServices(this IServiceCollection services)
     {
-        services.AddCors(options =>
+        return services.AddCors(options =>
         {
             options.AddPolicy(name: "CorsPolicy", builder =>
             {
@@ -33,7 +37,5 @@ public static class  ServiceCollectionExtensions
                     .AllowAnyHeader();
             });
         });
-
-        return services;
     }
 }

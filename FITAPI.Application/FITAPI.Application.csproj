@@ -32,4 +32,9 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Responses\Auth\" />
+    <Folder Include="DTOs\Responses\Comments\" />
+  </ItemGroup>
+
 </Project>

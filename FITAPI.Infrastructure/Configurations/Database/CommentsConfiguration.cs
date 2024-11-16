@@ -18,10 +18,6 @@ public class CommentsConfiguration : IEntityTypeConfiguration<Comments>
             .IsRequired();
         
         builder
-            .Property(x => x.Likes)
-            .IsRequired();
-        
-        builder
             .HasOne(x => x.User)
             .WithMany()
             .HasForeignKey(x => x.UserId)

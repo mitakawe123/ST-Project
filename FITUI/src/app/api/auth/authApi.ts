@@ -1,25 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ApiUrl } from "@/constants/Constants";
 import { HttpMethod, SessionStorageKeys } from "@/constants/Enumerations";
-
-interface LoginRequest {
-	email: string;
-	password: string;
-}
-
-interface LoginResponse {
-	accessToken: string;
-}
-
-interface RegisterRequest {
-	username: string;
-	email: string;
-	password: string;
-}
-
-interface RegisterResponse {
-	accessToken: string;
-}
+import { LoginRequest } from "@/interfaces/api/auth/requests/login.interface";
+import { LoginResponse } from "@/interfaces/api/auth/response/login.interface";
+import { RegisterResponse } from "@/interfaces/api/auth/response/register.interface";
+import { RegisterRequest } from "@/interfaces/api/auth/requests/register.interface";
 
 export const fitApi = createApi({
 	reducerPath: "fitApi",
