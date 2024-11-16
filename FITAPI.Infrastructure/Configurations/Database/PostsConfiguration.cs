@@ -1,4 +1,4 @@
-using FITAPI.Application.Constants;
+using FITAPI.Domain.Constants;
 using FITAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

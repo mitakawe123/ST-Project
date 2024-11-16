@@ -1,12 +1,11 @@
 using FastEndpoints;
 using FastEndpoints.Security;
-using FITAPI.Application.DTOs.Requests;
-using FITAPI.Application.DTOs.Responses;
+using FITAPI.Application.DTOs.Requests.Auth;
 using FITAPI.Application.Services.Auth;
 using FITAPI.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FITAPI.Endpoints;
+namespace FITAPI.Endpoints.Auth;
 
 public class RegisterUserEndpoint(UserManager<MyUser> userManager, IAuthService authService) : Endpoint<RegisterUserRequest, TokenResponse>
 {

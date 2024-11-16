@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using FITAPI.Application.Constants;
+using FITAPI.Domain.Constants;
 using FITAPI.Domain.DTOs;
 using Microsoft.Extensions.Logging;
 

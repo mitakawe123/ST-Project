@@ -1,4 +1,4 @@
-namespace FITAPI.Application.Configurations;
+namespace FITAPI.Domain.Configurations;
 
 public class MailSettings
 {

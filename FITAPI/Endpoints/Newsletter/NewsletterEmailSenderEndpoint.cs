@@ -1,16 +1,15 @@
 using FastEndpoints;
 using FITAPI.Application.DTOs.Requests;
+using FITAPI.Application.DTOs.Requests.Newsletter;
 using FITAPI.Application.Services.NewsletterEmailSender;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace FITAPI.Endpoints;
+namespace FITAPI.Endpoints.Newsletter;
 
 public class NewsletterEmailSenderEndpoint(INewsletterEmailSender newsletterEmailSender) : Endpoint<NewsletterEmailSenderRequest>
 {
     public override void Configure()
     {
         Post("/newsletter-email-sender");
-        AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
     }
 
     public override async Task HandleAsync(NewsletterEmailSenderRequest req, CancellationToken ct)

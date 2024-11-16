@@ -1,4 +1,4 @@
-﻿namespace FITAPI.Application.Constants;
+﻿namespace FITAPI.Domain.Constants;
 
 public static class AppConstants
 {

@@ -1,4 +1,4 @@
-namespace FITAPI.Endpoints;
+namespace FITAPI.Endpoints.Workouts;
 
 public class CreateWorkoutEndpoint
 {

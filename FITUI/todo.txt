@@ -1,2 +1,1 @@
-fix swagger not appending bearer token 
-and finish feed page
+finish feed page

@@ -1,7 +1,6 @@
 using FastEndpoints;
 using FITAPI.Application.DTOs.Responses.Posts;
 using FITAPI.Application.Services.Posts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FITAPI.Endpoints.Posts;
 
@@ -10,7 +9,6 @@ public class GetAllPostsEndpoint(IPostsService postsService) : EndpointWithoutRe
     public override void Configure()
     {
         Get("/posts");
-        AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
     }
 
     public override async Task HandleAsync(CancellationToken ct)

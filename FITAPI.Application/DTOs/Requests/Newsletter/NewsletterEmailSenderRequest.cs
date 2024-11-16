@@ -1,4 +1,4 @@
-namespace FITAPI.Application.DTOs.Requests;
+namespace FITAPI.Application.DTOs.Requests.Newsletter;
 
 public class NewsletterEmailSenderRequest
 {

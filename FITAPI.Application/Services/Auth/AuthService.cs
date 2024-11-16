@@ -1,6 +1,7 @@
 using FastEndpoints.Security;
 using FirebaseAdmin.Auth;
 using FITAPI.Application.Configurations;
+using FITAPI.Domain.Configurations;
 using FITAPI.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
