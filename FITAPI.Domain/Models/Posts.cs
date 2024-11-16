@@ -14,9 +14,7 @@ public class Posts
     
     public long Likes { get; init; }
     
-    public long CommentId { get; init; }
-    
     public virtual MyUser User { get; init; }
     
-    public virtual ICollection<Comments> Comments { get; init; }
+    public virtual ICollection<Comments> Comments { get; init; } = new List<Comments>();
 }

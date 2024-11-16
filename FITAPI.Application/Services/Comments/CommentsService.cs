@@ -12,6 +12,9 @@ public class CommentsService(UserManager<MyUser> userManager, FitDbContext conte
     {
         var user = await userManager.FindByEmailAsync(request.Email)
             ?? throw new Exception($"User with email {request.Email} does not exist"); 
+    
+        var post = await context.Posts.FirstOrDefaultAsync(x => x.Id == request.PostId)
+            ?? throw new Exception($"Post with id {request.PostId} does not exist");
         
         var comment = new Domain.Models.Comments
         {
@@ -19,7 +22,10 @@ public class CommentsService(UserManager<MyUser> userManager, FitDbContext conte
             PostId = request.PostId,
             Content = request.Content,
         };
+        
+        post.Comments.Add(comment);
 
+        context.Update(post);
         await context.AddAsync(comment);
         await context.SaveChangesAsync();
     }

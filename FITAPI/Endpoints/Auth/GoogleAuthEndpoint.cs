@@ -23,7 +23,7 @@ public class GoogleAuthEndpoint(UserManager<MyUser> userManager, IAuthService au
             var email = firebaseToken.Claims["email"].ToString();
             var name = firebaseToken.Claims["name"].ToString();
             if (string.IsNullOrEmpty(email))
-                ThrowError("No email found");
+                ThrowError("No email found", StatusCodes.Status400BadRequest);
 
             // Find or create the user in your Identity system
             var user = await userManager.FindByEmailAsync(email);

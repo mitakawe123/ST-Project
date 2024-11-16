@@ -8,7 +8,7 @@ public class CreatePostEndpoint(IPostsService postsService) : Endpoint<CreatePos
 {
     public override void Configure()
     {
-        Post("/post");
+        Post("/posts");
     }
 
     public override async Task HandleAsync(CreatePostRequest req, CancellationToken ct)

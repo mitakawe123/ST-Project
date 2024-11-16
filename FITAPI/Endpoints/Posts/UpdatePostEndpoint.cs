@@ -8,7 +8,7 @@ public class UpdatePostEndpoint(IPostsService postsService) : Endpoint<UpdatePos
 {
     public override void Configure()
     {
-        Patch("/post");
+        Patch("/posts");
     }
 
     public override async Task HandleAsync(UpdatePostRequest req, CancellationToken ct)

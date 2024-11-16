@@ -50,8 +50,8 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
     public async Task CreatePostAsync(CreatePostRequest request)
     {
         var user = await userManager.FindByEmailAsync(request.Email)
-            ?? throw new Exception($"User with email {request.Email} does not exist");
-        
+                   ?? throw new Exception($"User with email {request.Email} does not exist");
+
         var post = new Domain.Models.Posts
         {
             UserId = user.Id,

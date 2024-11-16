@@ -8,7 +8,7 @@ public class DeletePostEndpoint(IPostsService postsService) : Endpoint<DeletePos
 {
     public override void Configure()
     {
-        Delete("/post");
+        Delete("/posts");
     }
 
     public override async Task HandleAsync(DeletePostRequest req, CancellationToken ct)
