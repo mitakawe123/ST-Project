@@ -1,6 +1,5 @@
 using FastEndpoints;
 using FastEndpoints.Security;
-using FITAPI.Application.DTOs.Requests;
 using FITAPI.Application.DTOs.Requests.Auth;
 using FITAPI.Application.Services.Auth;
 using FITAPI.Domain.Models;
