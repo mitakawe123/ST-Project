@@ -31,10 +31,12 @@ public class GithubAuthEndpoint(UserManager<MyUser> userManager, IAuthService au
             {
                 user = new MyUser
                 {
-                    UserName = name,
+                    UserName = name?.Replace(" ", string.Empty),
                     Email = email
                 };
-                await userManager.CreateAsync(user);
+                var res = await userManager.CreateAsync(user);
+                if(!res.Succeeded)
+                    ThrowError($"Failed to create user because: {string.Join(", ", res.Errors.Select(x => x.Description))}");
             }
 
             // Generate a JWT for the user

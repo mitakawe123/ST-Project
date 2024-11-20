@@ -14,4 +14,8 @@ public interface IPostsService
     Task UpdatePostAsync(UpdatePostRequest request);
     
     Task DeletePostAsync(DeletePostRequest request);
+
+    Task LikePostAsync(LikePostRequest request);
+    
+    Task CommentPostAsync(CommentPostRequest request);
 }

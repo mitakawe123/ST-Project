@@ -1,5 +1,5 @@
 export interface CreatePostRequest {
 	email: string;
 	content: string;
-	image: string;
+	image?: string;
 }

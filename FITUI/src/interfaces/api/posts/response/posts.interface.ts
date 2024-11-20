@@ -1,8 +1,4 @@
-export interface PostsResponse {
-	posts: Post[];
-}
-
-interface Post {
+export interface Post {
 	id: number;
 	content: string;
 	avatarImg: string;

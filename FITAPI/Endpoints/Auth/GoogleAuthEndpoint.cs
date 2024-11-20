@@ -34,7 +34,9 @@ public class GoogleAuthEndpoint(UserManager<MyUser> userManager, IAuthService au
                     UserName = name,
                     Email = email
                 };
-                await userManager.CreateAsync(user);
+                var res = await userManager.CreateAsync(user);
+                if(!res.Succeeded)
+                    ThrowError($"Failed to create user because: {string.Join(", ", res.Errors.Select(x => x.Description))}", StatusCodes.Status400BadRequest);
             }
 
             // Generate a JWT for the user

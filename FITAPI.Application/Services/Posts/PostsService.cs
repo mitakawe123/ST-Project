@@ -15,6 +15,7 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
             .AsNoTracking()
             .Include(x => x.User)
             .Include(x => x.Comments)
+            .OrderByDescending(x => x.CreatedAt)
             .Select(p => new GetPostsResponse(
                 p.Id,
                 p.Content,
@@ -35,6 +36,7 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
             .AsNoTracking()
             .Include(x => x.User)
             .Include(x => x.Comments)
+            .OrderByDescending(x => x.CreatedAt)
             .Where(x => x.User.Id == user.Id)
             .Select(p => new GetMyPostsResponse(
                 p.Id,
@@ -84,6 +86,37 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
             ?? throw new Exception($"Post with id {request.Id} does not exist");
         
         context.Remove(post);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task LikePostAsync(LikePostRequest request)
+    {
+        var post = await context.Posts.FirstOrDefaultAsync(x => x.Id == request.PostId)
+            ?? throw new Exception($"Post with id {request.PostId} does not exist");
+        
+        post.Likes++;
+        
+        context.Update(post);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task CommentPostAsync(CommentPostRequest request)
+    {
+        var user = await userManager.FindByEmailAsync(request.Email)
+            ?? throw new Exception($"User with email {request.Email} does not exist");
+        
+        var post = await context.Posts.FirstOrDefaultAsync(x => x.Id == request.PostId)
+            ?? throw new Exception($"Post with id {request.PostId} does not exist");
+        
+        post.Comments.Add(new Domain.Models.Comments
+        {
+            Content = request.Content,
+            PostId = request.PostId,
+            CreatedAt = DateTime.Now,
+            UserId = user.Id
+        });
+        
+        context.Update(post);
         await context.SaveChangesAsync();
     }
 }

@@ -1,17 +1,18 @@
-import { PostsResponse } from "@/interfaces/api/posts/response/posts.interface";
+import { Post } from "@/interfaces/api/posts/response/posts.interface";
 import { fitApi } from "../auth/authApi";
 import { HttpMethod } from "@/constants/Enumerations";
 import { CreatePostRequest } from "@/interfaces/api/posts/requests/create-post.interface";
 import { UpdatePostRequest } from "@/interfaces/api/posts/requests/update-post.interface";
 import { DeletePostRequest } from "@/interfaces/api/posts/requests/delete-post.interface";
+import { MyPostsRequest } from "@/interfaces/api/posts/requests/my-posts.interface";
 
 const postsApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({
-		allPosts: build.query<PostsResponse, void>({
+		allPosts: build.query<Post[], void>({
 			query: () => "/posts",
 		}),
-		allMyPosts: build.query<PostsResponse, void>({
-			query: () => "/my-posts",
+		allMyPosts: build.query<Post[], MyPostsRequest>({
+			query: ({ Email }) => `/my-posts?Email=${encodeURIComponent(Email)}`,
 		}),
 		createPost: build.mutation<void, CreatePostRequest>({
 			query: (body) => ({

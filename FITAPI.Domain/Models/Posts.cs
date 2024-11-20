@@ -12,7 +12,7 @@ public class Posts
     
     public string? Image { get; set; }
     
-    public long Likes { get; init; }
+    public long Likes { get; set; }
     
     public virtual MyUser User { get; init; }
     
