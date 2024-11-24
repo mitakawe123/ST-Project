@@ -1,3 +1,5 @@
+import { Comment } from "../../comments/response/comment.interface";
+
 export interface Post {
 	id: number;
 	content: string;
@@ -6,12 +8,4 @@ export interface Post {
 	likes: number;
 	createdAt: Date;
 	comments: Comment[];
-}
-
-interface Comment {
-	id: number;
-	userId: number;
-	postId: number;
-	content: string;
-	createdAt: Date;
 }

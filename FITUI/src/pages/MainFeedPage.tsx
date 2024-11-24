@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react";
+import { KeyboardEvent, MouseEvent, SyntheticEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,19 +11,23 @@ import {
 	useCreatePostMutation,
 } from "@/app/api/posts/postsApi";
 import { formatSocialMediaDate, getUser } from "@/utils/utils";
+import { useCreateCommentMutation } from "@/app/api/comments/commentsApi";
 import useToast from "@/app/hooks/useToast";
 
 export default function MainFeed() {
 	const user = getUser();
 	const { showToast } = useToast();
 
-	const [newPost, setNewPost] = useState("");
-
-	const { data: posts } = useAllPostsQuery(undefined, {
-		pollingInterval: 5000,
-		refetchOnMountOrArgChange: true,
-		skip: false,
-	});
+	const { data: posts } = useAllPostsQuery(
+		{
+			Email: user.Email,
+		},
+		{
+			pollingInterval: 5000,
+			refetchOnMountOrArgChange: true,
+			skip: false,
+		}
+	);
 
 	const { data: myPosts } = useAllMyPostsQuery(
 		{ Email: user.Email },
@@ -34,8 +38,16 @@ export default function MainFeed() {
 		}
 	);
 
-	const [createPost, { isSuccess, isError }] = useCreatePostMutation();
+	const [newPost, setNewPost] = useState("");
 
+	const [commentInputs, setCommentInputs] = useState<Record<number, string>>(
+		{}
+	);
+
+	const [createPost, { isSuccess, isError }] = useCreatePostMutation();
+	const [commentOnPost] = useCreateCommentMutation();
+
+	//add logic to append photo
 	async function handlePost(event: SyntheticEvent) {
 		event.preventDefault();
 
@@ -53,11 +65,28 @@ export default function MainFeed() {
 	async function handleComment(
 		event: SyntheticEvent,
 		postId: number,
-		email: string,
 		content: string
 	) {
 		event.preventDefault();
+
+		await commentOnPost({
+			email: user.Email,
+			postId: postId,
+			content: content,
+		});
+
+		showToast("Succesfully comment on post", "success");
 	}
+
+	const submitComment = (e: KeyboardEvent | MouseEvent, postId: number) => {
+		if (e.type === "click" || (e as KeyboardEvent).key === "Enter") {
+			const content = commentInputs[postId]?.trim();
+			if (content) {
+				handleComment(e, postId, content);
+				setCommentInputs((prev) => ({ ...prev, [postId]: "" })); // Clear input field
+			}
+		}
+	};
 
 	return (
 		<div className="container mx-auto p-4">
@@ -76,7 +105,6 @@ export default function MainFeed() {
 								<div className="flex items-center mb-4">
 									<Avatar className="h-10 w-10 mr-3">
 										<AvatarImage src={post.avatarImg} alt="avatar-image" />
-										<AvatarFallback />
 									</Avatar>
 									<div>
 										<h3 className="font-semibold">{user.Email}</h3>
@@ -98,7 +126,7 @@ export default function MainFeed() {
 										variant="ghost"
 										onClick={() =>
 											showToast("Cannot like you own post", "info")
-										}	
+										}
 									>
 										<ThumbsUp className="mr-2 h-4 w-4" /> {post.likes}
 									</Button>
@@ -117,11 +145,14 @@ export default function MainFeed() {
 											className="flex items-start space-x-3"
 										>
 											<Avatar className="h-8 w-8">
-												<AvatarImage src={""} alt={""} />
-												<AvatarFallback>{""}</AvatarFallback>
+												<AvatarImage
+													src={comment.avatarImg}
+													alt="User that comments"
+												/>
+												<AvatarFallback />
 											</Avatar>
 											<div className="flex-1 bg-gray-100 rounded-lg p-3">
-												<h4 className="font-semibold">{""}</h4>
+												<h4 className="font-semibold">{comment.username}</h4>
 												<p>{comment.content}</p>
 											</div>
 										</div>
@@ -152,7 +183,7 @@ export default function MainFeed() {
 								<div className="flex items-center mb-4">
 									<Avatar className="h-10 w-10 mr-3">
 										<AvatarImage src={post.avatarImg} alt="avatar-image" />
-										<AvatarFallback>{""}</AvatarFallback>
+										<AvatarFallback />
 									</Avatar>
 									<div>
 										<h3 className="font-semibold">{user.Email}</h3>
@@ -189,13 +220,13 @@ export default function MainFeed() {
 										>
 											<Avatar className="h-8 w-8">
 												<AvatarImage
-													src="https://i.pravatar.cc/150?img=5"
+													src={comment.avatarImg}
 													alt="User that comments"
 												/>
-												<AvatarFallback>{""}</AvatarFallback>
+												<AvatarFallback />
 											</Avatar>
 											<div className="flex-1 bg-gray-100 rounded-lg p-3">
-												<h4 className="font-semibold">{""}</h4>
+												<h4 className="font-semibold">{comment.username}</h4>
 												<p>{comment.content}</p>
 											</div>
 										</div>
@@ -203,26 +234,25 @@ export default function MainFeed() {
 								</div>
 								<div className="mt-4 flex items-center space-x-2">
 									<Avatar className="h-8 w-8">
-										<AvatarImage
-											src="https://i.pravatar.cc/150?img=5"
-											alt="Current User"
-										/>
-										<AvatarFallback>CU</AvatarFallback>
+										<AvatarImage src={""} alt="Current User" />
+										<AvatarFallback />
 									</Avatar>
 									<Input
+										value={commentInputs[post.id] || ""}
 										placeholder="Write a comment..."
 										className="flex-1"
-										onKeyPress={(e) => {
-											if (e.key === "Enter") {
-												// handleComment(
-												// 	post.id,
-												// 	(e.target as HTMLInputElement).value
-												// );
-												// (e.target as HTMLInputElement).value = "";
-											}
-										}}
+										onChange={(e) =>
+											setCommentInputs((prev) => ({
+												...prev,
+												[post.id]: e.target.value,
+											}))
+										}
+										onKeyPress={(e) => submitComment(e, post.id)}
 									/>
-									<Button size="icon">
+									<Button
+										size="icon"
+										onClick={(e) => submitComment(e, post.id)}
+									>
 										<Send className="h-4 w-4" />
 									</Button>
 								</div>

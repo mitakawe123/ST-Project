@@ -5,7 +5,7 @@ namespace FITAPI.Application.Services.Posts;
 
 public interface IPostsService
 {
-    Task<IReadOnlyCollection<GetPostsResponse>> GetPostsAsync();
+    Task<IReadOnlyCollection<GetPostsResponse>> GetPostsAsync(GetAllPostsRequest request);
     
     Task<IReadOnlyCollection<GetMyPostsResponse>> GetMyPostsAsync(GetMyPostsRequest request);
 

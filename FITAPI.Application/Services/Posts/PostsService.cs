@@ -1,5 +1,6 @@
 using FITAPI.Application.DTOs.Requests.Posts;
 using FITAPI.Application.DTOs.Responses.Posts;
+using FITAPI.Domain.DTOs;
 using FITAPI.Domain.Models;
 using FITAPI.Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -9,13 +10,17 @@ namespace FITAPI.Application.Services.Posts;
 
 public class PostsService(FitDbContext context, UserManager<MyUser> userManager) : IPostsService
 {
-    public async Task<IReadOnlyCollection<GetPostsResponse>> GetPostsAsync()
+    public async Task<IReadOnlyCollection<GetPostsResponse>> GetPostsAsync(GetAllPostsRequest request)
     {
+        var user = await userManager.FindByEmailAsync(request.Email)
+                   ?? throw new Exception($"User with email {request.Email} does not exist");
+        
         return await context.Posts
             .AsNoTracking()
             .Include(x => x.User)
             .Include(x => x.Comments)
             .OrderByDescending(x => x.CreatedAt)
+            .Where(x => x.UserId != user.Id)
             .Select(p => new GetPostsResponse(
                 p.Id,
                 p.Content,
@@ -23,7 +28,13 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
                 p.Image,
                 p.CreatedAt,
                 p.Likes,
-                p.Comments))
+                p.Comments.Select(c => new CommentsDto(
+                    c.Id,
+                    c.Content,
+                    c.CreatedAt,
+                    c.User.UserName ?? c.User.Email,
+                    c.User.AvatarImg))
+                    .ToList()))
             .ToListAsync();
     }
 
@@ -45,7 +56,13 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
                 p.Image,
                 p.CreatedAt,
                 p.Likes,
-                p.Comments))
+                p.Comments.Select(c => new CommentsDto(
+                        c.Id,
+                        c.Content,
+                        c.CreatedAt,
+                        c.User.UserName ?? c.User.Email,
+                        c.User.AvatarImg))
+                    .ToList()))
             .ToListAsync();
     }
 
