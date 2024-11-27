@@ -3,7 +3,7 @@ using FITAPI.Domain.Constants;
 using FITAPI.Domain.DTOs;
 using Microsoft.Extensions.Logging;
 
-namespace FITAPI.Application.Services.ExerciseCategory;
+namespace FITAPI.Application.Services.Exercises.ExerciseCategory;
 
 public class ExerciseCategory(HttpClient httpClient, ILogger<ExerciseCategory> logger) : IExerciseCategory
 {

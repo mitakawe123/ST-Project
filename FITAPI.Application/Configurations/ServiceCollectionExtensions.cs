@@ -1,11 +1,11 @@
 using FITAPI.Application.Services.Auth;
 using FITAPI.Application.Services.Comments;
-using FITAPI.Application.Services.CreateWorkout;
-using FITAPI.Application.Services.ExerciseBaseInfo;
-using FITAPI.Application.Services.ExerciseCategory;
-using FITAPI.Application.Services.ExerciseSearch;
+using FITAPI.Application.Services.Exercises.ExerciseBaseInfo;
+using FITAPI.Application.Services.Exercises.ExerciseCategory;
+using FITAPI.Application.Services.Exercises.ExerciseSearch;
 using FITAPI.Application.Services.NewsletterEmailSender;
 using FITAPI.Application.Services.Posts;
+using FITAPI.Application.Services.Workouts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FITAPI.Application.Configurations;
@@ -20,7 +20,7 @@ public static class  ServiceCollectionExtensions
 
         return services
             .AddScoped<IAuthService, AuthService>()
-            .AddScoped<ICreateWorkoutService, CreateWorkoutService>()
+            .AddScoped<IWorkoutService, WorkoutService>()
             .AddScoped<IPostsService, PostsService>()
             .AddScoped<ICommentsService, CommentsService>()
             .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();

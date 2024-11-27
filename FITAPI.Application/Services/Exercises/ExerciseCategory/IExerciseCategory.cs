@@ -1,6 +1,6 @@
 using FITAPI.Domain.DTOs;
 
-namespace FITAPI.Application.Services.ExerciseCategory;
+namespace FITAPI.Application.Services.Exercises.ExerciseCategory;
 
 public interface IExerciseCategory
 {

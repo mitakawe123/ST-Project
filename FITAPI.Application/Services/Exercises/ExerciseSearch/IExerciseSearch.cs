@@ -1,6 +1,6 @@
 using FITAPI.Domain.DTOs;
 
-namespace FITAPI.Application.Services.ExerciseSearch;
+namespace FITAPI.Application.Services.Exercises.ExerciseSearch;
 
 public interface IExerciseSearch
 {
