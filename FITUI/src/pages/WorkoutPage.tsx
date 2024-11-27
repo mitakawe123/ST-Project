@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import {
+	ChangeEvent,
+	FormEvent,
+	SyntheticEvent,
+	useEffect,
+	useState,
+} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,65 +17,100 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlusCircle, Dumbbell, Clock, Trash2 } from "lucide-react";
+import { PlusCircle, Dumbbell } from "lucide-react";
+import { useExerciseSearchQuery } from "@/app/api/workouts/workoutApi";
 
-type Exercise = {
-	id: string;
+interface Exercise {
 	name: string;
 	sets: number;
 	reps: number;
-};
-
-type Workout = {
-	id: string;
-	name: string;
-	description: string;
-	exercises: Exercise[];
-};
+}
 
 export default function WorkoutPage() {
-	const [workouts, setWorkouts] = useState<Workout[]>([]);
 	const [workoutName, setWorkoutName] = useState("");
 	const [workoutDescription, setWorkoutDescription] = useState("");
-	const [exercises, setExercises] = useState<Exercise[]>([]);
 	const [exerciseName, setExerciseName] = useState("");
 	const [sets, setSets] = useState("");
 	const [reps, setReps] = useState("");
+	const [exercises, setExercises] = useState<Exercise[]>([]);
+	const [filteredExercises, setFilteredExercises] = useState<string[]>([]);
+	const [showDropdown, setShowDropdown] = useState(false);
 
-	const handleAddExercise = (e: React.FormEvent) => {
+	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
+		Term: exerciseName,
+	});
+
+	const handleAddExercise = (e: SyntheticEvent) => {
 		e.preventDefault();
 		if (exerciseName && sets && reps) {
-			const newExercise: Exercise = {
-				id: Date.now().toString(),
-				name: exerciseName,
-				sets: parseInt(sets),
-				reps: parseInt(reps),
-			};
-			setExercises([...exercises, newExercise]);
+			setExercises([
+				...exercises,
+				{ name: exerciseName, sets: Number(sets), reps: Number(reps) },
+			]);
 			setExerciseName("");
 			setSets("");
 			setReps("");
 		}
 	};
 
-	const handleCreateWorkout = (e: React.FormEvent) => {
+	const handleCreateWorkout = (e: FormEvent) => {
 		e.preventDefault();
-		if (workoutName && exercises.length > 0) {
-			const newWorkout: Workout = {
-				id: Date.now().toString(),
-				name: workoutName,
-				description: workoutDescription,
-				exercises: exercises,
-			};
-			setWorkouts([...workouts, newWorkout]);
-			setWorkoutName("");
-			setWorkoutDescription("");
-			setExercises([]);
+		// Here you would typically send the workout data to your backend
+		console.log("Creating workout:", {
+			workoutName,
+			workoutDescription,
+			exercises,
+		});
+		// Reset the form after creating the workout
+		setWorkoutName("");
+		setWorkoutDescription("");
+		setExercises([]);
+	};
+
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (!(event.target as Element).closest(".exercise-dropdown")) {
+				setShowDropdown(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	// Handle the filtering when data is available
+	useEffect(() => {
+		if (exerciseSearch) {
+			const exerciseToLower = exerciseName.toLowerCase();
+			const filtered = exerciseSearch.filter((exercise) =>
+				exercise.toLowerCase().includes(exerciseToLower)
+			);
+
+			console.log(exerciseToLower, filtered[0]?.toLowerCase());
+			console.log(filtered);
+			if (exerciseToLower !== filtered[0]?.toLowerCase()) {
+				setFilteredExercises(filtered);
+				setShowDropdown(filtered.length > 0);
+			}
+		}
+	}, [exerciseSearch, exerciseName]);
+
+	const handleExerciseNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setExerciseName(value);
+
+		if (value.length > 0) {
+			setShowDropdown(true);
+		} else {
+			setFilteredExercises([]);
+			setShowDropdown(false);
 		}
 	};
 
-	const handleDeleteWorkout = (id: string) => {
-		setWorkouts(workouts.filter((workout) => workout.id !== id));
+	const handleSelectExercise = (exercise: string) => {
+		setExerciseName(exercise);
+		setShowDropdown(false);
 	};
 
 	return (
@@ -112,24 +153,32 @@ export default function WorkoutPage() {
 								</div>
 								<div className="border-t pt-4">
 									<h3 className="text-lg font-semibold mb-2">Exercises</h3>
-									{exercises.map((exercise) => (
-										<div
-											key={exercise.id}
-											className="flex items-center justify-between py-2"
-										>
-											<span>{exercise.name}</span>
-											<span>
-												{exercise.sets} sets x {exercise.reps} reps
-											</span>
+									<form className="mt-4 space-y-2">
+										<div className="relative">
+											<Input
+												value={exerciseName}
+												onChange={handleExerciseNameChange}
+												placeholder="Exercise name"
+												required
+											/>
+											{showDropdown && (
+												<div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg exercise-dropdown">
+													{isLoading ? (
+														<div className="px-4 py-2">Loading...</div>
+													) : (
+														filteredExercises.map((exercise, index) => (
+															<div
+																key={index}
+																className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+																onClick={() => handleSelectExercise(exercise)}
+															>
+																{exercise}
+															</div>
+														))
+													)}
+												</div>
+											)}
 										</div>
-									))}
-									<form onSubmit={handleAddExercise} className="mt-4 space-y-2">
-										<Input
-											value={exerciseName}
-											onChange={(e) => setExerciseName(e.target.value)}
-											placeholder="Exercise name"
-											required
-										/>
 										<div className="flex space-x-2">
 											<Input
 												type="number"
@@ -146,12 +195,32 @@ export default function WorkoutPage() {
 												required
 											/>
 										</div>
-										<Button type="submit" variant="outline">
+										<Button
+											type="submit"
+											variant="outline"
+											onClick={handleAddExercise}
+										>
 											<PlusCircle className="w-4 h-4 mr-2" />
 											Add Exercise
 										</Button>
 									</form>
 								</div>
+								{exercises.length > 0 && (
+									<div className="mt-4">
+										<h4 className="font-semibold mb-2">Added Exercises:</h4>
+										<ul className="space-y-1">
+											{exercises.map((exercise, index) => (
+												<li key={index} className="flex items-center text-sm">
+													<Dumbbell className="w-4 h-4 mr-2" />
+													<span>{exercise.name} - </span>
+													<span className="ml-1">
+														{exercise.sets} sets x {exercise.reps} reps
+													</span>
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
 								<Button type="submit" className="w-full">
 									Create Workout
 								</Button>
@@ -159,9 +228,10 @@ export default function WorkoutPage() {
 						</CardContent>
 					</Card>
 				</TabsContent>
+				<TabsContent value="your-workouts"></TabsContent>
 				<TabsContent value="view">
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-						{workouts.map((workout) => (
+						{/* {workouts.map((workout) => (
 							<Card key={workout.id}>
 								<CardHeader>
 									<CardTitle className="flex items-center justify-between">
@@ -200,7 +270,7 @@ export default function WorkoutPage() {
 									</div>
 								</CardContent>
 							</Card>
-						))}
+						))} */}
 					</div>
 				</TabsContent>
 			</Tabs>

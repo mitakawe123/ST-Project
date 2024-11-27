@@ -3,7 +3,7 @@ using FITAPI.Domain.Constants;
 using FITAPI.Domain.DTOs;
 using Microsoft.Extensions.Logging;
 
-namespace FITAPI.Application.Services.ExerciseBaseInfo;
+namespace FITAPI.Application.Services.Exercises.ExerciseBaseInfo;
 
 public class ExerciseBaseInfo(HttpClient httpClient, ILogger<ExerciseBaseInfo> logger) : IExerciseBaseInfo
 {

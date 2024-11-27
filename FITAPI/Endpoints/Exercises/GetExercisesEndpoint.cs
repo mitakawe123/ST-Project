@@ -1,5 +1,5 @@
 ﻿using FastEndpoints;
-using FITAPI.Application.Services.ExerciseBaseInfo;
+using FITAPI.Application.Services.Exercises.ExerciseBaseInfo;
 using FITAPI.Domain.DTOs;
 
 namespace FITAPI.Endpoints.Exercises;

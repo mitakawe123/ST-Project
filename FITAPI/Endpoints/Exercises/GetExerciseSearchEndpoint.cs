@@ -1,9 +1,8 @@
 using FastEndpoints;
-using FITAPI.Application.Services.ExerciseSearch;
+using FITAPI.Application.DTOs.Requests.Exercises;
+using FITAPI.Application.Services.Exercises.ExerciseSearch;
 
 namespace FITAPI.Endpoints.Exercises;
-
-public record ExerciseSearchRequest(string Term);
 
 public class GetExerciseSearchEndpoint(IExerciseSearch exerciseSearch) : Endpoint<ExerciseSearchRequest, IReadOnlyCollection<string>>
 {
@@ -15,7 +14,7 @@ public class GetExerciseSearchEndpoint(IExerciseSearch exerciseSearch) : Endpoin
     public override async Task HandleAsync(ExerciseSearchRequest req, CancellationToken ct)
     {
         var exercises = await exerciseSearch.GetExerciseSearchAsync(req.Term, ct);
-        var exerciseNames = exercises.Suggestions.Select(ex => ex.Value).ToList();
+        var exerciseNames = exercises.Suggestions?.Select(ex => ex.Value).Distinct().ToList() ?? new List<string>();
         await SendAsync(exerciseNames, cancellation: ct).ConfigureAwait(false);
     }
 }
