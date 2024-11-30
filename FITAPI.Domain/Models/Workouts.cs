@@ -14,19 +14,14 @@ public class Workouts
     public required string ExercisesJson { get; init; }
 
     [NotMapped] 
-    public List<WourkoutExercise>? Exercises
-    {
-        get => string.IsNullOrEmpty(ExercisesJson) 
+    public List<WourkoutExercise>? Exercises =>
+        string.IsNullOrEmpty(ExercisesJson) 
             ? []
             : JsonSerializer.Deserialize<List<WourkoutExercise>>(ExercisesJson);
-        init => ExercisesJson = JsonSerializer.Serialize(value);
-    }    
-    
+
     public required string UserId { get; init; } 
     
     public virtual MyUser User { get; init; }
-    
-    
 }
 
 public  class WourkoutExercise

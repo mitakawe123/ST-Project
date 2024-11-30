@@ -18,7 +18,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlusCircle, Dumbbell } from "lucide-react";
-import { useExerciseSearchQuery } from "@/app/api/workouts/workoutApi";
+import {
+	useCreateWorkoutMutation,
+	useExerciseSearchQuery,
+} from "@/app/api/workouts/workoutApi";
+import { useCreateCommentMutation } from "@/app/api/comments/commentsApi";
+import { getUser } from "@/utils/utils";
+import useToast from "@/app/hooks/useToast";
+import { useLoaderContext } from "@/app/context/LoaderContext";
 
 interface Exercise {
 	name: string;
@@ -36,9 +43,15 @@ export default function WorkoutPage() {
 	const [filteredExercises, setFilteredExercises] = useState<string[]>([]);
 	const [showDropdown, setShowDropdown] = useState(false);
 
+	const user = getUser();
+	const { startLoading, stopLoading } = useLoaderContext();
+	const { showToast } = useToast();
+
 	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
 		Term: exerciseName,
 	});
+
+	const [createWorkout] = useCreateWorkoutMutation();
 
 	const handleAddExercise = (e: SyntheticEvent) => {
 		e.preventDefault();
@@ -53,18 +66,30 @@ export default function WorkoutPage() {
 		}
 	};
 
-	const handleCreateWorkout = (e: FormEvent) => {
+	const handleCreateWorkout = async (e: FormEvent) => {
 		e.preventDefault();
-		// Here you would typically send the workout data to your backend
-		console.log("Creating workout:", {
-			workoutName,
-			workoutDescription,
-			exercises,
+		startLoading();
+
+		if (exercises.length === 0) {
+			showToast("Please add at least one exercise to your workout", "info");
+			stopLoading();
+			return;
+		}
+
+		await createWorkout({
+			email: user.Email,
+			description: workoutDescription,
+			workoutName: workoutName,
+			exercises: exercises,
 		});
+
+		showToast("Successfully created your workout", "success");
+
 		// Reset the form after creating the workout
 		setWorkoutName("");
 		setWorkoutDescription("");
 		setExercises([]);
+		stopLoading();
 	};
 
 	// Close dropdown when clicking outside
@@ -149,6 +174,7 @@ export default function WorkoutPage() {
 										value={workoutDescription}
 										onChange={(e) => setWorkoutDescription(e.target.value)}
 										placeholder="Describe your workout..."
+										required
 									/>
 								</div>
 								<div className="border-t pt-4">

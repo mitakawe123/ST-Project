@@ -17,6 +17,7 @@ import { LoaderProvider } from "./app/context/LoaderContext.tsx";
 import { ToastContainer } from "react-toastify";
 
 import "./styles/index.scss";
+import Loader from "./components/ui/loader.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -65,10 +66,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<LoaderProvider>
+			<ToastContainer />
+			<Loader />
 			<Provider store={store}>
 				<RouterProvider router={router} />
 			</Provider>
-			<ToastContainer />
 		</LoaderProvider>
 	</StrictMode>
 );

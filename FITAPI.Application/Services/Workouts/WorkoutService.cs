@@ -13,12 +13,12 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
         var user = await userManager.FindByEmailAsync(request.Email)
                    ?? throw new Exception($"User with email {request.Email} does not exist");
 
-        var exercises = request.ExerciseNames.Select((_, i) => 
+        var exercises = request.Exercises.Select(ex => 
             new WourkoutExercise
             {
-                Name = request.ExerciseNames.ElementAt(i), 
-                Reps = request.Reps.ElementAt(i), 
-                Sets = request.Sets.ElementAt(i),
+                Name = ex.Name,
+                Reps = ex.Reps, 
+                Sets = ex.Sets,
             }).ToList();
 
         context.Add(new Domain.Models.Workouts
