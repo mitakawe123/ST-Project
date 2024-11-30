@@ -35,8 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Responses\Auth\" />
-    <Folder Include="DTOs\Responses\Comments\" />
     <Folder Include="Services\Exercises\" />
   </ItemGroup>
 

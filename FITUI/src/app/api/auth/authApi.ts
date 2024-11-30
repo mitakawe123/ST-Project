@@ -20,7 +20,7 @@ export const fitApi = createApi({
 			return headers;
 		},
 	}),
-	tagTypes: ["Auth"],
+	tagTypes: ["Auth", "Workouts"],
 	endpoints: (builder) => ({
 		login: builder.mutation<LoginResponse, LoginRequest>({
 			query: (body: LoginRequest) => ({

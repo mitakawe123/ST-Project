@@ -1,8 +1,8 @@
 import { Exercise } from "../shared/exercise.interface";
 
-export interface CreateWorkoutRequest {
-	email: string;
+export interface MyWorkoutsResponse {
+	id: number;
 	workoutName: string;
-	description: string;
+	workoutDescription: string;
 	exercises: Exercise[];
 }

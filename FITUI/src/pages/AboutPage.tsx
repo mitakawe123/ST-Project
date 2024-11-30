@@ -18,28 +18,10 @@ type TeamMember = {
 
 const teamMembers: TeamMember[] = [
 	{
-		name: "Jane Doe",
-		role: "CEO & Founder",
-		image: "https://i.pravatar.cc/150?img=1",
-		bio: "Jane has over 15 years of experience in the tech industry and is passionate about creating innovative solutions.",
-	},
-	{
-		name: "John Smith",
-		role: "CTO",
-		image: "https://i.pravatar.cc/150?img=2",
-		bio: "John is a seasoned developer with a knack for turning complex problems into elegant solutions.",
-	},
-	{
-		name: "Emily Brown",
-		role: "Head of Design",
-		image: "https://i.pravatar.cc/150?img=3",
-		bio: "Emily brings creativity and user-centric design to every project, ensuring our products are both beautiful and functional.",
-	},
-	{
-		name: "Michael Chen",
-		role: "Lead Developer",
-		image: "https://i.pravatar.cc/150?img=4",
-		bio: "Michael is a coding wizard with a passion for clean, efficient code and cutting-edge technologies.",
+		name: "Dimitar Kyuchukov",
+		role: "CEO & Founder & Developer",
+		image: "https://avatars.githubusercontent.com/u/70656129?v=4",
+		bio: "Dimitar have over 15 years of experience in the tech industry and is passionate about creating innovative solutions.",
 	},
 ];
 
@@ -63,7 +45,7 @@ export default function AboutPage() {
 					</CardHeader>
 					<CardContent>
 						<p>
-							At TechInnovate, we strive to push the boundaries of what's
+							At FitConnect, we strive to push the boundaries of what's
 							possible in technology. Our goal is to create products that not
 							only meet the needs of today but anticipate the challenges of
 							tomorrow. We believe in the power of innovation to transform lives
@@ -90,9 +72,9 @@ export default function AboutPage() {
 			{/* Team Section */}
 			<div className="mb-12">
 				<h2 className="text-3xl font-bold mb-6 text-center">Our Team</h2>
-				<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+				<div className="flex justify-center items-center">
 					{teamMembers.map((member) => (
-						<Card key={member.name}>
+						<Card key={member.name} className="max-w-sm mx-auto">
 							<CardHeader>
 								<Avatar className="w-24 h-24 mx-auto mb-4">
 									<AvatarImage src={member.image} alt={member.name} />

@@ -65,6 +65,13 @@ export default function LandingPage() {
 					>
 						Contact
 					</Link>
+					<Link
+						onClick={() => sessionStorage.clear()}
+						className="text-sm font-medium hover:underline underline-offset-4"
+						to="/login"
+					>
+						Log out
+					</Link>
 				</nav>
 			</header>
 			<main className="flex-1">

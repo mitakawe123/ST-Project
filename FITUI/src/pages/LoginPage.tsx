@@ -20,6 +20,7 @@ import {
 	useGoogleAuthMutation,
 } from "@/app/api/auth/firebaseApi";
 import useToast from "@/app/hooks/useToast";
+import { useLoaderContext } from "@/app/context/LoaderContext";
 
 const Icons = {
 	gitHub: Github,
@@ -32,6 +33,7 @@ export default function LoginPage() {
 	const [password, setPassword] = useState<string>("");
 
 	const { showToast } = useToast();
+	const { startLoading, stopLoading } = useLoaderContext();
 
 	const [login, { isLoading }] = useLoginMutation();
 	const [googleAuth] = useGoogleAuthMutation();
@@ -41,17 +43,21 @@ export default function LoginPage() {
 
 	async function onSubmit(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
 
 		const response = await login({
 			email: email,
 			password: password,
 		}).unwrap();
 
+		stopLoading();
 		if (response.accessToken) navigate("/");
 	}
 
 	async function loginWithGoogle(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
+
 		try {
 			const idToken = await getGoogleIdToken();
 
@@ -70,10 +76,13 @@ export default function LoginPage() {
 				showToast(`Unknown error: ${(error as Error).message}`, "error");
 			}
 		}
+
+		stopLoading();
 	}
 
 	async function loginWithGithub(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
 
 		try {
 			const idToken = await getGithubIdToken();
@@ -93,6 +102,8 @@ export default function LoginPage() {
 				showToast(`Unknown error: ${(error as Error).message}`, "error");
 			}
 		}
+
+		stopLoading();
 	}
 
 	return (

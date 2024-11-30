@@ -1,4 +1,4 @@
-import React from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,12 +10,55 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { useContactUsMutation } from "@/app/api/contact/contactApi";
+import { getUser } from "@/utils/utils";
+import useToast from "@/app/hooks/useToast";
+import { useLoaderContext } from "@/app/context/LoaderContext";
+import { ContactUsRequest } from "@/interfaces/api/contact/request/contact-us.interface";
 
 export default function ContactPage() {
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const [contactUs] = useContactUsMutation();
+	const user = getUser(); // Assuming this returns an object with Email property
+	const { showToast } = useToast();
+	const { startLoading, stopLoading } = useLoaderContext();
+	const [contactUsInfo, setContactUsInfo] = useState<ContactUsRequest>({
+		email: user.Email,
+		firstName: "",
+		lastName: "",
+		message: "",
+		subject: "",
+	});
+
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		const { name, value } = e.target;
+		setContactUsInfo((prev) => ({
+			...prev,
+			[name]: value,
+		}));
+	};
+
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// Handle form submission logic here
-		console.log("Form submitted");
+		startLoading();
+		try {
+			await contactUs(contactUsInfo);
+			setContactUsInfo({
+				firstName: "",
+				lastName: "",
+				message: "",
+				subject: "",
+			});
+			showToast("Successfully sent email", "success");
+		} catch (err) {
+			showToast(
+				"Cannot send contact us right now, please try again later",
+				"error"
+			);
+		} finally {
+			stopLoading();
+		}
 	};
 
 	return (
@@ -41,7 +84,13 @@ export default function ContactPage() {
 									>
 										First Name
 									</label>
-									<Input id="firstName" name="firstName" required />
+									<Input
+										id="firstName"
+										name="firstName"
+										value={contactUsInfo.firstName}
+										onChange={handleChange}
+										required
+									/>
 								</div>
 								<div>
 									<label
@@ -50,7 +99,13 @@ export default function ContactPage() {
 									>
 										Last Name
 									</label>
-									<Input id="lastName" name="lastName" required />
+									<Input
+										id="lastName"
+										name="lastName"
+										value={contactUsInfo.lastName}
+										onChange={handleChange}
+										required
+									/>
 								</div>
 							</div>
 							<div>
@@ -60,7 +115,13 @@ export default function ContactPage() {
 								>
 									Email
 								</label>
-								<Input id="email" name="email" type="email" required />
+								<Input
+									id="email"
+									name="email"
+									value={contactUsInfo.email}
+									readOnly
+									className="bg-gray-200 cursor-not-allowed"
+								/>
 							</div>
 							<div>
 								<label
@@ -69,7 +130,13 @@ export default function ContactPage() {
 								>
 									Subject
 								</label>
-								<Input id="subject" name="subject" required />
+								<Input
+									id="subject"
+									name="subject"
+									value={contactUsInfo.subject}
+									onChange={handleChange}
+									required
+								/>
 							</div>
 							<div>
 								<label
@@ -78,7 +145,14 @@ export default function ContactPage() {
 								>
 									Message
 								</label>
-								<Textarea id="message" name="message" rows={4} required />
+								<Textarea
+									id="message"
+									name="message"
+									rows={4}
+									value={contactUsInfo.message}
+									onChange={handleChange}
+									required
+								/>
 							</div>
 							<Button type="submit" className="w-full">
 								Send Message

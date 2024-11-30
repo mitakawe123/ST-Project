@@ -17,12 +17,14 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlusCircle, Dumbbell } from "lucide-react";
+import { PlusCircle, Dumbbell, Pencil, Trash2, Star } from "lucide-react";
 import {
 	useCreateWorkoutMutation,
+	useDeleteMyWorkoutMutation,
 	useExerciseSearchQuery,
+	useMyWorkoutsQuery,
+	useTopWorkoutsQuery,
 } from "@/app/api/workouts/workoutApi";
-import { useCreateCommentMutation } from "@/app/api/comments/commentsApi";
 import { getUser } from "@/utils/utils";
 import useToast from "@/app/hooks/useToast";
 import { useLoaderContext } from "@/app/context/LoaderContext";
@@ -42,16 +44,21 @@ export default function WorkoutPage() {
 	const [exercises, setExercises] = useState<Exercise[]>([]);
 	const [filteredExercises, setFilteredExercises] = useState<string[]>([]);
 	const [showDropdown, setShowDropdown] = useState(false);
-
 	const user = getUser();
 	const { startLoading, stopLoading } = useLoaderContext();
 	const { showToast } = useToast();
 
+	const [createWorkout] = useCreateWorkoutMutation();
+	const [deleteMyWorkout] = useDeleteMyWorkoutMutation();
 	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
 		Term: exerciseName,
 	});
-
-	const [createWorkout] = useCreateWorkoutMutation();
+	const { data: myWorkouts } = useMyWorkoutsQuery({
+		Email: user.Email,
+	});
+	const { data: topWorkouts } = useTopWorkoutsQuery({
+		Email: user.Email,
+	});
 
 	const handleAddExercise = (e: SyntheticEvent) => {
 		e.preventDefault();
@@ -112,8 +119,6 @@ export default function WorkoutPage() {
 				exercise.toLowerCase().includes(exerciseToLower)
 			);
 
-			console.log(exerciseToLower, filtered[0]?.toLowerCase());
-			console.log(filtered);
 			if (exerciseToLower !== filtered[0]?.toLowerCase()) {
 				setFilteredExercises(filtered);
 				setShowDropdown(filtered.length > 0);
@@ -138,14 +143,40 @@ export default function WorkoutPage() {
 		setShowDropdown(false);
 	};
 
+	const handleDelete = async (id: number) => {
+		startLoading();
+
+		await deleteMyWorkout({
+			id: id,
+		}).unwrap();
+
+		showToast("Successfully delete workout", "success");
+		stopLoading();
+	};
+
+	//this are only tests need to implement them
+	const handleEdit = (id: number) => {
+		console.log(`Edit workout with id: ${id}`);
+	};
+
+	const [starredWorkouts, setStarredWorkouts] = useState<number[]>([]);
+
+	const handleStarWorkout = (workoutId: number) => {
+		setStarredWorkouts((prev) =>
+			prev.includes(workoutId)
+				? prev.filter((id) => id !== workoutId)
+				: [...prev, workoutId]
+		);
+	};
+
 	return (
 		<div className="container mx-auto p-4">
-			<h1 className="text-3xl font-bold mb-6">My Workouts</h1>
+			<h1 className="text-3xl font-bold mb-6">Workouts</h1>
 			<Tabs defaultValue="create">
 				<TabsList className="mb-4">
 					<TabsTrigger value="create">Create Workout</TabsTrigger>
-					<TabsTrigger value="your-workouts">View Your Workouts</TabsTrigger>
-					<TabsTrigger value="view">View Workouts</TabsTrigger>
+					<TabsTrigger value="my-workouts">View Your Workouts</TabsTrigger>
+					<TabsTrigger value="top-workouts">View Workouts</TabsTrigger>
 				</TabsList>
 				<TabsContent value="create">
 					<Card>
@@ -254,50 +285,113 @@ export default function WorkoutPage() {
 						</CardContent>
 					</Card>
 				</TabsContent>
-				<TabsContent value="your-workouts"></TabsContent>
-				<TabsContent value="view">
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-						{/* {workouts.map((workout) => (
-							<Card key={workout.id}>
-								<CardHeader>
-									<CardTitle className="flex items-center justify-between">
-										<span>{workout.name}</span>
-										<Button
-											variant="ghost"
-											size="icon"
-											onClick={() => handleDeleteWorkout(workout.id)}
-										>
-											<Trash2 className="w-4 h-4" />
-										</Button>
-									</CardTitle>
-									<CardDescription>{workout.description}</CardDescription>
-								</CardHeader>
-								<CardContent>
-									<h4 className="font-semibold mb-2">Exercises:</h4>
-									<ul className="space-y-1">
-										{workout.exercises.map((exercise) => (
-											<li
-												key={exercise.id}
-												className="flex items-center text-sm"
+				<TabsContent value="my-workouts">
+					<h2 className="text-2xl font-bold mb-4">Your Workouts</h2>
+					{myWorkouts?.length === 0 ? (
+						<p>You haven't created any workouts yet.</p>
+					) : (
+						<div className="space-y-4">
+							{myWorkouts?.map((workout) => (
+								<Card key={workout.id}>
+									<CardHeader>
+										<div className="flex justify-between items-start">
+											<div>
+												<CardTitle>{workout.workoutName}</CardTitle>
+												<CardDescription>
+													{workout.workoutDescription}
+												</CardDescription>
+											</div>
+											<div className="flex space-x-2">
+												<Button
+													variant="outline"
+													size="sm"
+													onClick={() => handleEdit(workout.id)}
+												>
+													<Pencil className="w-4 h-4 mr-2" />
+													Edit
+												</Button>
+												<Button
+													variant="destructive"
+													size="sm"
+													onClick={() => handleDelete(workout.id)}
+												>
+													<Trash2 className="w-4 h-4 mr-2" />
+													Delete
+												</Button>
+											</div>
+										</div>
+									</CardHeader>
+									<CardContent>
+										<h3 className="font-semibold mb-2">Exercises:</h3>
+										<ul className="space-y-2">
+											{workout.exercises.map((exercise, index) => (
+												<li key={index} className="flex items-center">
+													<Dumbbell className="w-4 h-4 mr-2 text-muted-foreground" />
+													<span>
+														{exercise.name} - {exercise.sets} sets of{" "}
+														{exercise.reps} reps
+													</span>
+												</li>
+											))}
+										</ul>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					)}
+				</TabsContent>
+				<TabsContent value="top-workouts">
+					<h2 className="text-2xl font-bold mb-4">Top Workouts</h2>
+					{topWorkouts?.length === 0 ? (
+						<p>No top workouts available at the moment.</p>
+					) : (
+						<div className="space-y-4">
+							{topWorkouts?.map((workout) => (
+								<Card key={workout.id}>
+									<CardHeader>
+										<div className="flex justify-between items-start">
+											<div>
+												<CardTitle>{workout.workoutName}</CardTitle>
+												<CardDescription>
+													{workout.workoutDescription}
+												</CardDescription>
+												<p className="text-sm text-muted-foreground mt-1">
+													Created by: {workout.workoutOwnerName}
+												</p>
+											</div>
+											<Button
+												variant="ghost"
+												size="icon"
+												onClick={() => handleStarWorkout(workout.id)}
 											>
-												<Dumbbell className="w-4 h-4 mr-2" />
-												<span>{exercise.name} - </span>
-												<span className="ml-1">
-													{exercise.sets} sets x {exercise.reps} reps
-												</span>
-											</li>
-										))}
-									</ul>
-									<div className="mt-4 flex items-center text-sm text-muted-foreground">
-										<Clock className="w-4 h-4 mr-1" />
-										<span>
-											Estimated time: {workout.exercises.length * 5} mins
-										</span>
-									</div>
-								</CardContent>
-							</Card>
-						))} */}
-					</div>
+												<Star
+													className={`h-5 w-5 ${
+														starredWorkouts.includes(workout.id)
+															? "fill-yellow-400 text-yellow-400"
+															: "text-muted-foreground"
+													}`}
+												/>
+											</Button>
+										</div>
+									</CardHeader>
+									<CardContent>
+										<h3 className="font-semibold mb-2">Exercises:</h3>
+										<ul className="space-y-2">
+											{workout.exercises.map((exercise, index) => (
+												<li key={index} className="flex items-center">
+													<Dumbbell className="w-4 h-4 mr-2 text-muted-foreground" />
+													<span>
+														{exercise.name} - {exercise.sets} sets of{" "}
+														{exercise.reps} reps
+													</span>
+												</li>
+											))}
+										</ul>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					)}
 				</TabsContent>
 			</Tabs>
 		</div>

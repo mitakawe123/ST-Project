@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
+using FITAPI.Domain.DTOs;
 
 namespace FITAPI.Domain.Models;
 
@@ -14,19 +15,12 @@ public class Workouts
     public required string ExercisesJson { get; init; }
 
     [NotMapped] 
-    public List<WourkoutExercise>? Exercises =>
+    public List<WorkoutExercise>? Exercises =>
         string.IsNullOrEmpty(ExercisesJson) 
             ? []
-            : JsonSerializer.Deserialize<List<WourkoutExercise>>(ExercisesJson);
+            : JsonSerializer.Deserialize<List<WorkoutExercise>>(ExercisesJson);
 
     public required string UserId { get; init; } 
     
     public virtual MyUser User { get; init; }
-}
-
-public  class WourkoutExercise
-{
-    public required string Name { get; init; } 
-    public ushort Sets { get; init; }         
-    public ushort Reps { get; init; }  
 }

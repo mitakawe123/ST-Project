@@ -20,6 +20,7 @@ import {
 } from "@/app/api/auth/firebaseApi";
 import { AuthenticationError } from "@/errors/AuthenticationError";
 import useToast from "@/app/hooks/useToast";
+import { useLoaderContext } from "@/app/context/LoaderContext";
 
 const Icons = {
 	gitHub: Github,
@@ -32,6 +33,7 @@ export default function RegisterPage() {
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
+	const { startLoading, stopLoading } = useLoaderContext();
 	const { showToast } = useToast();
 
 	const [register, { isLoading }] = useRegisterMutation();
@@ -42,6 +44,7 @@ export default function RegisterPage() {
 
 	async function onSubmit(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
 
 		const response = await register({
 			email: email,
@@ -49,11 +52,14 @@ export default function RegisterPage() {
 			password: password,
 		}).unwrap();
 
+		stopLoading();
 		if (response.accessToken) navigate("/");
 	}
 
 	async function registerWithGoogle(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
+
 		try {
 			const idToken = await getGoogleIdToken();
 
@@ -72,10 +78,13 @@ export default function RegisterPage() {
 				showToast(`Unknown error: ${(error as Error).message}`, "error");
 			}
 		}
+
+		stopLoading();
 	}
 
 	async function registerWithGithub(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
 
 		try {
 			const idToken = await getGithubIdToken();
@@ -95,6 +104,8 @@ export default function RegisterPage() {
 				showToast(`Unknown error: ${(error as Error).message}`, "error");
 			}
 		}
+
+		stopLoading();
 	}
 
 	return (
