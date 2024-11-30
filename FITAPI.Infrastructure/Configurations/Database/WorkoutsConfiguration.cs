@@ -16,6 +16,10 @@ public class WorkoutsConfiguration : IEntityTypeConfiguration<Workouts>
         builder
             .Property(w => w.Name)
             .IsRequired();
+        
+        builder
+            .Property(w => w.Description)
+            .IsRequired();
 
         builder
             .Property(w => w.ExercisesJson)

@@ -9,25 +9,29 @@ public class Workouts
     
     public required string Name { get; init; }
     
+    public required string Description { get; init; }
+    
     public required string ExercisesJson { get; init; }
 
     [NotMapped] 
-    public List<Exercise>? Exercises
+    public List<WourkoutExercise>? Exercises
     {
         get => string.IsNullOrEmpty(ExercisesJson) 
             ? []
-            : JsonSerializer.Deserialize<List<Exercise>>(ExercisesJson);
+            : JsonSerializer.Deserialize<List<WourkoutExercise>>(ExercisesJson);
         init => ExercisesJson = JsonSerializer.Serialize(value);
     }    
     
     public required string UserId { get; init; } 
     
-    public virtual required MyUser User { get; init; }
+    public virtual MyUser User { get; init; }
     
-    public abstract class Exercise
-    {
-        public required string Name { get; set; } 
-        public ushort Sets { get; set; }         
-        public ushort Reps { get; set; }  
-    }
+    
+}
+
+public  class WourkoutExercise
+{
+    public required string Name { get; init; } 
+    public ushort Sets { get; init; }         
+    public ushort Reps { get; init; }  
 }

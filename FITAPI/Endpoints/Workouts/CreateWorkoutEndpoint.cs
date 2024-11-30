@@ -1,18 +1,19 @@
 using FastEndpoints;
-using FITAPI.Application.DTOs.Requests;
 using FITAPI.Application.DTOs.Requests.Workouts;
+using FITAPI.Application.Services.Workouts;
 
 namespace FITAPI.Endpoints.Workouts;
 
-public class CreateWorkoutEndpoint : Endpoint<CreateWorkoutRequest>
+public class CreateWorkoutEndpoint(IWorkoutService workoutService) : Endpoint<CreateWorkoutRequest>
 {
     public override void Configure()
     {
         Post("/create-workout");
     }
 
-    public override Task HandleAsync(CreateWorkoutRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CreateWorkoutRequest req, CancellationToken ct)
     {
-        return base.HandleAsync(req, ct);
+        await workoutService.CreateWorkoutAsync(req, ct);
+        await SendAsync("Workout Created", cancellation: ct);
     }
 }

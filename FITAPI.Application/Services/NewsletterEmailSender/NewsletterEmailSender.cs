@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Mail;
-using FITAPI.Application.Configurations;
 using FITAPI.Domain.Configurations;
 using Microsoft.Extensions.Configuration;
 

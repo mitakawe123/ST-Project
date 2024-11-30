@@ -1,5 +1,4 @@
 using FastEndpoints;
-using FITAPI.Application.DTOs.Requests;
 using FITAPI.Application.DTOs.Requests.Newsletter;
 using FITAPI.Application.Services.NewsletterEmailSender;
 

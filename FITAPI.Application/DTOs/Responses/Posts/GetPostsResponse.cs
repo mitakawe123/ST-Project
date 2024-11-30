@@ -1,5 +1,4 @@
 using FITAPI.Domain.DTOs;
-using FITAPI.Domain.Models;
 
 namespace FITAPI.Application.DTOs.Responses.Posts;
 
