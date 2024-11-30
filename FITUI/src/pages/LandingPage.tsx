@@ -6,16 +6,19 @@ import { SyntheticEvent, useState } from "react";
 import { useNewsletterMutation } from "@/app/api/newsletter/newsletterApi";
 import Barbbell from "../assets/barbbel.svg";
 import useToast from "@/app/hooks/useToast";
+import { useLoaderContext } from "@/app/context/LoaderContext";
 
 export default function LandingPage() {
 	const [email, setEmail] = useState<string>("");
 
+	const { startLoading, stopLoading } = useLoaderContext();
 	const { showToast } = useToast();
 
 	const [newsletter, {}] = useNewsletterMutation();
 
 	async function sendNewsletter(event: SyntheticEvent) {
 		event.preventDefault();
+		startLoading();
 
 		try {
 			await newsletter({
@@ -30,6 +33,8 @@ export default function LandingPage() {
 				"There is problem with email sending please try again later",
 				"error"
 			);
+		} finally {
+			stopLoading();
 		}
 	}
 
@@ -181,7 +186,7 @@ export default function LandingPage() {
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}
 									/>
-									<Button type="submit">Sign Up</Button>
+									<Button type="submit">Send Newsletter</Button>
 								</form>
 								<p className="text-xs text-muted-foreground">
 									By signing up, you agree to our
