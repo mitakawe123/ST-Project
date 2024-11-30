@@ -22,4 +22,8 @@
     <ProjectReference Include="..\FITAPI.Infrastructure\FITAPI.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Endpoints\HealthTracker\" />
+  </ItemGroup>
+
 </Project>

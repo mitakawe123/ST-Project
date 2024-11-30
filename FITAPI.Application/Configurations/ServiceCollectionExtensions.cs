@@ -4,6 +4,7 @@ using FITAPI.Application.Services.Contact;
 using FITAPI.Application.Services.Exercises.ExerciseBaseInfo;
 using FITAPI.Application.Services.Exercises.ExerciseCategory;
 using FITAPI.Application.Services.Exercises.ExerciseSearch;
+using FITAPI.Application.Services.HealthTracker;
 using FITAPI.Application.Services.NewsletterEmailSender;
 using FITAPI.Application.Services.Posts;
 using FITAPI.Application.Services.Workouts;
@@ -25,6 +26,7 @@ public static class  ServiceCollectionExtensions
             .AddScoped<IPostsService, PostsService>()
             .AddScoped<ICommentsService, CommentsService>()
             .AddScoped<IContactService, ContactService>()
+            .AddScoped<IHealthTrackerService, HealthTrackerService>()
             .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();
     }
     
