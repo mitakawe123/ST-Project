@@ -12,6 +12,8 @@ public class FoodsConfiguration : IEntityTypeConfiguration<Foods>
         builder.ToTable(nameof(Foods).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
         
         builder.HasKey(x => x.Id);
+
+        builder.HasIndex(x => x.LoggedAt);
         
         builder.Property(f => f.UserFoodsJson)
             .HasColumnType("jsonb")
@@ -21,6 +23,7 @@ public class FoodsConfiguration : IEntityTypeConfiguration<Foods>
             .HasOne(f => f.User)
             .WithMany()
             .HasForeignKey(f => f.UserId)
+            .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

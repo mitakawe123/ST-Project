@@ -6,7 +6,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { Food } from "@/interfaces/api/health-tracker/response/food-search.interface";
 import {
 	useFoodLogMutation,
 	useSearchFoodMutation,
@@ -19,6 +18,7 @@ import useToast from "@/app/hooks/useToast";
 import { ScrollArea } from "../ui/scroll-area";
 import { getUser } from "@/utils/utils";
 import { useLoaderContext } from "@/app/context/LoaderContext";
+import { Food } from "@/interfaces/api/health-tracker/shared/food.interface";
 
 const FoodSection: React.FC = () => {
 	const [foodName, setFoodName] = useState("");

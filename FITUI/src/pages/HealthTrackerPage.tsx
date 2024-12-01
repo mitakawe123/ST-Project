@@ -6,18 +6,10 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Utensils, Droplet, Moon, Activity } from "lucide-react";
-import useToast from "@/app/hooks/useToast";
-import { useLoaderContext } from "@/app/context/LoaderContext";
-import { useSearchFoodMutation } from "@/app/api/health-tracker/healthTrackerApi";
 import FoodSection from "@/components/health-tracker/FoodSection";
 import LoggedFoodSection from "@/components/health-tracker/LoggedFoodSection";
-
-type FoodEntry = {
-	id: string;
-	name: string;
-	calories: number;
-	timestamp: Date;
-};
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 type WaterEntry = {
 	id: string;
@@ -40,7 +32,6 @@ type ExerciseEntry = {
 };
 
 export default function HealthTracker() {
-	const [foodEntries, setFoodEntries] = useState<FoodEntry[]>([]);
 	const [waterEntries, setWaterEntries] = useState<WaterEntry[]>([]);
 	const [sleepEntries, setSleepEntries] = useState<SleepEntry[]>([]);
 	const [exerciseEntries, setExerciseEntries] = useState<ExerciseEntry[]>([]);
@@ -50,6 +41,10 @@ export default function HealthTracker() {
 	const [exerciseName, setExerciseName] = useState("");
 	const [exerciseDuration, setExerciseDuration] = useState("");
 	const [exerciseCaloriesBurned, setExerciseCaloriesBurned] = useState("");
+
+	const foodEntries = useSelector(
+		(state: RootState) => state.foodSlice.entries
+	);
 
 	const handleAddWater = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -123,7 +118,9 @@ export default function HealthTracker() {
 						<Utensils className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-bold">{totalCaloriesConsumed}</div>
+						<div className="text-2xl font-bold">
+							{totalCaloriesConsumed.toFixed(0)}
+						</div>
 						<Progress
 							value={(totalCaloriesConsumed / 2000) * 100}
 							className="mt-2"

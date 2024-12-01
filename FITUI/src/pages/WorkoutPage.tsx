@@ -156,7 +156,6 @@ export default function WorkoutPage() {
 
 	//this are only tests need to implement them
 	const handleEdit = (id: number) => {
-		console.log(`Edit workout with id: ${id}`);
 	};
 
 	const [starredWorkouts, setStarredWorkouts] = useState<number[]>([]);

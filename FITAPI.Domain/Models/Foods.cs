@@ -8,7 +8,7 @@ namespace FITAPI.Domain.Models
     {
         public long Id { get; init; }
         
-        public DateTime LogedAt { get; init; } = DateTime.UtcNow;
+        public DateTime LoggedAt { get; init; } = DateTime.UtcNow;
 
         public string UserFoodsJson { get; init; } = string.Empty;
 

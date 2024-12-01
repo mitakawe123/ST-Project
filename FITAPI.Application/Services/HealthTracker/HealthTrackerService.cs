@@ -7,6 +7,7 @@ using FITAPI.Domain.Constants;
 using FITAPI.Domain.Models;
 using FITAPI.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -80,5 +81,22 @@ public class HealthTrackerService(
             UserFoods = request.Foods
         });
         await context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<LoggedFoodResponse>> GetLoggedFoodAsync(LoggedFoodRequest request, CancellationToken cancellationToken)
+    {
+        var user = await userManager.FindByEmailAsync(request.Email)
+            ?? throw new NullReferenceException("User does not exist");
+
+        var foodsGroupedByDate = await context.Foods
+            .Where(x => x.UserId == user.Id)
+            .GroupBy(x => x.LoggedAt.Date)
+            .ToListAsync(cancellationToken);
+
+        return foodsGroupedByDate
+            .Select(x => new LoggedFoodResponse(
+                x.Key,
+                x.SelectMany(foods => foods.UserFoods).ToList()))
+            .ToList();
     }
 }

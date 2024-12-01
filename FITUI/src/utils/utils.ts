@@ -26,7 +26,6 @@ export function formatSocialMediaDate(date: Date) {
 	} else if (diffDays === 1) {
 		return "Yesterday";
 	} else if (isSameWeek(givenDate, now)) {
-		console.log("sdad");
 		return "This week";
 	} else if (diffDays <= 14) {
 		return "Last week";

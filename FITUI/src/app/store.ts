@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { fitApi } from "./api/auth/authApi";
+import foodReducer from "./slices/health-tracker/foodSlice";
 
 export const store = configureStore({
 	reducer: {
+		foodSlice: foodReducer,
 		[fitApi.reducerPath]: fitApi.reducer,
 	},
 	// Adding the api middleware enables caching, invalidation, polling,

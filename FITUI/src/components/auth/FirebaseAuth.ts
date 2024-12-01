@@ -39,7 +39,6 @@ async function getGoogleIdToken(): Promise<string> {
 async function getGithubIdToken(): Promise<string> {
 	try {
 		const result: UserCredential = await signInWithPopup(auth, githubProvider);
-		console.log(result);
 		return await result.user.getIdToken();
 	} catch (error) {
 		if (

@@ -8,4 +8,6 @@ public interface IHealthTrackerService
     Task<FoodSearchResponse> GetFoodsAsync(FoodSearchRequest request, CancellationToken cancellationToken);
     
     Task SaveFoodsAsync(SaveFoodLogRequest request, CancellationToken cancellationToken);
+    
+    Task<IReadOnlyCollection<LoggedFoodResponse>> GetLoggedFoodAsync(LoggedFoodRequest request, CancellationToken cancellationToken);
 }
