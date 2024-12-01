@@ -10,12 +10,7 @@ import FoodSection from "@/components/health-tracker/FoodSection";
 import LoggedFoodSection from "@/components/health-tracker/LoggedFoodSection";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
-
-type WaterEntry = {
-	id: string;
-	amount: number;
-	timestamp: Date;
-};
+import WaterSection from "@/components/health-tracker/WaterSection";
 
 type SleepEntry = {
 	id: string;
@@ -32,9 +27,9 @@ type ExerciseEntry = {
 };
 
 export default function HealthTracker() {
-	const [waterEntries, setWaterEntries] = useState<WaterEntry[]>([]);
 	const [sleepEntries, setSleepEntries] = useState<SleepEntry[]>([]);
 	const [exerciseEntries, setExerciseEntries] = useState<ExerciseEntry[]>([]);
+	const [waterEntries, setWaterEntries] = useState([]);
 
 	const [waterAmount, setWaterAmount] = useState("");
 	const [sleepHours, setSleepHours] = useState("");
@@ -45,19 +40,6 @@ export default function HealthTracker() {
 	const foodEntries = useSelector(
 		(state: RootState) => state.foodSlice.entries
 	);
-
-	const handleAddWater = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (waterAmount) {
-			const newWater: WaterEntry = {
-				id: Date.now().toString(),
-				amount: parseInt(waterAmount),
-				timestamp: new Date(),
-			};
-			setWaterEntries([...waterEntries, newWater]);
-			setWaterAmount("");
-		}
-	};
 
 	const handleAddSleep = (e: FormEvent) => {
 		e.preventDefault();
@@ -93,14 +75,17 @@ export default function HealthTracker() {
 		(sum, entry) => sum + entry.calories,
 		0
 	);
+
 	const totalWaterConsumed = waterEntries.reduce(
 		(sum, entry) => sum + entry.amount,
 		0
 	);
+
 	const totalSleepHours = sleepEntries.reduce(
 		(sum, entry) => sum + entry.hours,
 		0
 	);
+
 	const totalCaloriesBurned = exerciseEntries.reduce(
 		(sum, entry) => sum + entry.caloriesBurned,
 		0
@@ -170,7 +155,7 @@ export default function HealthTracker() {
 					<TabsTrigger value="logged-food">Logged Food</TabsTrigger>
 					<TabsTrigger value="water">Water</TabsTrigger>
 					<TabsTrigger value="sleep">Sleep</TabsTrigger>
-					<TabsTrigger value="exercise">Exercise</TabsTrigger>
+					<TabsTrigger value="exercise">Cardio</TabsTrigger>
 				</TabsList>
 				<TabsContent value="food">
 					<FoodSection />
@@ -179,41 +164,7 @@ export default function HealthTracker() {
 					<LoggedFoodSection />
 				</TabsContent>
 				<TabsContent value="water">
-					<Card>
-						<CardHeader>
-							<CardTitle>Track Water</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<form onSubmit={handleAddWater} className="space-y-4">
-								<div className="grid gap-2">
-									<Label htmlFor="water-amount">Water Amount (ml)</Label>
-									<Input
-										id="water-amount"
-										type="number"
-										value={waterAmount}
-										onChange={(e) => setWaterAmount(e.target.value)}
-										placeholder="e.g., 250"
-										required
-									/>
-								</div>
-								<Button type="submit">Add Water</Button>
-							</form>
-							<div className="mt-4">
-								<h3 className="font-semibold mb-2">Today's Water Log</h3>
-								<ul className="space-y-2">
-									{waterEntries.map((entry) => (
-										<li
-											key={entry.id}
-											className="flex justify-between items-center"
-										>
-											<span>{entry.amount} ml</span>
-											<span>{entry.timestamp.toLocaleTimeString()}</span>
-										</li>
-									))}
-								</ul>
-							</div>
-						</CardContent>
-					</Card>
+					<WaterSection />
 				</TabsContent>
 				<TabsContent value="sleep">
 					<Card>

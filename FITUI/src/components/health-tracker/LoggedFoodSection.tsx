@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Food } from "@/interfaces/api/health-tracker/shared/food.interface";
 import { useDispatch } from "react-redux";
-import { addFoods } from "@/app/slices/health-tracker/foodSlice";
+import { addFoodEntries } from "@/app/slices/health-tracker/foodSlice";
 
 const LoggedFoodSection: FC = () => {
 	const dispatch = useDispatch();
@@ -14,9 +14,14 @@ const LoggedFoodSection: FC = () => {
 		data: loggedFood,
 		isLoading,
 		error,
-	} = useLoggedFoodQuery({
-		Email: user.Email,
-	});
+	} = useLoggedFoodQuery(
+		{
+			Email: user.Email,
+		},
+		{
+			refetchOnMountOrArgChange: true,
+		}
+	);
 
 	const groupedFoods = useMemo(() => {
 		if (!loggedFood) return {};
@@ -42,7 +47,7 @@ const LoggedFoodSection: FC = () => {
 			}))
 		);
 
-		dispatch(addFoods(newFoodEntries));
+		dispatch(addFoodEntries(newFoodEntries));
 	}, [loggedFood, dispatch]);
 
 	const calculateDailyTotals = (foods: Food[]) => {

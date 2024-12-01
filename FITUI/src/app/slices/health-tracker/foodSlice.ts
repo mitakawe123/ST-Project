@@ -18,12 +18,12 @@ const foodSlice = createSlice({
 	name: "foodSlice",
 	initialState,
 	reducers: {
-		addFoods(state, action: PayloadAction<FoodEntry[]>) {
-			state.entries = [...state.entries, ...action.payload];
+		addFoodEntries(state, action: PayloadAction<FoodEntry[]>) {
+			state.entries = action.payload;
 		},
 	},
 });
 
-export const { addFoods } = foodSlice.actions;
+export const { addFoodEntries } = foodSlice.actions;
 
 export default foodSlice.reducer;

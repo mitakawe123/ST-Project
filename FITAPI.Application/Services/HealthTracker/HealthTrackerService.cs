@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Text.Json;
 using FITAPI.Application.DTOs.Requests.HealthTracker;
@@ -98,5 +99,10 @@ public class HealthTrackerService(
                 x.Key,
                 x.SelectMany(foods => foods.UserFoods).ToList()))
             .ToList();
+    }
+
+    public async Task<IReadOnlyCollection<LoggedWaterResponse>> GetLoggedWaterAsync(LoggedWaterRequest request, CancellationToken cancellationToken)
+    {
+        return new Collection<LoggedWaterResponse>();
     }
 }
