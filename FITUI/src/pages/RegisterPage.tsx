@@ -13,7 +13,10 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { Github, Loader2, Mail } from "lucide-react";
 import { useRegisterMutation } from "@/app/api/auth/authApi";
-import { getGithubIdToken, getGoogleIdToken } from "@/components/FirebaseAuth";
+import {
+	getGithubIdToken,
+	getGoogleIdToken,
+} from "@/components/auth/FirebaseAuth";
 import {
 	useGithubAuthMutation,
 	useGoogleAuthMutation,

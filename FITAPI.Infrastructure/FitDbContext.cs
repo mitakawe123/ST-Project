@@ -11,6 +11,8 @@ public class FitDbContext : IdentityDbContext<MyUser>
     public DbSet<Posts> Posts { get; init; }
     
     public DbSet<Comments> Comments { get; init; }
+    
+    public DbSet<Foods> Foods { get; init; }
 
     public FitDbContext()
     {

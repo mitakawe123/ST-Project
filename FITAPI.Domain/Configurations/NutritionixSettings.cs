@@ -8,5 +8,5 @@ public class NutritionixSettings
     public required string XAppId { get; init; }
     
     [JsonPropertyName("x-app-key")]
-    public required string XApiKey { get; init; }
+    public required string XAppKey { get; init; }
 }

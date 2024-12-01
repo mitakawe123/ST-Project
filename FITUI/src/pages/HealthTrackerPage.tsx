@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -6,6 +6,11 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Utensils, Droplet, Moon, Activity } from "lucide-react";
+import useToast from "@/app/hooks/useToast";
+import { useLoaderContext } from "@/app/context/LoaderContext";
+import { useSearchFoodMutation } from "@/app/api/health-tracker/healthTrackerApi";
+import FoodSection from "@/components/health-tracker/FoodSection";
+import LoggedFoodSection from "@/components/health-tracker/LoggedFoodSection";
 
 type FoodEntry = {
 	id: string;
@@ -40,28 +45,11 @@ export default function HealthTracker() {
 	const [sleepEntries, setSleepEntries] = useState<SleepEntry[]>([]);
 	const [exerciseEntries, setExerciseEntries] = useState<ExerciseEntry[]>([]);
 
-	const [foodName, setFoodName] = useState("");
-	const [foodCalories, setFoodCalories] = useState("");
 	const [waterAmount, setWaterAmount] = useState("");
 	const [sleepHours, setSleepHours] = useState("");
 	const [exerciseName, setExerciseName] = useState("");
 	const [exerciseDuration, setExerciseDuration] = useState("");
 	const [exerciseCaloriesBurned, setExerciseCaloriesBurned] = useState("");
-
-	const handleAddFood = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (foodName && foodCalories) {
-			const newFood: FoodEntry = {
-				id: Date.now().toString(),
-				name: foodName,
-				calories: parseInt(foodCalories),
-				timestamp: new Date(),
-			};
-			setFoodEntries([...foodEntries, newFood]);
-			setFoodName("");
-			setFoodCalories("");
-		}
-	};
 
 	const handleAddWater = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -76,7 +64,7 @@ export default function HealthTracker() {
 		}
 	};
 
-	const handleAddSleep = (e: React.FormEvent) => {
+	const handleAddSleep = (e: FormEvent) => {
 		e.preventDefault();
 		if (sleepHours) {
 			const newSleep: SleepEntry = {
@@ -89,7 +77,7 @@ export default function HealthTracker() {
 		}
 	};
 
-	const handleAddExercise = (e: React.FormEvent) => {
+	const handleAddExercise = (e: FormEvent) => {
 		e.preventDefault();
 		if (exerciseName && exerciseDuration && exerciseCaloriesBurned) {
 			const newExercise: ExerciseEntry = {
@@ -182,56 +170,16 @@ export default function HealthTracker() {
 			<Tabs defaultValue="food">
 				<TabsList className="mb-4">
 					<TabsTrigger value="food">Food</TabsTrigger>
+					<TabsTrigger value="logged-food">Logged Food</TabsTrigger>
 					<TabsTrigger value="water">Water</TabsTrigger>
 					<TabsTrigger value="sleep">Sleep</TabsTrigger>
 					<TabsTrigger value="exercise">Exercise</TabsTrigger>
 				</TabsList>
 				<TabsContent value="food">
-					<Card>
-						<CardHeader>
-							<CardTitle>Track Food</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<form onSubmit={handleAddFood} className="space-y-4">
-								<div className="grid gap-2">
-									<Label htmlFor="food-name">Food Name</Label>
-									<Input
-										id="food-name"
-										value={foodName}
-										onChange={(e) => setFoodName(e.target.value)}
-										placeholder="e.g., Apple"
-										required
-									/>
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="food-calories">Calories</Label>
-									<Input
-										id="food-calories"
-										type="number"
-										value={foodCalories}
-										onChange={(e) => setFoodCalories(e.target.value)}
-										placeholder="e.g., 95"
-										required
-									/>
-								</div>
-								<Button type="submit">Add Food</Button>
-							</form>
-							<div className="mt-4">
-								<h3 className="font-semibold mb-2">Today's Food Log</h3>
-								<ul className="space-y-2">
-									{foodEntries.map((entry) => (
-										<li
-											key={entry.id}
-											className="flex justify-between items-center"
-										>
-											<span>{entry.name}</span>
-											<span>{entry.calories} cal</span>
-										</li>
-									))}
-								</ul>
-							</div>
-						</CardContent>
-					</Card>
+					<FoodSection />
+				</TabsContent>
+				<TabsContent value="logged-food">
+					<LoggedFoodSection />
 				</TabsContent>
 				<TabsContent value="water">
 					<Card>

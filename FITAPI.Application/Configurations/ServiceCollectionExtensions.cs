@@ -19,6 +19,7 @@ public static class  ServiceCollectionExtensions
         services.AddHttpClient<IExerciseBaseInfo, ExerciseBaseInfo>();
         services.AddHttpClient<IExerciseCategory, ExerciseCategory>();
         services.AddHttpClient<IExerciseSearch, ExerciseSearch>();
+        services.AddHttpClient<IHealthTrackerService, HealthTrackerService>();
 
         return services
             .AddScoped<IAuthService, AuthService>()
@@ -26,7 +27,6 @@ public static class  ServiceCollectionExtensions
             .AddScoped<IPostsService, PostsService>()
             .AddScoped<ICommentsService, CommentsService>()
             .AddScoped<IContactService, ContactService>()
-            .AddScoped<IHealthTrackerService, HealthTrackerService>()
             .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();
     }
     

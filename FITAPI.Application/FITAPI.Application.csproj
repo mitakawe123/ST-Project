@@ -35,8 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Requests\HealthTracker\" />
-    <Folder Include="DTOs\Responses\HealthTracker\" />
     <Folder Include="Services\Exercises\" />
   </ItemGroup>
 
