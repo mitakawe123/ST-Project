@@ -13,9 +13,9 @@ type FluidEntry = {
 };
 
 type SleepEntry = {
-	id: string;
+	id: number;
 	hours: number;
-	timestamp: Date;
+	type: number;
 };
 
 interface State {
@@ -46,6 +46,7 @@ const foodSlice = createSlice({
 	},
 });
 
-export const { addFoodEntries, addFluidsEntries } = foodSlice.actions;
+export const { addFoodEntries, addFluidsEntries, addSleepEntries } =
+	foodSlice.actions;
 
 export default foodSlice.reducer;

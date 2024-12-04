@@ -8,6 +8,9 @@ import { LoggedFoodRequest } from "@/interfaces/api/health-tracker/request/logge
 import { AddFluidsRequest } from "@/interfaces/api/health-tracker/request/add-fluids.interface";
 import { LoggedFluidsResponse } from "@/interfaces/api/health-tracker/response/logged-fluids.interface";
 import { LoggedFluidsRequest } from "@/interfaces/api/health-tracker/request/logged-fluids.interface";
+import { AddSleepRequest } from "@/interfaces/api/health-tracker/request/add-sleep.interface";
+import { LoggedSleepRequest } from "@/interfaces/api/health-tracker/request/logged-sleep.interface";
+import { LoggedSleepResponse } from "@/interfaces/api/health-tracker/response/logged-sleep.interface";
 
 const healthTrackerApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -30,6 +33,7 @@ const healthTrackerApi = fitApi.injectEndpoints({
 		}),
 		loggedFluids: build.query<LoggedFluidsResponse[], LoggedFluidsRequest>({
 			query: ({ Email }) => `/logged-fluids?Email=${Email}`,
+			providesTags: ["Fluids"],
 		}),
 		addFluids: build.mutation<void, AddFluidsRequest>({
 			query: (body) => ({
@@ -38,6 +42,18 @@ const healthTrackerApi = fitApi.injectEndpoints({
 				body: body,
 			}),
 			invalidatesTags: ["Fluids"],
+		}),
+		loggedSleep: build.query<LoggedSleepResponse[], LoggedSleepRequest>({
+			query: ({ Email }) => `/logged-sleep?Email=${Email}`,
+			providesTags: ["Sleep"],
+		}),
+		addSleep: build.mutation<void, AddSleepRequest>({
+			query: (body) => ({
+				url: "/add-sleep",
+				method: HttpMethod.POST.toString(),
+				body: body,
+			}),
+			invalidatesTags: ["Sleep"],
 		}),
 	}),
 });
@@ -48,4 +64,6 @@ export const {
 	useFoodLogMutation,
 	useAddFluidsMutation,
 	useLoggedFluidsQuery,
+	useAddSleepMutation,
+	useLoggedSleepQuery,
 } = healthTrackerApi;

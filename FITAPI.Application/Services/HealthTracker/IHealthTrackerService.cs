@@ -14,4 +14,8 @@ public interface IHealthTrackerService
     Task AddFluidsAsync(AddFluidsRequest request, CancellationToken cancellationToken);
     
     Task<IReadOnlyCollection<LoggedFluidsResponse>> GetLoggedFluidsAsync(LoggedFluidsRequest request, CancellationToken cancellationToken);
+
+    Task AddSleepAsync(AddSleepRequest request, CancellationToken cancellationToken);
+
+    Task<IReadOnlyCollection<LoggedSleepResponse>> GetLoggedSleepAsync(LoggedSleepRequest request, CancellationToken cancellationToken);
 }

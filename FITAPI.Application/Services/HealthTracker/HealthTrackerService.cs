@@ -134,35 +134,35 @@ public class HealthTrackerService(
             .ToList();
     }
     
-    // public async Task AddSleepAsync(AddSleepRequest request, CancellationToken cancellationToken)
-    // {
-    //     var user = await userManager.FindByEmailAsync(request.Email)
-    //                ?? throw new NullReferenceException("User does not exist");
-    //
-    //     context.Add(new Sleep
-    //     {
-    //         UserId = user.Id,
-    //         FluidTypeId = request.FluidTypeId,
-    //         Amount = request.Amount,
-    //     });
-    //     await context.SaveChangesAsync(cancellationToken);
-    // }
-    //
-    // public async Task<IReadOnlyCollection<LoggedFluidsResponse>> GetLoggedSleepAsync(LoggedSleepRequest request, CancellationToken cancellationToken)
-    // {
-    //     var user = await userManager.FindByEmailAsync(request.Email)
-    //                ?? throw new NullReferenceException("User does not exist");
-    //     
-    //     var fluidsGroupByDate = await context.Sleep
-    //         .AsNoTracking() 
-    //         .Where(x => x.UserId == user.Id)
-    //         .GroupBy(x => x.LoggedAt.Date)
-    //         .ToListAsync(cancellationToken);
-    //     
-    //     return fluidsGroupByDate
-    //         .Select(x => new LoggedSleepResponse(
-    //             x.Key,
-    //             x.Select(f => new Fluid(f.Id, f.Amount, f.FluidTypeId)).ToList()))
-    //         .ToList();
-    // }
+    public async Task AddSleepAsync(AddSleepRequest request, CancellationToken cancellationToken)
+    {
+        var user = await userManager.FindByEmailAsync(request.Email)
+                   ?? throw new NullReferenceException("User does not exist");
+    
+        context.Add(new Sleep
+        {
+            UserId = user.Id,
+            SleepTypeId = request.SleepTypeId,
+            Hours= request.Hours,
+        });
+        await context.SaveChangesAsync(cancellationToken);
+    }
+    
+    public async Task<IReadOnlyCollection<LoggedSleepResponse>> GetLoggedSleepAsync(LoggedSleepRequest request, CancellationToken cancellationToken)
+    {
+        var user = await userManager.FindByEmailAsync(request.Email)
+                   ?? throw new NullReferenceException("User does not exist");
+        
+        var sleepGroupByDate = await context.Sleep
+            .AsNoTracking() 
+            .Where(x => x.UserId == user.Id)
+            .GroupBy(x => x.LoggedAt.Date)
+            .ToListAsync(cancellationToken);
+        
+        return sleepGroupByDate
+            .Select(x => new LoggedSleepResponse(
+                x.Key,
+                x.Select(f => new SleepData(f.Id, f.Hours, f.SleepTypeId)).ToList()))
+            .ToList();
+    }
 }

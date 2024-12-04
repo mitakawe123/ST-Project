@@ -33,9 +33,14 @@ const FluidsSection = () => {
 
 	const dispatch = useDispatch();
 	const [addFluids] = useAddFluidsMutation();
-	const { data: fluids } = useLoggedFluidsQuery({
-		Email: user.Email,
-	});
+	const { data: fluids } = useLoggedFluidsQuery(
+		{
+			Email: user.Email,
+		},
+		{
+			refetchOnMountOrArgChange: true,
+		}
+	);
 
 	const handleAddFluid = async (e: FormEvent) => {
 		e.preventDefault();
