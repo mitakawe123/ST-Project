@@ -6,12 +6,28 @@ type FoodEntry = {
 	calories: number;
 };
 
-interface FoodState {
-	entries: FoodEntry[];
+type FluidEntry = {
+	id: number;
+	amount: number;
+	type: number;
+};
+
+type SleepEntry = {
+	id: string;
+	hours: number;
+	timestamp: Date;
+};
+
+interface State {
+	foodEntries: FoodEntry[];
+	fluidEntries: FluidEntry[];
+	sleepEntries: SleepEntry[];
 }
 
-const initialState: FoodState = {
-	entries: [],
+const initialState: State = {
+	fluidEntries: [],
+	foodEntries: [],
+	sleepEntries: [],
 };
 
 const foodSlice = createSlice({
@@ -19,11 +35,17 @@ const foodSlice = createSlice({
 	initialState,
 	reducers: {
 		addFoodEntries(state, action: PayloadAction<FoodEntry[]>) {
-			state.entries = action.payload;
+			state.foodEntries = action.payload;
+		},
+		addFluidsEntries(state, action: PayloadAction<FluidEntry[]>) {
+			state.fluidEntries = action.payload;
+		},
+		addSleepEntries(state, action: PayloadAction<SleepEntry[]>) {
+			state.sleepEntries = action.payload;
 		},
 	},
 });
 
-export const { addFoodEntries } = foodSlice.actions;
+export const { addFoodEntries, addFluidsEntries } = foodSlice.actions;
 
 export default foodSlice.reducer;

@@ -39,15 +39,26 @@ const LoggedFoodSection: FC = () => {
 	useEffect(() => {
 		if (!loggedFood) return;
 
-		const newFoodEntries = loggedFood.flatMap((entry) =>
-			entry.foods.map((food) => ({
-				id: crypto.randomUUID(),
-				name: food.food_name,
-				calories: food.nf_calories,
-			}))
-		);
+		// Get today's date (set time to 00:00:00 for comparison)
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
 
-		dispatch(addFoodEntries(newFoodEntries));
+		// Filter entries for today
+		const todayFoodEntries = loggedFood
+			.filter((entry) => {
+				const loggedDate = new Date(entry.loggedAt);
+				loggedDate.setHours(0, 0, 0, 0);
+				return loggedDate.getTime() === today.getTime();
+			})
+			.flatMap((entry) =>
+				entry.foods.map((food) => ({
+					id: crypto.randomUUID(),
+					name: food.food_name,
+					calories: food.nf_calories,
+				}))
+			);
+
+		dispatch(addFoodEntries(todayFoodEntries));
 	}, [loggedFood, dispatch]);
 
 	const calculateDailyTotals = (foods: Food[]) => {

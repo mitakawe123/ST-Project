@@ -13,6 +13,10 @@ public class FitDbContext : IdentityDbContext<MyUser>
     public DbSet<Comments> Comments { get; init; }
     
     public DbSet<Foods> Foods { get; init; }
+    
+    public DbSet<Fluids> Fluids { get; init; }
+    
+    public DbSet<Sleep> Sleep { get; init; }
 
     public FitDbContext()
     {

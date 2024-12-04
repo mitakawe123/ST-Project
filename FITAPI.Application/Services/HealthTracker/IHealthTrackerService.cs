@@ -11,5 +11,7 @@ public interface IHealthTrackerService
     
     Task<IReadOnlyCollection<LoggedFoodResponse>> GetLoggedFoodAsync(LoggedFoodRequest request, CancellationToken cancellationToken);
     
-    Task<IReadOnlyCollection<LoggedWaterResponse>> GetLoggedWaterAsync(LoggedWaterRequest request, CancellationToken cancellationToken);
+    Task AddFluidsAsync(AddFluidsRequest request, CancellationToken cancellationToken);
+    
+    Task<IReadOnlyCollection<LoggedFluidsResponse>> GetLoggedFluidsAsync(LoggedFluidsRequest request, CancellationToken cancellationToken);
 }
