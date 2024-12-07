@@ -1,0 +1,82 @@
+# Node modules (React)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+*.tgz
+
+# Build output (React)
+build/
+dist/
+
+# Logs (React)
+*.log
+*.log.*
+
+# Environment files (React)
+.env
+.env.local
+.env.*.local
+
+# React cache
+.cache/
+
+# Visual Studio (ASP.NET)
+.vs/
+.vscode/
+.idea/
+
+# ASP.NET Core build outputs
+bin/
+obj/
+
+# ASP.NET Core user secrets
+secrets/
+
+# ASP.NET Core related files
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+appsettings.*.json
+
+# ASP.NET Core Entity Framework migrations
+Migrations/
+
+# User-specific files (IDE settings)
+# JetBrains Rider
+.idea/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# macOS Finder metadata
+.DS_Store
+
+# Windows Thumbs.db
+Thumbs.db
+
+# ASP.NET Core specific temp files
+# Npm packages lock (in case you're using yarn or npm for both frontend and backend)
+package-lock.json
+yarn.lock
+
+# Debugging files (ASP.NET)
+*.pdb
+
+# ASP.NET Core published output (for deployment)
+publish/
+
+# VS Code settings (if using it)
+.vscode/
+
+# JetBrains Rider (if using)
+.idea/
+
+# Visual Studio for Mac
+.vscode/
+
+# FastEndpoints specific (No direct ignore, but if you're storing any secrets or temp files)
