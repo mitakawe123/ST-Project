@@ -11,7 +11,9 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="FakeItEasy" Version="8.3.0" />
     <PackageReference Include="FastEndpoints" Version="5.32.0" />
+    <PackageReference Include="FastEndpoints.Testing" Version="5.32.0" />
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
@@ -21,6 +23,12 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FITAPI.Application\FITAPI.Application.csproj" />
+    <ProjectReference Include="..\FITAPI.Domain\FITAPI.Domain.csproj" />
+    <ProjectReference Include="..\FITAPI\FITAPI.csproj" />
   </ItemGroup>
 
 </Project>

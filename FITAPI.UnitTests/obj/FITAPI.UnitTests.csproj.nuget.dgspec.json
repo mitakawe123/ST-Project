@@ -1,29 +1,110 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj": {}
+    "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj": {
+    "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
-        "projectName": "FITAPI.UnitTests",
-        "projectPath": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
-        "packagesPath": "C:\\Users\\dimitar.kyuchukov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimitar.kyuchukov\\source\\repos\\ST-Project\\FITAPI.UnitTests\\obj\\",
+        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj",
+        "projectName": "FITAPI.Application",
+        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj",
+        "packagesPath": "/home/mitakawe/.nuget/packages/",
+        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
-          "C:\\Users\\dimitar.kyuchukov\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://artifactory.kubdev.com/artifactory/api/nuget/v3/ews-nuget": {}
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj"
+              },
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FastEndpoints.Security": {
+              "target": "Package",
+              "version": "[5.30.0, )"
+            },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24473.5, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24473.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj",
+        "projectName": "FITAPI.Domain",
+        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj",
+        "packagesPath": "/home/mitakawe/.nuget/packages/",
+        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -35,18 +116,177 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24474.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj",
+        "projectName": "FITAPI.Infrastructure",
+        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj",
+        "packagesPath": "/home/mitakawe/.nuget/packages/",
+        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24474.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj",
+        "projectName": "FITAPI.UnitTests",
+        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj",
+        "packagesPath": "/home/mitakawe/.nuget/packages/",
+        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/obj/",
+        "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj"
+              },
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj"
+              },
+              "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FakeItEasy": {
+              "target": "Package",
+              "version": "[8.3.0, )"
+            },
             "FastEndpoints": {
+              "target": "Package",
+              "version": "[5.32.0, )"
+            },
+            "FastEndpoints.Testing": {
               "target": "Package",
               "version": "[5.32.0, )"
             },
@@ -91,7 +331,95 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj",
+        "projectName": "FITAPI",
+        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj",
+        "packagesPath": "/home/mitakawe/.nuget/packages/",
+        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/obj/",
+        "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj"
+              },
+              "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj": {
+                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FastEndpoints": {
+              "target": "Package",
+              "version": "[5.30.0, )"
+            },
+            "FastEndpoints.Security": {
+              "target": "Package",
+              "version": "[5.30.0, )"
+            },
+            "FastEndpoints.Swagger": {
+              "target": "Package",
+              "version": "[5.30.0, )"
+            },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
