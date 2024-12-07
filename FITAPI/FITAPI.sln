@@ -5,11 +5,13 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FITAPI", "FITAPI.csproj", "{C33B9CA4-28BB-4D47-AABC-C99E7FF614C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FITAPI.Domain", "..\FITAPI.Domain\FITAPI.Domain.csproj", "{E0EB91C9-F1D4-47C6-879F-B0AE75291F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FITAPI.Domain", "..\FITAPI.Domain\FITAPI.Domain.csproj", "{E0EB91C9-F1D4-47C6-879F-B0AE75291F82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FITAPI.Application", "..\FITAPI.Application\FITAPI.Application.csproj", "{676DD578-15D0-4FAA-8AD3-3C92D3DB10A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FITAPI.Application", "..\FITAPI.Application\FITAPI.Application.csproj", "{676DD578-15D0-4FAA-8AD3-3C92D3DB10A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FITAPI.Infrastructure", "..\FITAPI.Infrastructure\FITAPI.Infrastructure.csproj", "{E914C2F9-25A3-49ED-95E3-15ED65E9B7C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FITAPI.Infrastructure", "..\FITAPI.Infrastructure\FITAPI.Infrastructure.csproj", "{E914C2F9-25A3-49ED-95E3-15ED65E9B7C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FITAPI.UnitTests", "..\FITAPI.UnitTests\FITAPI.UnitTests.csproj", "{12B83E74-C517-4391-957E-60D892117951}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E914C2F9-25A3-49ED-95E3-15ED65E9B7C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E914C2F9-25A3-49ED-95E3-15ED65E9B7C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E914C2F9-25A3-49ED-95E3-15ED65E9B7C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12B83E74-C517-4391-957E-60D892117951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B83E74-C517-4391-957E-60D892117951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B83E74-C517-4391-957E-60D892117951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B83E74-C517-4391-957E-60D892117951}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
