@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FITAPI.UnitTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c057680e861294fa191ff8aa9563bdbd0961a40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42fa3c54a6aceb21bfdc374e33385af63bce8e12")]
 [assembly: System.Reflection.AssemblyProductAttribute("FITAPI.UnitTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FITAPI.UnitTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

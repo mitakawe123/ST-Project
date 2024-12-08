@@ -2,28 +2,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using FITAPI.Domain.DTOs;
 
-namespace FITAPI.Domain.Models
+namespace FITAPI.Domain.Models;
+
+public class Foods
 {
-    public class Foods
-    {
-        public long Id { get; init; }
+    public long Id { get; init; }
         
-        public DateTime LoggedAt { get; init; } = DateTime.UtcNow;
+    public DateTime LoggedAt { get; init; } = DateTime.UtcNow;
 
-        public string UserFoodsJson { get; init; } = string.Empty;
+    public string UserFoodsJson { get; init; } = string.Empty;
 
-        [NotMapped]
-        public ICollection<FoodDto> UserFoods 
-        { 
-            get =>
-                string.IsNullOrEmpty(UserFoodsJson) 
-                    ? []
-                    : JsonSerializer.Deserialize<List<FoodDto>>(UserFoodsJson) ?? [];
-            init => UserFoodsJson = JsonSerializer.Serialize(value);
-        }
-        
-        public required string UserId { get; init; }
-
-        public virtual MyUser User { get; init; }
+    [NotMapped]
+    public ICollection<FoodDto> UserFoods 
+    { 
+        get =>
+            string.IsNullOrEmpty(UserFoodsJson) 
+                ? []
+                : JsonSerializer.Deserialize<List<FoodDto>>(UserFoodsJson) ?? [];
+        init => UserFoodsJson = JsonSerializer.Serialize(value);
     }
+        
+    public required string UserId { get; init; }
+
+    public virtual MyUser User { get; init; }
 }

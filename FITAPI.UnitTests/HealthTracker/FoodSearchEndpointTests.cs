@@ -22,7 +22,7 @@ public class FoodSearchEndpointTests
         {
             Foods =
             [
-                new FoodDto()
+                new FoodDto
                 {
                     FoodName = "Apple",
                     BrandName = "Generic",
@@ -57,7 +57,7 @@ public class FoodSearchEndpointTests
 
         Assert.False(ep.ValidationFailed);
 
-        var response = ep.Response as FoodSearchResponse;
+        var response = ep.Response;
         Assert.NotNull(response);
         Assert.Single(response.Foods);
         Assert.Equal("Apple", response.Foods[0].FoodName);
