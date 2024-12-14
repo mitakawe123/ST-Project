@@ -68,4 +68,22 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
                 x.Exercises ?? new List<WorkoutExercise>()))
             .ToListAsync(cancellationToken);
     }
+
+    public async Task EditWorkoutAsync(EditWorkoutRequest request, CancellationToken cancellationToken)
+    {
+        var workout = await context.Workouts
+            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+    
+        if (workout is null)
+            throw new ArgumentNullException($"Workout not found {request.Id}");
+
+        workout.Name = string.IsNullOrEmpty(request.Title) ? workout.Name : request.Title;
+        workout.Description = string.IsNullOrEmpty(request.Description) ? workout.Description : request.Description;
+
+        if (request.Exercises is not null && request.Exercises.Count != 0)
+            workout.ExercisesJson = JsonSerializer.Serialize(request.Exercises);
+
+        context.Workouts.Update(workout);
+        await context.SaveChangesAsync(cancellationToken);
+    }
 }   

@@ -8,11 +8,11 @@ public class Workouts
 {
     public long Id { get; init; }
     
-    public required string Name { get; init; }
+    public required string Name { get; set; }
     
-    public required string Description { get; init; }
+    public required string Description { get; set; }
     
-    public required string ExercisesJson { get; init; }
+    public required string ExercisesJson { get; set; }
 
     [NotMapped] 
     public List<WorkoutExercise>? Exercises =>

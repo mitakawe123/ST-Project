@@ -9,4 +9,5 @@ public interface IWorkoutService
     Task<IReadOnlyCollection<MyWorkoutsResponse>> GetMyWorkoutsAsync(MyWorkoutsRequest request, CancellationToken cancellationToken);
     Task DeleteMyWorkoutAsync(DeleteMyWorkoutRequest request, CancellationToken cancellationToken);
     Task<IReadOnlyCollection<TopWorkoutsResponse>> GetTopWorkoutsAsync(TopWorkoutsRequest request, CancellationToken cancellationToken);
+    Task EditWorkoutAsync(EditWorkoutRequest request, CancellationToken cancellationToken);
 }

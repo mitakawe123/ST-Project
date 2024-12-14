@@ -21,6 +21,7 @@ import { PlusCircle, Dumbbell, Pencil, Trash2, Star } from "lucide-react";
 import {
 	useCreateWorkoutMutation,
 	useDeleteMyWorkoutMutation,
+	useEditWorkoutMutation,
 	useExerciseSearchQuery,
 	useMyWorkoutsQuery,
 	useTopWorkoutsQuery,
@@ -28,6 +29,8 @@ import {
 import { getUser } from "@/utils/utils";
 import useToast from "@/app/hooks/useToast";
 import { useLoaderContext } from "@/app/context/LoaderContext";
+import { EditWorkoutModal } from "@/components/workout/EditWorkoutModal";
+import { MyWorkoutsResponse } from "@/interfaces/api/workouts/response/my-workouts.interface";
 
 interface Exercise {
 	name: string;
@@ -44,11 +47,14 @@ export default function WorkoutPage() {
 	const [exercises, setExercises] = useState<Exercise[]>([]);
 	const [filteredExercises, setFilteredExercises] = useState<string[]>([]);
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [isEditingWorkout, setIsEditingWorkout] = useState(false);
+
 	const user = getUser();
 	const { startLoading, stopLoading } = useLoaderContext();
 	const { showToast } = useToast();
 
 	const [createWorkout] = useCreateWorkoutMutation();
+	const [editWorkout] = useEditWorkoutMutation();
 	const [deleteMyWorkout] = useDeleteMyWorkoutMutation();
 	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
 		Term: exerciseName,
@@ -154,8 +160,19 @@ export default function WorkoutPage() {
 		stopLoading();
 	};
 
-	//this are only tests need to implement them
-	const handleEdit = (id: number) => {
+	const handleEdit = async (workout: MyWorkoutsResponse) => {
+		startLoading();
+
+		await editWorkout({
+			Id: workout.id,
+			Title: workout.workoutName,
+			Description: workout.workoutDescription,
+			Exercises: workout.exercises,
+		});
+
+		showToast("Successfully edit workout", "success");
+
+		stopLoading();
 	};
 
 	const [starredWorkouts, setStarredWorkouts] = useState<number[]>([]);
@@ -304,7 +321,7 @@ export default function WorkoutPage() {
 												<Button
 													variant="outline"
 													size="sm"
-													onClick={() => handleEdit(workout.id)}
+													onClick={() => setIsEditingWorkout(true)}
 												>
 													<Pencil className="w-4 h-4 mr-2" />
 													Edit
@@ -318,6 +335,12 @@ export default function WorkoutPage() {
 													Delete
 												</Button>
 											</div>
+											<EditWorkoutModal
+												isOpen={isEditingWorkout}
+												onClose={() => setIsEditingWorkout(false)}
+												onEdit={handleEdit}
+												workout={workout}
+											/>
 										</div>
 									</CardHeader>
 									<CardContent>
@@ -380,7 +403,7 @@ export default function WorkoutPage() {
 												<li key={index} className="flex items-center">
 													<Dumbbell className="w-4 h-4 mr-2 text-muted-foreground" />
 													<span>
-														{exercise.name} - {exercise.sets} sets of{" "}
+														{exercise.name} - {exercise.sets} sets of
 														{exercise.reps} reps
 													</span>
 												</li>

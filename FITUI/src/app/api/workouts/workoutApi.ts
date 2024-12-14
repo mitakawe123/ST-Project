@@ -7,6 +7,7 @@ import { MyWorkoutsResponse } from "@/interfaces/api/workouts/response/my-workou
 import { DeleteMyWorkoutRequest } from "@/interfaces/api/workouts/requests/delete-my-workout.interface";
 import { TopWorkoutsResponse } from "@/interfaces/api/workouts/response/top-workouts.interface";
 import { TopWorkoutsRequest } from "@/interfaces/api/workouts/requests/top-workouts.interface";
+import { EditWorkoutRequest } from "@/interfaces/api/workouts/requests/edit-workout.interface";
 
 const workoutApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -35,6 +36,14 @@ const workoutApi = fitApi.injectEndpoints({
 		topWorkouts: build.query<TopWorkoutsResponse[], TopWorkoutsRequest>({
 			query: ({ Email }) => `/top-workouts?Email=${encodeURIComponent(Email)}`,
 		}),
+		editWorkout: build.mutation<void, EditWorkoutRequest>({
+			query: (body) => ({
+				url: "/edit-workout",
+				method: HttpMethod.PATCH.toString(),
+				body: body,
+			}),
+			invalidatesTags: ["Workouts"],
+		}),
 	}),
 });
 
@@ -44,4 +53,5 @@ export const {
 	useTopWorkoutsQuery,
 	useCreateWorkoutMutation,
 	useDeleteMyWorkoutMutation,
+	useEditWorkoutMutation,
 } = workoutApi;
