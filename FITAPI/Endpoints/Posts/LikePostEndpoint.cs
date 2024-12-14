@@ -8,7 +8,7 @@ public class LikePostEndpoint(IPostsService postsService) : Endpoint<LikePostReq
 {
     public override void Configure()
     {
-        Patch("posts/like");
+        Patch("/like-post");
     }
 
     public override async Task HandleAsync(LikePostRequest req, CancellationToken ct)

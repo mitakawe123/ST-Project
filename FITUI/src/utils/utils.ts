@@ -51,3 +51,12 @@ export function getUser(): User {
 	// Parse the JSON
 	return JSON.parse(decodedPayload);
 }
+
+export const convertToBase64 = (file: File): Promise<string> => {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onloadend = () => resolve(reader.result as string);
+		reader.onerror = (error) => reject(error);
+		reader.readAsDataURL(file);
+	});
+};

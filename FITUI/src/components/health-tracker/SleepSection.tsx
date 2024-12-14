@@ -55,6 +55,7 @@ const SleepSection = () => {
 		});
 
 		showToast("Sleep added to log", "success");
+		setSleepHours("");
 
 		stopLoading();
 	};

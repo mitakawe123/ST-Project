@@ -6,11 +6,13 @@ import { UpdatePostRequest } from "@/interfaces/api/posts/requests/update-post.i
 import { DeletePostRequest } from "@/interfaces/api/posts/requests/delete-post.interface";
 import { MyPostsRequest } from "@/interfaces/api/posts/requests/my-posts.interface";
 import { AllPostsRequest } from "@/interfaces/api/posts/requests/all-posts.interface";
+import { LikePostRequest } from "@/interfaces/api/posts/requests/like-post.interface";
 
 const postsApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({
 		allPosts: build.query<Post[], AllPostsRequest>({
 			query: ({ Email }) => `/posts?Email=${encodeURIComponent(Email)}`,
+			providesTags: ["Posts"],
 		}),
 		allMyPosts: build.query<Post[], MyPostsRequest>({
 			query: ({ Email }) => `/my-posts?Email=${encodeURIComponent(Email)}`,
@@ -35,6 +37,17 @@ const postsApi = fitApi.injectEndpoints({
 				method: HttpMethod.DELETE.toString(),
 			}),
 		}),
+		likePost: build.mutation<void, LikePostRequest>({
+			query: (body) => ({
+				url: "/like-post",
+				method: HttpMethod.PATCH.toString(),
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: body,
+			}),
+			invalidatesTags: ["Posts"],
+		}),
 	}),
 });
 
@@ -44,4 +57,5 @@ export const {
 	useCreatePostMutation,
 	useUpdatePostMutation,
 	useDeletePostMutation,
+	useLikePostMutation,
 } = postsApi;

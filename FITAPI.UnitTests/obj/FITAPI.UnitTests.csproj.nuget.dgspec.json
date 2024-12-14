@@ -13,7 +13,6 @@
         "packagesPath": "/home/mitakawe/.nuget/packages/",
         "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/mitakawe/.nuget/NuGet/NuGet.Config"
         ],
@@ -96,7 +95,6 @@
         "packagesPath": "/home/mitakawe/.nuget/packages/",
         "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/mitakawe/.nuget/NuGet/NuGet.Config"
         ],
@@ -156,7 +154,6 @@
         "packagesPath": "/home/mitakawe/.nuget/packages/",
         "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/mitakawe/.nuget/NuGet/NuGet.Config"
         ],
@@ -242,7 +239,6 @@
         "packagesPath": "/home/mitakawe/.nuget/packages/",
         "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/mitakawe/.nuget/NuGet/NuGet.Config"
         ],
@@ -344,7 +340,6 @@
         "packagesPath": "/home/mitakawe/.nuget/packages/",
         "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/mitakawe/.nuget/NuGet/NuGet.Config"
         ],

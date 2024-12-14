@@ -11296,7 +11296,6 @@
       "packagesPath": "/home/mitakawe/.nuget/packages/",
       "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/obj/",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/home/mitakawe/.nuget/NuGet/NuGet.Config"
       ],

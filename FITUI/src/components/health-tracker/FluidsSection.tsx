@@ -24,7 +24,7 @@ enum FluidType {
 }
 
 const FluidsSection = () => {
-	const [waterAmount, setWaterAmount] = useState("");
+	const [fluidAmount, setFluidAmount] = useState("");
 	const [fluidType, setFluidType] = useState<FluidType>(FluidType.Water);
 
 	const user = getUser();
@@ -48,11 +48,12 @@ const FluidsSection = () => {
 
 		await addFluids({
 			email: user.Email,
-			amount: parseFloat(waterAmount),
+			amount: parseFloat(fluidAmount),
 			fluidTypeId: Number(fluidType),
 		});
 
 		showToast("Fluid added to log", "success");
+		setFluidAmount("");
 
 		stopLoading();
 	};
@@ -126,8 +127,8 @@ const FluidsSection = () => {
 						<Input
 							id="water-amount"
 							type="number"
-							value={waterAmount}
-							onChange={(e) => setWaterAmount(e.target.value)}
+							value={fluidAmount}
+							onChange={(e) => setFluidAmount(e.target.value)}
 							placeholder="e.g., 250"
 							required
 						/>
