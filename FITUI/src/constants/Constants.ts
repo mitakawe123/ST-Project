@@ -1,4 +1,4 @@
-export const ApiUrl: string = "https://localhost:7116/api";
+export const ApiUrl: string = "http://localhost:5205/api"; //debugging purposes
 
 export const FirebaseErrorAlreadyHaveAnAccount =
 	"auth/account-exists-with-different-credential";
