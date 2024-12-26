@@ -2,18 +2,18 @@
 
 public static class AppConstants
 {
-    public static class WgerConstants
+    public static class Wger
     {
         public const string Url = "https://wger.de/api/v2";
     }
 
-    public static class NutritionixConstants
+    public static class Nutritionix
     {
         public const string Url = "https://trackapi.nutritionix.com/v2";
     }
 
-    public static class DatabaseConstants
+    public static class Database
     {
-        public const string FitapiSchema = "fitapi";
+        public const string Schema = "fitapi";
     }
 }

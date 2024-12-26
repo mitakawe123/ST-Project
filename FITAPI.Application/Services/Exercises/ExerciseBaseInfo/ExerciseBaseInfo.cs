@@ -16,7 +16,7 @@ public class ExerciseBaseInfo(HttpClient httpClient, ILogger<ExerciseBaseInfo> l
     {
         try
         {
-            var response = await httpClient.GetAsync($"{AppConstants.WgerConstants.Url}/exercisebaseinfo");
+            var response = await httpClient.GetAsync($"{AppConstants.Wger.Url}/exercisebaseinfo");
             response.EnsureSuccessStatusCode();
             
             var jsonResponse = await response.Content.ReadAsStringAsync();

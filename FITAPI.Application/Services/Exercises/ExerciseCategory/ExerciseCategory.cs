@@ -16,7 +16,7 @@ public class ExerciseCategory(HttpClient httpClient, ILogger<ExerciseCategory> l
     {
         try
         {
-            var response = await httpClient.GetAsync($"{AppConstants.WgerConstants.Url}/exercisecategory");
+            var response = await httpClient.GetAsync($"{AppConstants.Wger.Url}/exercisecategory");
             response.EnsureSuccessStatusCode();
         
             var jsonResponse = await response.Content.ReadAsStringAsync();

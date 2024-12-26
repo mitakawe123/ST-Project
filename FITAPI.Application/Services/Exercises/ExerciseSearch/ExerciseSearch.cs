@@ -19,7 +19,7 @@ public class ExerciseSearch(HttpClient httpClient, ILogger<ExerciseSearch> logge
             if (string.IsNullOrEmpty(term))
                 return new ExerciseSearchDto();
             
-            var uri = new UriBuilder($"{AppConstants.WgerConstants.Url}/exercise/search?language=en&term={term}");
+            var uri = new UriBuilder($"{AppConstants.Wger.Url}/exercise/search?language=en&term={term}");
             
             var response = await httpClient.GetAsync(uri.ToString(), cancellationToken);
             response.EnsureSuccessStatusCode();

@@ -9,7 +9,7 @@ public class FluidsConfiguration : IEntityTypeConfiguration<Fluids>
 {
     public void Configure(EntityTypeBuilder<Fluids> builder)
     {
-        builder.ToTable(nameof(Fluids).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
+        builder.ToTable(nameof(Fluids).ToLower(), schema: AppConstants.Database.Schema);
         
         builder.HasKey(x => x.Id);
 

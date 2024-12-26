@@ -9,7 +9,7 @@ public class PostsConfiguration : IEntityTypeConfiguration<Posts>
 {
     public void Configure(EntityTypeBuilder<Posts> builder)
     {
-        builder.ToTable(nameof(Posts).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
+        builder.ToTable(nameof(Posts).ToLower(), schema: AppConstants.Database.Schema);
         
         builder.HasKey(x => x.Id);
         

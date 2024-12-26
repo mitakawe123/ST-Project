@@ -9,7 +9,7 @@ public class CommentsConfiguration : IEntityTypeConfiguration<Comments>
 {
     public void Configure(EntityTypeBuilder<Comments> builder)
     {
-        builder.ToTable(nameof(Comments).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
+        builder.ToTable(nameof(Comments).ToLower(), schema: AppConstants.Database.Schema);
         
         builder.HasKey(x => x.Id);
         

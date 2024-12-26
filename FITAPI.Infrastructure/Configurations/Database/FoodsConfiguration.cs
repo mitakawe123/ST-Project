@@ -9,7 +9,7 @@ public class FoodsConfiguration : IEntityTypeConfiguration<Foods>
 {
     public void Configure(EntityTypeBuilder<Foods> builder)
     {
-        builder.ToTable(nameof(Foods).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
+        builder.ToTable(nameof(Foods).ToLower(), schema: AppConstants.Database.Schema);
         
         builder.HasKey(x => x.Id);
 

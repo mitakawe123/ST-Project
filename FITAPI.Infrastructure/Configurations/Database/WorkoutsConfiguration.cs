@@ -9,7 +9,7 @@ public class WorkoutsConfiguration : IEntityTypeConfiguration<Workouts>
 {
     public void Configure(EntityTypeBuilder<Workouts> builder)
     {
-        builder.ToTable(nameof(Workouts).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
+        builder.ToTable(nameof(Workouts).ToLower(), schema: AppConstants.Database.Schema);
 
         builder.HasKey(w => w.Id); 
 

@@ -37,7 +37,7 @@ public class HealthTrackerService(
             if (string.IsNullOrWhiteSpace(query))
                 return new FoodSearchResponse();
 
-            var uri = new Uri($"{AppConstants.NutritionixConstants.Url}/natural/nutrients");
+            var uri = new Uri($"{AppConstants.Nutritionix.Url}/natural/nutrients");
 
             var requestBody = new { query = query };
             var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");

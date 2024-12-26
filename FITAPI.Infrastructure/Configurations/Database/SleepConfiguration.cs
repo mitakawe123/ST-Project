@@ -9,7 +9,7 @@ public class SleepConfiguration : IEntityTypeConfiguration<Sleep>
 {
     public void Configure(EntityTypeBuilder<Sleep> builder)
     {
-        builder.ToTable(nameof(Sleep).ToLower(), schema: AppConstants.DatabaseConstants.FitapiSchema);
+        builder.ToTable(nameof(Sleep).ToLower(), schema: AppConstants.Database.Schema);
         
         builder.HasKey(x => x.Id);
 
