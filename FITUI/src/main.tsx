@@ -12,6 +12,7 @@ import AboutPage from "./pages/AboutPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
 import ProtectedRoute from "./configurations/ProtectedRoute.tsx";
 import { LoaderProvider } from "./app/context/LoaderContext.tsx";
 import { ToastContainer } from "react-toastify";
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
 				path: "/contact",
 				element: <ContactPage />,
 			},
+			{
+				path: "/profile",
+				element: <ProfilePage />,
+			}
 		],
 	},
 ]);

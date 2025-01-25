@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { fitApi } from "./api/auth/authApi";
 import foodReducer from "./slices/health-tracker/foodSlice";
-
+import profileReducer from "./slices/profile/profileSlice";
 export const store = configureStore({
 	reducer: {
 		foodSlice: foodReducer,
 		[fitApi.reducerPath]: fitApi.reducer,
+		profileSlice: profileReducer,
 	},
 	// Adding the api middleware enables caching, invalidation, polling,
 	// and other useful features of `rtk-query`.

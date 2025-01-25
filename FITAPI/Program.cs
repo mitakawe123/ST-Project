@@ -12,10 +12,10 @@ var bld = WebApplication.CreateBuilder();
 var jwtConfig  = bld.Configuration.GetSection(nameof(JwtConfiguration)).Get<JwtConfiguration>() ??
                  throw new NullReferenceException(nameof(JwtConfiguration));
 
-FirebaseApp.Create(new AppOptions
+/*FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromFile("../../fitconnect-af4b6-firebase-adminsdk-no0dz-df8250c3be.json")
-});
+});*/
 
 bld.Services
     .AddInfrastructureServices(bld.Configuration)

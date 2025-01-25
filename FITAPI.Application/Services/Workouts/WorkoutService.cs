@@ -25,6 +25,7 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
             UserId = user.Id,
             Description = request.Description,
             Name = request.WorkoutName,
+            LoggedAt = DateTime.UtcNow,
             ExercisesJson = JsonSerializer.Serialize(exercises)
         });
         
@@ -38,7 +39,7 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
 
         return await context.Workouts
             .Where(x => x.UserId == user.Id)
-            .Select(x => new MyWorkoutsResponse(x.Id, x.Name, x.Description, x.Exercises ?? new List<WorkoutExercise>()))
+            .Select(x => new MyWorkoutsResponse(x.Id, x.Name, x.Description, x.LoggedAt,x.Exercises  ?? new List<WorkoutExercise>()))
             .ToListAsync(cancellationToken);
     }
 

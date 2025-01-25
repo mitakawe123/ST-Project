@@ -1,36 +1,42 @@
 {
   "format": 1,
   "restore": {
-    "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj": {}
+    "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj": {}
   },
   "projects": {
-    "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj": {
+    "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj",
+        "projectUniqueName": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj",
         "projectName": "FITAPI.Application",
-        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj",
-        "packagesPath": "/home/mitakawe/.nuget/packages/",
-        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/obj/",
+        "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj",
+        "packagesPath": "C:\\Users\\ablag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ablag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj"
               },
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj"
               }
             }
           }
@@ -43,7 +49,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -88,26 +94,32 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/mitakawe/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
+    "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj",
+        "projectUniqueName": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj",
         "projectName": "FITAPI.Domain",
-        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj",
-        "packagesPath": "/home/mitakawe/.nuget/packages/",
-        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/obj/",
+        "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj",
+        "packagesPath": "C:\\Users\\ablag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ablag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -124,7 +136,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -153,34 +165,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/mitakawe/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj": {
+    "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj",
         "projectName": "FITAPI.Infrastructure",
-        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj",
-        "packagesPath": "/home/mitakawe/.nuget/packages/",
-        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/obj/",
+        "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\ablag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ablag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj"
               }
             }
           }
@@ -193,7 +211,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -244,40 +262,46 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/mitakawe/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj": {
+    "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj",
+        "projectUniqueName": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
         "projectName": "FITAPI.UnitTests",
-        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/FITAPI.UnitTests.csproj",
-        "packagesPath": "/home/mitakawe/.nuget/packages/",
-        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.UnitTests/obj/",
+        "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
+        "packagesPath": "C:\\Users\\ablag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.UnitTests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ablag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj"
               },
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Domain/FITAPI.Domain.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj"
               },
-              "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI\\FITAPI.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI\\FITAPI.csproj"
               }
             }
           }
@@ -290,7 +314,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -351,37 +375,43 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/mitakawe/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj": {
+    "D:\\Projects\\ST_Project\\ST-Project\\FITAPI\\FITAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj",
+        "projectUniqueName": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI\\FITAPI.csproj",
         "projectName": "FITAPI",
-        "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/FITAPI.csproj",
-        "packagesPath": "/home/mitakawe/.nuget/packages/",
-        "outputPath": "/home/mitakawe/Desktop/ST-Project/FITAPI/obj/",
+        "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI\\FITAPI.csproj",
+        "packagesPath": "C:\\Users\\ablag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/mitakawe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ablag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Application/FITAPI.Application.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj"
               },
-              "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj": {
-                "projectPath": "/home/mitakawe/Desktop/ST-Project/FITAPI.Infrastructure/FITAPI.Infrastructure.csproj"
+              "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\ST_Project\\ST-Project\\FITAPI.Infrastructure\\FITAPI.Infrastructure.csproj"
               }
             }
           }
@@ -394,7 +424,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -444,7 +474,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/mitakawe/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

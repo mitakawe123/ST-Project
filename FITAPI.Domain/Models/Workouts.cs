@@ -14,6 +14,8 @@ public class Workouts
     
     public required string ExercisesJson { get; set; }
 
+    public required DateTime LoggedAt { get; set; } = DateTime.UtcNow;
+
     [NotMapped] 
     public List<WorkoutExercise>? Exercises =>
         string.IsNullOrEmpty(ExercisesJson) 

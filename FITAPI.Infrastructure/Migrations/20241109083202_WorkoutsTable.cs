@@ -19,6 +19,7 @@ namespace FITAPI.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Exercises = table.Column<string>(type: "jsonb", nullable: false),
+                    LoggedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
