@@ -7,12 +7,13 @@ using FITAPI.Application.Services.Exercises.ExerciseSearch;
 using FITAPI.Application.Services.HealthTracker;
 using FITAPI.Application.Services.NewsletterEmailSender;
 using FITAPI.Application.Services.Posts;
+using FITAPI.Application.Services.Profile;
 using FITAPI.Application.Services.Workouts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FITAPI.Application.Configurations;
 
-public static class  ServiceCollectionExtensions
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
@@ -27,9 +28,10 @@ public static class  ServiceCollectionExtensions
             .AddScoped<IPostsService, PostsService>()
             .AddScoped<ICommentsService, CommentsService>()
             .AddScoped<IContactService, ContactService>()
+            .AddScoped<IProfileService, ProfileService>()
             .AddSingleton<INewsletterEmailSender, NewsletterEmailSender>();
     }
-    
+
     public static IServiceCollection AddCorsServices(this IServiceCollection services)
     {
         return services.AddCors(options =>

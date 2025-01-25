@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FITAPI.Application.DTOs.Requests.Profile;
-
-public record GetFluidsRequest([FromQuery] string Email);
+namespace FITAPI.Application.DTOs.Requests.Profile
+{
+    public record GetProfileRequest([FromQuery] string Email);
+}

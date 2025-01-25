@@ -1,7 +1,6 @@
 ﻿using FITAPI.Application.DTOs.Requests.HealthTracker;
 using FITAPI.Application.DTOs.Requests.Profile;
-using FITAPI.Application.DTOs.Requests.Workouts;
-using FITAPI.Application.DTOs.Responses.Profile;
+using FITAPI.Application.DTOs.Responses.HealthTracker;
 using FITAPI.Application.DTOs.Responses.Workouts;
 using System;
 using System.Collections.Generic;
@@ -11,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace FITAPI.Application.Services.Profile
 {
-    internal interface IProfileService
+    public interface IProfileService
     {
-        Task<IReadOnlyCollection<GetFoodResponse>> GetLoggedFoodAsync(GetFoodRequest request, CancellationToken cancellationToken);
-        Task<IReadOnlyCollection<GetFluidsResponse>> GetLoggedFluidsAsync(GetFluidsRequest request, CancellationToken cancellationToken);
-        Task<IReadOnlyCollection<GetWorkoutResponse>> GetMyWorkoutsAsync(GetWorkoutRequest request, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<LoggedFluidsResponse>> GetLoggedFluidsByDateAsync(LoggedFluidsByDateRequest request, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<LoggedSleepResponse>> GetLoggedSleepByDateAsync(LoggedSleepByDateRequest request, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<LoggedFoodResponse>> GetLoggedFoodByDateAsync(LoggedFoodByDateRequest request, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<MyWorkoutsResponse>> GetMyWorkoutsByDateAsync(MyWorkoutsByDateRequest request, CancellationToken cancellationToken);
     }
 }

@@ -6,4 +6,5 @@ public record MyWorkoutsResponse(
     long Id,
     string WorkoutName,
     string WorkoutDescription,
+    DateTime LoggedAt,
     IReadOnlyCollection<WorkoutExercise> Exercises);
