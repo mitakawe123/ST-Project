@@ -11081,23 +11081,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Niki\\.nuget\\packages\\": {},
+    "C:\\Users\\Textile\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
+      "projectUniqueName": "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
       "projectName": "FITAPI.UnitTests",
-      "projectPath": "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
-      "packagesPath": "C:\\Users\\Niki\\.nuget\\packages\\",
-      "outputPath": "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.UnitTests\\obj\\",
+      "projectPath": "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.UnitTests\\FITAPI.UnitTests.csproj",
+      "packagesPath": "C:\\Users\\Textile\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.UnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Niki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Textile\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11106,21 +11106,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj": {
-              "projectPath": "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj"
+            "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj": {
+              "projectPath": "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.Application\\FITAPI.Application.csproj"
             },
-            "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj": {
-              "projectPath": "E:\\GitProjects\\StProject\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj"
+            "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj": {
+              "projectPath": "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI.Domain\\FITAPI.Domain.csproj"
             },
-            "E:\\GitProjects\\StProject\\ST-Project\\FITAPI\\FITAPI.csproj": {
-              "projectPath": "E:\\GitProjects\\StProject\\ST-Project\\FITAPI\\FITAPI.csproj"
+            "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI\\FITAPI.csproj": {
+              "projectPath": "C:\\Users\\Textile\\Desktop\\FitConnect v.1.0.0\\ST-Project\\FITAPI\\FITAPI.csproj"
             }
           }
         }
