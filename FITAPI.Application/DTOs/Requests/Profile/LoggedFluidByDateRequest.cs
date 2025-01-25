@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace FITAPI.Application.DTOs.Requests.Profile
 {
-    public record GetProfileRequest([FromQuery] string Email);
+    public record LoggedFluidsByDateRequest([FromQuery] string Email, [FromQuery] DateTime? Date = null);
 }

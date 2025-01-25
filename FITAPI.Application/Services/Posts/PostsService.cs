@@ -1,4 +1,4 @@
-using FITAPI.Application.DTOs.Requests.Posts;
+    using FITAPI.Application.DTOs.Requests.Posts;
 using FITAPI.Application.DTOs.Responses.Posts;
 using FITAPI.Domain.DTOs;
 using FITAPI.Domain.Models;
