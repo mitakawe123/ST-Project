@@ -22,6 +22,7 @@ import { formatSocialMediaDate, getUser } from "@/utils/utils";
 import { useCreateCommentMutation } from "@/app/api/comments/commentsApi";
 import useToast from "@/app/hooks/useToast";
 import type { Post } from "@/interfaces/api/posts/response/posts.interface";
+import { Link } from "react-router-dom";
 
 interface PostProps {
     post: Post,
@@ -86,7 +87,12 @@ const Post: React.FC<PostProps> = ({ post, isMine }) => {
                     <AvatarFallback />
                 </Avatar>
                 <div>
-                    <h3 className="font-semibold">{user.Email}</h3>
+                    <Link
+                        className="font-semibold text-blue-500 hover:underline"
+                        to={`/profile?email=${encodeURIComponent(post.userEmail)}`}
+                    >
+                        {post.username}
+                    </Link>
                     <p className="text-sm text-gray-500">
                         {formatSocialMediaDate(post.createdAt)}
                     </p>

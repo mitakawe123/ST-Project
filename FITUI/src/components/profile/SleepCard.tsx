@@ -16,14 +16,14 @@ enum SleepType {
 
 interface SleepCardProps {
     selectedDate: Date;
+    email: string;
 }
 
-const SleepCard: React.FC<SleepCardProps> = ({ selectedDate }) => {
-    const user = getUser();
+const SleepCard: React.FC<SleepCardProps> = ({ selectedDate, email }) => {
     const dispatch = useDispatch();
     const { data: loggedSleep } = useLoggedSleepByDateQuery(
         {
-            Email: user.Email,
+            Email: email,
             date: selectedDate,
         },
         { refetchOnMountOrArgChange: true }

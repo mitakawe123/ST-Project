@@ -13,11 +13,16 @@ import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { RootState } from "@/app/store";
 
 import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import PersonList from '@/components/post/post-lists/PersonList';
 
 
 
 const ProfilePage: React.FC = () => {
   const user = getUser();
+  const [searchParams] = useSearchParams();
+  const emailQuery = searchParams.get("email");
+  const isMine = emailQuery === user.Email;
 
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
     const today = new Date();
@@ -35,7 +40,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Welcome, {user.Email}</h1>
+      {isMine ? <h1 className="text-3xl font-bold mb-6">Welcome, {user.Email}</h1> : <h1 className="text-3xl font-bold mb-6">{emailQuery}'s profile</h1>}
       <div className="mb-4">
         <label htmlFor="date" className="block text-sm font-medium text-gray-700">
           Select Date:
@@ -50,21 +55,21 @@ const ProfilePage: React.FC = () => {
       <h2 className="text-2xl font-bold mb-6">Your stats for {selectedDate.toDateString()}</h2>
 
       <div className="grid gap-4 lg:grid-cols-3 mb-8">
-        <FoodCard selectedDate={selectedDate} />
-        <FluidCard selectedDate={selectedDate} />
-        <SleepCard selectedDate={selectedDate} />
+        <FoodCard selectedDate={selectedDate} email={emailQuery || ''} />
+        <FluidCard selectedDate={selectedDate} email={emailQuery || ''} />
+        <SleepCard selectedDate={selectedDate} email={emailQuery || ''} />
       </div>
       <Tabs defaultValue="my-posts">
         <TabsList className="mb-4">
-          <TabsTrigger value="my-posts">My Posts</TabsTrigger>
+          <TabsTrigger value="my-posts">{isMine ? "My Posts" : `Posts`}</TabsTrigger>
           <TabsTrigger value="workouts">Workouts</TabsTrigger>
           <TabsTrigger value="food">Food Consumed</TabsTrigger>
         </TabsList>
         <TabsContent value="my-posts">
-          <MyPosts />
+          {isMine ? <MyPosts /> : emailQuery && <PersonList email={emailQuery} />}
         </TabsContent>
         <TabsContent value="workouts">
-          <WorkoutList selectedDate={selectedDate} />
+          <WorkoutList selectedDate={selectedDate} email={emailQuery || ''} isMine={isMine} />
         </TabsContent>
         <TabsContent value="food">
           <h2 className="text-2xl font-bold mb-4">Food Log History</h2>

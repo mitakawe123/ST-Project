@@ -12,9 +12,10 @@ import useToast from "@/app/hooks/useToast";
 
 interface WorkoutCardProps {
     workout: WorkoutEntry;
+    isMine: boolean;
 }
 
-const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout }) => {
+const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, isMine }) => {
     const [isEditingWorkout, setIsEditingWorkout] = useState<number | null>(null);
     const [deleteMyWorkout] = useDeleteMyWorkoutMutation();
     const [editWorkout] = useEditWorkoutMutation();
@@ -57,30 +58,32 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout }) => {
                             {workout.workoutDescription}
                         </CardDescription>
                     </div>
-                    <div className="flex space-x-2">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setIsEditingWorkout(workout.id)}
-                        >
-                            <Pencil className="w-4 h-4 mr-2" />
-                            Edit
-                        </Button>
-                        <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleWorkoutDelete(workout.id)}
-                        >
-                            <Trash2 className="w-4 h-4 mr-2" />
-                            Delete
-                        </Button>
-                    </div>
-                    <EditWorkoutModal
-                        isOpen={isEditingWorkout === workout.id}
-                        onClose={() => setIsEditingWorkout(null)}
-                        onEdit={handleWorkoutEdit}
-                        workout={workout}
-                    />
+                    {isMine && <div>
+                        <div className="flex space-x-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setIsEditingWorkout(workout.id)}
+                            >
+                                <Pencil className="w-4 h-4 mr-2" />
+                                Edit
+                            </Button>
+                            <Button
+                                variant="destructive"
+                                size="sm"
+                                onClick={() => handleWorkoutDelete(workout.id)}
+                            >
+                                <Trash2 className="w-4 h-4 mr-2" />
+                                Delete
+                            </Button>
+                        </div>
+                        <EditWorkoutModal
+                            isOpen={isEditingWorkout === workout.id}
+                            onClose={() => setIsEditingWorkout(null)}
+                            onEdit={handleWorkoutEdit}
+                            workout={workout}
+                        />
+                    </div>}
                 </div>
             </CardHeader>
             <CardContent>

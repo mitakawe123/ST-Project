@@ -8,13 +8,14 @@ import WorkoutCard from "./WorkoutCard";
 
 interface WorkoutListProps {
     selectedDate: Date;
+    email: string;
+    isMine: boolean;
 }
 
-const WorkoutList: React.FC<WorkoutListProps> = ({ selectedDate }) => {
-    const user = getUser();
+const WorkoutList: React.FC<WorkoutListProps> = ({ selectedDate, email, isMine }) => {
     const dispatch = useDispatch();
     const { data: myWorkouts } = useMyWorkoutsByDateQuery({
-        Email: user.Email,
+        Email: email,
         date: selectedDate
     });
 
@@ -41,11 +42,11 @@ const WorkoutList: React.FC<WorkoutListProps> = ({ selectedDate }) => {
         <>
             <h2 className="text-2xl font-bold mb-4">Your Workouts for {selectedDate.toDateString()}</h2>
             {myWorkouts?.length === 0 ? (
-                <p>You haven't created any workouts yet.</p>
+                <p>{isMine ? "You haven't created any workouts yet." : "No workouts"}</p>
             ) : (
                 <div className="space-y-4">
                     {workoutEntries?.map((workout: WorkoutEntry) => (
-                        <WorkoutCard key={workout.id} workout={workout} />
+                        <WorkoutCard key={workout.id} workout={workout} isMine={isMine} />
                     ))}
                 </div>
             )}

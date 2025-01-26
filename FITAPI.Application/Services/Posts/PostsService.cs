@@ -27,6 +27,8 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
                 p.User.AvatarImg,
                 p.Image,
                 p.CreatedAt,
+                p.User.UserName,
+                p.User.Email,
                 p.Likes,
                 p.Comments.Select(c => new CommentsDto(
                     c.Id,
@@ -55,6 +57,8 @@ public class PostsService(FitDbContext context, UserManager<MyUser> userManager)
                 p.User.AvatarImg,
                 p.Image,
                 p.CreatedAt,
+                p.User.UserName,
+                p.User.Email,
                 p.Likes,
                 p.Comments.Select(c => new CommentsDto(
                         c.Id,
