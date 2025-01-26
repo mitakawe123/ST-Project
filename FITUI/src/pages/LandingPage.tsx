@@ -7,6 +7,7 @@ import { useNewsletterMutation } from "@/app/api/newsletter/newsletterApi";
 import Barbbell from "../assets/barbbel.svg";
 import useToast from "@/app/hooks/useToast";
 import { useLoaderContext } from "@/app/context/LoaderContext";
+import { getUser } from "@/utils/utils";
 
 export default function LandingPage() {
 	const [email, setEmail] = useState<string>("");
@@ -14,7 +15,8 @@ export default function LandingPage() {
 	const { startLoading, stopLoading } = useLoaderContext();
 	const { showToast } = useToast();
 
-	const [newsletter, {}] = useNewsletterMutation();
+	const [newsletter, { }] = useNewsletterMutation();
+	const user = getUser();
 
 	async function sendNewsletter(event: SyntheticEvent) {
 		event.preventDefault();
@@ -46,6 +48,12 @@ export default function LandingPage() {
 					<span className="sr-only">FitConnect</span>
 				</a>
 				<nav className="ml-auto flex gap-4 sm:gap-6">
+					<Link
+						className="text-sm font-medium hover:underline underline-offset-4"
+						to={`/profile?email=${encodeURIComponent(user.Email)}`}
+					>
+						Profile
+					</Link>
 					<Link
 						className="text-sm font-medium hover:underline underline-offset-4"
 						to="/health-tracker"

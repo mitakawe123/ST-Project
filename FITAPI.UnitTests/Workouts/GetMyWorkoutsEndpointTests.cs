@@ -23,6 +23,7 @@ public class GetMyWorkoutsEndpointTests
                 Id: 1,
                 WorkoutName: "Morning Workout",
                 WorkoutDescription: "A great start to the day",
+                LoggedAt: DateTime.UtcNow,
                 Exercises: new List<WorkoutExercise>
                 {
                     new(Name: "Push-Up", Reps: 15, Sets: 3),
@@ -33,6 +34,7 @@ public class GetMyWorkoutsEndpointTests
                 Id: 2,
                 WorkoutName: "Evening Workout",
                 WorkoutDescription: "A good workout before bed",
+                 LoggedAt: DateTime.UtcNow,
                 Exercises: new List<WorkoutExercise>
                 {
                     new(Name: "Plank", Reps: 30, Sets: 3),

@@ -12,7 +12,7 @@ namespace FITAPI.Application.Services.Workouts;
 public class WorkoutService(FitDbContext context, UserManager<MyUser> userManager) : IWorkoutService
 {
     private const short TopWorkoutsLimit = 20;
-    
+
     public async Task CreateWorkoutAsync(CreateWorkoutRequest request, CancellationToken cancellationToken)
     {
         var user = await userManager.FindByEmailAsync(request.Email)
@@ -25,20 +25,21 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
             UserId = user.Id,
             Description = request.Description,
             Name = request.WorkoutName,
+            LoggedAt = DateTime.UtcNow,
             ExercisesJson = JsonSerializer.Serialize(exercises)
         });
-        
+
         await context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<IReadOnlyCollection<MyWorkoutsResponse>> GetMyWorkoutsAsync(MyWorkoutsRequest request, CancellationToken cancellationToken)
     {
-        var user  = await userManager.FindByEmailAsync(request.Email)
+        var user = await userManager.FindByEmailAsync(request.Email)
             ?? throw new Exception($"User with email {request.Email} does not exist");
 
         return await context.Workouts
             .Where(x => x.UserId == user.Id)
-            .Select(x => new MyWorkoutsResponse(x.Id, x.Name, x.Description, x.Exercises ?? new List<WorkoutExercise>()))
+            .Select(x => new MyWorkoutsResponse(x.Id, x.Name, x.Description, x.LoggedAt, x.Exercises ?? new List<WorkoutExercise>()))
             .ToListAsync(cancellationToken);
     }
 
@@ -61,10 +62,10 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
             .OrderBy(x => Guid.NewGuid()) // Randomize the order
             .Take(TopWorkoutsLimit) // Take the top N workouts
             .Select(x => new TopWorkoutsResponse(
-                x.Id, 
-                (x.User.UserName ?? x.User.Email) ?? string.Empty, 
+                x.Id,
+                (x.User.UserName ?? x.User.Email) ?? string.Empty,
                 x.Name,
-                x.Description, 
+                x.Description,
                 x.Exercises ?? new List<WorkoutExercise>()))
             .ToListAsync(cancellationToken);
     }
@@ -73,7 +74,7 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
     {
         var workout = await context.Workouts
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-    
+
         if (workout is null)
             throw new ArgumentNullException($"Workout not found {request.Id}");
 
@@ -86,4 +87,4 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
         context.Workouts.Update(workout);
         await context.SaveChangesAsync(cancellationToken);
     }
-}   
+}

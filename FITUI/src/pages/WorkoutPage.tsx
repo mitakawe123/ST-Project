@@ -19,12 +19,15 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlusCircle, Dumbbell, Pencil, Trash2, Star } from "lucide-react";
 import {
+	useCreateWorkoutGoalMutation,
 	useCreateWorkoutMutation,
 	useDeleteMyWorkoutMutation,
 	useEditWorkoutMutation,
 	useExerciseSearchQuery,
 	useMyWorkoutsQuery,
 	useTopWorkoutsQuery,
+	useMyGoalsQuery,
+	useTopGoalsQuery,
 } from "@/app/api/workouts/workoutApi";
 import { getUser } from "@/utils/utils";
 import useToast from "@/app/hooks/useToast";
@@ -36,6 +39,10 @@ interface Exercise {
 	name: string;
 	sets: number;
 	reps: number;
+}
+interface WorkoutGoal extends Exercise {
+	goalName: string;
+	description: string;
 }
 
 export default function WorkoutPage() {
@@ -49,11 +56,17 @@ export default function WorkoutPage() {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [isEditingWorkout, setIsEditingWorkout] = useState(false);
 
+	const [workoutGoals, setWorkoutGoals] = useState<WorkoutGoal[]>([]);
+	const [workoutGoalName, setWorkoutGoalName] = useState("");
+	const [wrokoutGoalDescription, setWorkoutGoalDescription] = useState("");
+
 	const user = getUser();
 	const { startLoading, stopLoading } = useLoaderContext();
 	const { showToast } = useToast();
 
 	const [createWorkout] = useCreateWorkoutMutation();
+	const [createWorkoutGoal] = useCreateWorkoutGoalMutation();
+
 	const [editWorkout] = useEditWorkoutMutation();
 	const [deleteMyWorkout] = useDeleteMyWorkoutMutation();
 	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
@@ -63,6 +76,13 @@ export default function WorkoutPage() {
 		Email: user.Email,
 	});
 	const { data: topWorkouts } = useTopWorkoutsQuery({
+		Email: user.Email,
+	});
+
+	const { data: myWorkoutGoals } = useMyGoalsQuery({
+		Email: user.Email,
+	});
+	const { data: topGoals } = useTopGoalsQuery({
 		Email: user.Email,
 	});
 
@@ -185,6 +205,25 @@ export default function WorkoutPage() {
 		);
 	};
 
+	const handleCreateWorkoutGoal = async (e: FormEvent) => {
+		e.preventDefault();
+		startLoading();
+
+		if (workoutGoals.length === 0) {
+			showToast(
+				"Please add at least one goal. We know you can achieve it!",
+				"info"
+			);
+			stopLoading();
+			return;
+		}
+
+		await createWorkoutGoal({
+			Email: user.Email,
+			goals: workoutGoals,
+		});
+	};
+
 	return (
 		<div className="container mx-auto p-4">
 			<h1 className="text-3xl font-bold mb-6">Workouts</h1>
@@ -192,7 +231,12 @@ export default function WorkoutPage() {
 				<TabsList className="mb-4">
 					<TabsTrigger value="create">Create Workout</TabsTrigger>
 					<TabsTrigger value="my-workouts">View Your Workouts</TabsTrigger>
-					<TabsTrigger value="top-workouts">View Workouts</TabsTrigger>
+					<TabsTrigger value="top-workouts">
+						View Community Workouts
+					</TabsTrigger>
+					<TabsTrigger value="create-goal">Create Goal</TabsTrigger>
+					<TabsTrigger value="my-goals">View your Goals</TabsTrigger>
+					<TabsTrigger value="workout-goals">View Community Goals</TabsTrigger>
 				</TabsList>
 				<TabsContent value="create">
 					<Card>
@@ -414,6 +458,32 @@ export default function WorkoutPage() {
 							))}
 						</div>
 					)}
+				</TabsContent>
+				<TabsContent value="create-goal">
+					<Card>
+						<CardHeader>
+							<CardTitle>Set Your Goal</CardTitle>
+							<CardDescription>
+								Design your custom
+								<span className="font-bold"> goals </span> in order never to
+								lose
+								<span className="font-bold"> motivation </span>
+								and always to be in <span className="font-bold"> shape </span>
+							</CardDescription>
+						</CardHeader>
+						<CardContent></CardContent>
+					</Card>
+				</TabsContent>
+
+				<TabsContent value="my-goals">
+					<h2 className="text-2xl font-bold mb-4">Your Goals</h2>
+					<Card>
+						<CardHeader>
+							<CardTitle> </CardTitle>
+							<CardDescription></CardDescription>
+						</CardHeader>
+						<CardContent></CardContent>
+					</Card>
 				</TabsContent>
 			</Tabs>
 		</div>
