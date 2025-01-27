@@ -1,5 +1,7 @@
-import { Exercise } from "./exercise.interface";
-export interface WorkoutGoal extends Exercise {
+export interface WorkoutGoal {
 	goalName: string;
-	description: string;
+	goalDescription: string;
+	goalSets: number;
+	goalReps: number;
+	goalWeight: number;
 }

@@ -28,6 +28,7 @@ import {
 	useTopWorkoutsQuery,
 	useMyGoalsQuery,
 	useTopGoalsQuery,
+	useGoalSearchQuery,
 } from "@/app/api/workouts/workoutApi";
 import { getUser } from "@/utils/utils";
 import useToast from "@/app/hooks/useToast";
@@ -40,9 +41,14 @@ interface Exercise {
 	sets: number;
 	reps: number;
 }
-interface WorkoutGoal extends Exercise {
+
+interface WorkoutGoal {
 	goalName: string;
-	description: string;
+	goalDescription: string;
+	exerciseName: string;
+	goalSets: number;
+	goalReps: number;
+	goalWeight: number;
 }
 
 export default function WorkoutPage() {
@@ -53,12 +59,14 @@ export default function WorkoutPage() {
 	const [reps, setReps] = useState("");
 	const [exercises, setExercises] = useState<Exercise[]>([]);
 	const [filteredExercises, setFilteredExercises] = useState<string[]>([]);
+	const [filteredGoals, setFilteredGoals] = useState<string[]>([]);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [isEditingWorkout, setIsEditingWorkout] = useState(false);
 
 	const [workoutGoals, setWorkoutGoals] = useState<WorkoutGoal[]>([]);
 	const [workoutGoalName, setWorkoutGoalName] = useState("");
-	const [wrokoutGoalDescription, setWorkoutGoalDescription] = useState("");
+	const [goalDescription, setWorkoutGoalDescription] = useState("");
+	const [goalWeight, setGoalWeight] = useState("");
 
 	const user = getUser();
 	const { startLoading, stopLoading } = useLoaderContext();
@@ -69,8 +77,12 @@ export default function WorkoutPage() {
 
 	const [editWorkout] = useEditWorkoutMutation();
 	const [deleteMyWorkout] = useDeleteMyWorkoutMutation();
+
 	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
 		Term: exerciseName,
+	});
+	const { data: goalSearch } = useGoalSearchQuery({
+		Term: workoutGoalName,
 	});
 	const { data: myWorkouts } = useMyWorkoutsQuery({
 		Email: user.Email,
@@ -164,8 +176,25 @@ export default function WorkoutPage() {
 		}
 	};
 
+	const handleGoalNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setWorkoutGoalName(value);
+
+		if (value.length > 0) {
+			setShowDropdown(true);
+		} else {
+			setFilteredGoals([]);
+			setShowDropdown(false);
+		}
+	};
+
 	const handleSelectExercise = (exercise: string) => {
 		setExerciseName(exercise);
+		setShowDropdown(false);
+	};
+
+	const handleSelectGoal = (goal: string) => {
+		setWorkoutGoalName(goal);
 		setShowDropdown(false);
 	};
 
@@ -222,6 +251,52 @@ export default function WorkoutPage() {
 			Email: user.Email,
 			goals: workoutGoals,
 		});
+	};
+	//Handle goal features
+	const handleAddWorkoutGoal = (e: SyntheticEvent) => {
+		e.preventDefault();
+		if (workoutDescription && exerciseName && sets && reps) {
+			setWorkoutGoals([
+				...workoutGoals,
+				{
+					goalName: workoutGoalName,
+					goalDescription: goalDescription,
+					exerciseName: exerciseName,
+					goalSets: Number(sets),
+					goalReps: Number(reps),
+					goalWeight: Number(goalWeight),
+				},
+			]);
+
+			setWorkoutGoalName("");
+			setWorkoutGoalDescription("");
+			setExerciseName("");
+			setSets("");
+			setReps("");
+			setGoalWeight("");
+		}
+	};
+
+	const handleCreateGoal = async (e: FormEvent) => {
+		e.preventDefault();
+		startLoading();
+
+		if (workoutGoals.length === 0) {
+			showToast("Please add at least one goal to your workout", "info");
+			stopLoading();
+			return;
+		}
+
+		await createWorkoutGoal({
+			Email: user.Email,
+			goals: workoutGoals,
+		});
+
+		showToast("Successfully created your goal", "success");
+
+		// Reset the form after creating the goal
+		setWorkoutGoals([]);
+		stopLoading();
 	};
 
 	return (
@@ -471,7 +546,118 @@ export default function WorkoutPage() {
 								and always to be in <span className="font-bold"> shape </span>
 							</CardDescription>
 						</CardHeader>
-						<CardContent></CardContent>
+						<CardContent>
+							<form onSubmit={handleAddWorkoutGoal} className="space-y-4">
+								<div>
+									<Label htmlFor="goal-name">Goal Name</Label>
+									<Input
+										id="goal-name"
+										value={workoutGoalName}
+										onChange={(e) => setWorkoutGoalName(e.target.value)}
+										placeholder="e.g., Lose Body Fat"
+										required
+									/>
+								</div>
+								<div>
+									<Label htmlFor="goal-description">Description</Label>
+									<Textarea
+										id="goal-description"
+										value={goalDescription}
+										onChange={(e) => setWorkoutGoalDescription(e.target.value)}
+										placeholder="Describe what you want to achive..."
+										required
+									/>
+								</div>
+								<div className="border-t pt-4">
+									<h3 className="text-lg font-semibold mb-2">Goals</h3>
+									<form className="mt-4 space-y-2">
+										<div className="relative space-y-2">
+											<Input
+												value={workoutGoalName}
+												onChange={handleGoalNameChange}
+												placeholder="Goal name"
+												required
+											/>
+											<Input
+												value={exerciseName}
+												onChange={handleExerciseNameChange}
+												placeholder="Excercise imrovment name"
+												required
+											/>
+
+											{showDropdown && (
+												<div className="absolute z-10 w-full mt-1 bg-lime-50 border border-gray-300 rounded-md shadow-lg exercise-dropdown">
+													{isLoading ? (
+														<div className="px-4 py-2">Loading...</div>
+													) : (
+														filteredGoals.map((goal, index) => (
+															<div
+																key={index}
+																className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+																onClick={() => handleSelectGoal(goal)}
+															>
+																{goal}
+															</div>
+														))
+													)}
+												</div>
+											)}
+										</div>
+										<div className="flex space-x-2">
+											<Input
+												type="number"
+												value={sets}
+												onChange={(e) => setSets(e.target.value)}
+												placeholder="Sets"
+												required
+											/>
+											<Input
+												type="number"
+												value={reps}
+												onChange={(e) => setReps(e.target.value)}
+												placeholder="Reps"
+												required
+											/>
+											<Input
+												type="number"
+												value={goalWeight}
+												onChange={(e) => setGoalWeight(e.target.value)}
+												placeholder="Desired Weigth"
+												required
+											/>
+										</div>
+										<Button
+											type="submit"
+											variant="outline"
+											onClick={handleAddWorkoutGoal}
+										>
+											<PlusCircle className="w-4 h-4 mr-2" />
+											Add Goal
+										</Button>
+									</form>
+								</div>
+								{workoutGoals.length > 0 && (
+									<div className="mt-4">
+										<h4 className="font-semibold mb-2">Added Goals:</h4>
+										<ul className="space-y-1">
+											{workoutGoals.map((goal, index) => (
+												<li key={index} className="flex items-center text-sm">
+													<Dumbbell className="w-4 h-4 mr-2" />
+													<span>{goal.goalName} - </span>
+													<span className="ml-1">
+														{goal.goalSets} sets x {goal.goalReps} reps -{" "}
+														{goal.goalWeight} kg
+													</span>
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
+								<Button type="submit" className="w-full">
+									Set Goals
+								</Button>
+							</form>
+						</CardContent>
 					</Card>
 				</TabsContent>
 

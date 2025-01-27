@@ -14,11 +14,15 @@ import { MyWorkoutGoalResponse } from "@/interfaces/api/workouts/response/workou
 import { MyWorkoutGoalsReqeust } from "@/interfaces/api/workouts/requests/my-workout-goals.interface";
 import { TopGoalsRequest } from "@/interfaces/api/workouts/requests/top-goals.interface";
 import { TopGoalsResponse } from "@/interfaces/api/workouts/response/top-goals.interface";
+import { GoalSearchRequest } from "@/interfaces/api/workouts/requests/goal-search.interface";
 
 const workoutApi = fitApi.injectEndpoints({
 	endpoints: (build) => ({
 		exerciseSearch: build.query<string[], ExerciseSearchRequest>({
 			query: ({ Term }) => `/exercise-search?Term=${encodeURIComponent(Term)}`,
+		}),
+		goalSearch: build.query<string[], GoalSearchRequest>({
+			query: ({ Term }) => `/goal-search?Term=${encodeURIComponent(Term)}`,
 		}),
 		createWorkout: build.mutation<void, CreateWorkoutRequest>({
 			query: (body) => ({
@@ -92,6 +96,7 @@ export const {
 	useMyWorkoutsQuery,
 	useTopWorkoutsQuery,
 	useCreateWorkoutMutation,
+	useGoalSearchQuery,
 	useCreateWorkoutGoalMutation,
 	useMyGoalsQuery,
 	useTopGoalsQuery,
