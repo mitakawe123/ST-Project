@@ -24,6 +24,8 @@ public class GetAllPostsEndpointTests
                 AvatarImg: "avatar_url",
                 Image: "image_url",
                 CreatedAt: DateTime.UtcNow,
+                Username: "Nicko",
+                UserEmail:"Nicko123@abv.bg",
                 Likes: 10,
                 Comments: new List<CommentsDto>
                 {

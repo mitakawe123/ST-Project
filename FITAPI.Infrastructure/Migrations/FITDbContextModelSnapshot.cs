@@ -17,7 +17,7 @@ namespace FITAPI.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -129,6 +129,7 @@ namespace FITAPI.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
@@ -246,6 +247,41 @@ namespace FITAPI.Infrastructure.Migrations
                     b.ToTable("sleep", "fitapi");
                 });
 
+            modelBuilder.Entity("FITAPI.Domain.Models.WorkoutGoals", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("GoalDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GoalName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GoalsJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("Goals");
+
+                    b.Property<DateTime>("LoggedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("workoutgoals", "fitapi");
+                });
+
             modelBuilder.Entity("FITAPI.Domain.Models.Workouts", b =>
                 {
                     b.Property<long>("Id")
@@ -262,6 +298,9 @@ namespace FITAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("jsonb")
                         .HasColumnName("Exercises");
+
+                    b.Property<DateTime>("LoggedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -463,6 +502,17 @@ namespace FITAPI.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("FITAPI.Domain.Models.Sleep", b =>
+                {
+                    b.HasOne("FITAPI.Domain.Models.MyUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FITAPI.Domain.Models.WorkoutGoals", b =>
                 {
                     b.HasOne("FITAPI.Domain.Models.MyUser", "User")
                         .WithMany()

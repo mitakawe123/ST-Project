@@ -7,6 +7,8 @@ import { Food } from "@/interfaces/api/health-tracker/shared/food.interface";
 import { useDispatch } from "react-redux";
 import { addFoodEntries } from "@/app/slices/health-tracker/foodSlice";
 
+
+
 const LoggedFoodSection: FC = () => {
 	const dispatch = useDispatch();
 	const user = getUser();
@@ -40,15 +42,15 @@ const LoggedFoodSection: FC = () => {
 		if (!loggedFood) return;
 
 		// Get today's date (set time to 00:00:00 for comparison)
-		const today = new Date();
-		today.setHours(0, 0, 0, 0);
+		const filterDate = new Date();
+		filterDate.setHours(0, 0, 0, 0);
 
 		// Filter entries for today
 		const todayFoodEntries = loggedFood
 			.filter((entry) => {
 				const loggedDate = new Date(entry.loggedAt);
 				loggedDate.setHours(0, 0, 0, 0);
-				return loggedDate.getTime() === today.getTime();
+				return loggedDate.getTime() === filterDate.getTime();
 			})
 			.flatMap((entry) =>
 				entry.foods.map((food) => ({

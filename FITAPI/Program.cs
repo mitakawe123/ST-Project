@@ -4,18 +4,23 @@ using FastEndpoints.Swagger;
 using FirebaseAdmin;
 using FITAPI.Application.Configurations;
 using FITAPI.Domain.Configurations;
+using FITAPI.Infrastructure;
 using FITAPI.Infrastructure.Configurations;
+using Google;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 var bld = WebApplication.CreateBuilder();
 var jwtConfig  = bld.Configuration.GetSection(nameof(JwtConfiguration)).Get<JwtConfiguration>() ??
                  throw new NullReferenceException(nameof(JwtConfiguration));
 
-//FirebaseApp.Create(new AppOptions
-//{
-//   Credential = GoogleCredential.FromFile("../../fitconnect-af4b6-firebase-adminsdk-no0dz-df8250c3be.json")
-//});
+//DB service
+bld.Services
+    .AddDbContext<FitDbContext>(options =>
+    options
+    .UseNpgsql(bld.Configuration
+    .GetConnectionString("DefaultConnection")));
 
 bld.Services
     .AddInfrastructureServices(bld.Configuration)

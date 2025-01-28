@@ -8,15 +8,16 @@ import { useEffect } from "react";
 import { getUser } from "@/utils/utils";
 interface FoodCardProps {
 	selectedDate: Date;
+	email: string;
 }
 
-const FoodCard: React.FC<FoodCardProps> = ({ selectedDate }) => {
+const FoodCard: React.FC<FoodCardProps> = ({ selectedDate, email }) => {
 	const dispatch = useDispatch();
-	const user = getUser();
+
 
 	const { data: loggedFood } = useLoggedFoodByDateQuery(
 		{
-			Email: user.Email,
+			Email: email,
 			date: selectedDate,
 		},
 		{ refetchOnMountOrArgChange: true }

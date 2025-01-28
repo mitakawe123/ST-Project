@@ -8,8 +8,13 @@ public class MyUserConfiguration : IEntityTypeConfiguration<MyUser>
 {
     public void Configure(EntityTypeBuilder<MyUser> builder)
     {
-        builder
-            .HasIndex(x => x.Email)
-            .HasMethod("hash");
+        
+
+        builder.Property(x => x.Email)
+            .IsRequired()
+            .HasMaxLength(256); 
+
+        builder.HasIndex(x => x.Email)
+            .HasMethod("hash"); 
     }
 }

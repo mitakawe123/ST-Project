@@ -8,8 +8,12 @@ public class FitDbContext : IdentityDbContext<MyUser>
 {
     public DbSet<Workouts> Workouts { get; init; }
     
+    public DbSet<WorkoutGoals> WorkoutGoals { get; init; }
+
     public DbSet<Posts> Posts { get; init; }
-    
+
+    public DbSet<MyUser> Users { get; init; }
+
     public DbSet<Comments> Comments { get; init; }
     
     public DbSet<Foods> Foods { get; init; }
@@ -31,5 +35,11 @@ public class FitDbContext : IdentityDbContext<MyUser>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(FitDbContext).Assembly);
+        //modelBuilder.Entity<WorkoutGoals>()
+        //       .HasOne(wg => wg.User)  
+        //       .WithMany(u => u.WorkoutGoals)  
+        //       .HasForeignKey(wg => wg.UserId);  
     }
+
+
 }

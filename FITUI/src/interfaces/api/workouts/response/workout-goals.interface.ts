@@ -2,7 +2,7 @@ import { WorkoutGoal } from "../shared/workout-goals.interface";
 
 export interface MyWorkoutGoalResponse {
 	id: number;
-	workoutOwnerName: string;
+	workoutGoalOwnerName: string;
 	workoutName: string;
 	workoutGoal: WorkoutGoal[];
 }

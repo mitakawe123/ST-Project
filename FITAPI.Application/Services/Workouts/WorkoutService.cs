@@ -87,4 +87,45 @@ public class WorkoutService(FitDbContext context, UserManager<MyUser> userManage
         context.Workouts.Update(workout);
         await context.SaveChangesAsync(cancellationToken);
     }
+
+    //
+    public async Task CreateWorkoutGoalAsync(CreateWorkoutGoalRequest request, CancellationToken cancellationToken)
+    {
+        var user = await userManager.FindByEmailAsync(request.Email)
+                 ?? throw new Exception($"User with email {request.Email} does not exist");
+
+        var goals = request.Goals.Select(gl => new WorkoutGoal(gl.GoalName,gl.GoalDescription,gl.GoalSets,gl.GoalReps,gl.GoalWeight)).ToList();
+
+        context.Add(new Domain.Models.WorkoutGoals
+        {
+            UserId = user.Id,
+            //!LastOrDefault behaviour
+            GoalName = request.Goals.LastOrDefault().GoalName,
+            GoalDescription = request.Goals.LastOrDefault().GoalDescription,
+            LoggedAt = DateTime.UtcNow,
+            GoalsJson = JsonSerializer.Serialize(goals)
+        });
+
+        await context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task  DeleteMyWorkoutAsync(DeleteMyWorkoutGoalRequest request, CancellationToken cancellationToken)
+    {
+        await context.WorkoutGoals
+            .Where(x => x.Id == request.Id)
+            .ExecuteDeleteAsync(cancellationToken);
+    }
+
+    public async Task <IReadOnlyCollection<MyWorkoutGoalsResponse>> GetMyWorkoutGoalsAsync(MyWorkoutGoalsRequest request, CancellationToken cancellationToken)
+    {
+         var user = await userManager.FindByEmailAsync(request.Email) 
+            ?? throw new Exception($"User with email {request.Email} does not exist");
+
+        return await context.WorkoutGoals
+            .Where(x => x.UserId == user.Id)
+            .Select(x => new MyWorkoutGoalsResponse(x.Id, x.GoalName, x.GoalDescription, x.LoggedAt, x.Goals ?? new List<WorkoutGoal>()))
+            .ToListAsync(cancellationToken);
+    }
+
+   
 }

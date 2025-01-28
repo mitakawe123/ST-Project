@@ -13,19 +13,19 @@ import { RootState } from "@/app/store";
 
 interface FluidCardProp {
 	selectedDate: Date;
+	email: string;
 }
 enum FluidType {
 	Water = 0,
 	Carbonated = 1,
 }
 
-const FluidCard: React.FC<FluidCardProp> = ({ selectedDate }) => {
+const FluidCard: React.FC<FluidCardProp> = ({ selectedDate, email }) => {
 	const dispatch = useDispatch();
-	const user = getUser();
 
 	const { data: fluids } = useLoggedFluidsByDateQuery(
 		{
-			Email: user.Email,
+			Email: email,
 			date: selectedDate,
 		},
 		{ refetchOnMountOrArgChange: true }

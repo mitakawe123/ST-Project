@@ -10,4 +10,11 @@ public interface IWorkoutService
     Task DeleteMyWorkoutAsync(DeleteMyWorkoutRequest request, CancellationToken cancellationToken);
     Task<IReadOnlyCollection<TopWorkoutsResponse>> GetTopWorkoutsAsync(TopWorkoutsRequest request, CancellationToken cancellationToken);
     Task EditWorkoutAsync(EditWorkoutRequest request, CancellationToken cancellationToken);
+    //
+    Task CreateWorkoutGoalAsync(CreateWorkoutGoalRequest request,CancellationToken cancellationToken);
+    Task DeleteMyWorkoutAsync(DeleteMyWorkoutGoalRequest request, CancellationToken cancellationToken);
+    Task <IReadOnlyCollection<MyWorkoutGoalsResponse>> GetMyWorkoutGoalsAsync(MyWorkoutGoalsRequest request, CancellationToken cancellationToken);
+    ///
+
+
 }
