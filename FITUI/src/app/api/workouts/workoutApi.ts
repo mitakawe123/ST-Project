@@ -5,9 +5,11 @@ import { CreateWorkoutRequest } from "@/interfaces/api/workouts/requests/create-
 import { MyWorkoutsReqeust } from "@/interfaces/api/workouts/requests/my-workouts.interface";
 import { MyWorkoutsResponse } from "@/interfaces/api/workouts/response/my-workouts.interface";
 import { DeleteMyWorkoutRequest } from "@/interfaces/api/workouts/requests/delete-my-workout.interface";
+import { DeleteMyWorkoutGoalRequest } from "@/interfaces/api/workouts/requests/delete-workout-goal.interface";
 import { TopWorkoutsResponse } from "@/interfaces/api/workouts/response/top-workouts.interface";
 import { TopWorkoutsRequest } from "@/interfaces/api/workouts/requests/top-workouts.interface";
 import { EditWorkoutRequest } from "@/interfaces/api/workouts/requests/edit-workout.interface";
+import { EditWorkoutGoalRequest } from "@/interfaces/api/workouts/requests/edit-workout-goal.interface";
 import { MyWorkoutsByDateRequest } from "@/interfaces/api/workouts/requests/my-workouts-date.interface";
 import { CreateWorkoutGoalRequest } from "@/interfaces/api/workouts/requests/create-workout-goals.inteface";
 import { MyWorkoutGoalResponse } from "@/interfaces/api/workouts/response/workout-goals.interface";
@@ -73,6 +75,13 @@ const workoutApi = fitApi.injectEndpoints({
 			}),
 			invalidatesTags: ["Workouts"],
 		}),
+		deleteMyWorkoutGoal: build.mutation<void, DeleteMyWorkoutGoalRequest>({
+			query: ({ id }) => ({
+				url: `/my-workout-goals/${id}`,
+				method: HttpMethod.DELETE.toString(),
+			}),
+			invalidatesTags: ["Workouts"],
+		}),
 		topWorkouts: build.query<TopWorkoutsResponse[], TopWorkoutsRequest>({
 			query: ({ Email }) => `/top-workouts?Email=${encodeURIComponent(Email)}`,
 		}),
@@ -83,6 +92,14 @@ const workoutApi = fitApi.injectEndpoints({
 		editWorkout: build.mutation<void, EditWorkoutRequest>({
 			query: (body) => ({
 				url: "/edit-workout",
+				method: HttpMethod.PATCH.toString(),
+				body: body,
+			}),
+			invalidatesTags: ["Workouts"],
+		}),
+		editWorkoutGoal: build.mutation<void, EditWorkoutGoalRequest>({
+			query: (body) => ({
+				url: "/edit-workout-goal",
 				method: HttpMethod.PATCH.toString(),
 				body: body,
 			}),
@@ -101,6 +118,8 @@ export const {
 	useMyGoalsQuery,
 	useTopGoalsQuery,
 	useDeleteMyWorkoutMutation,
+	useDeleteMyWorkoutGoalMutation,
 	useEditWorkoutMutation,
+	useEditWorkoutGoalMutation,
 	useMyWorkoutsByDateQuery,
 } = workoutApi;

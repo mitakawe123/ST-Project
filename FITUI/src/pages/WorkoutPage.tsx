@@ -29,12 +29,16 @@ import {
 	useMyGoalsQuery,
 	useTopGoalsQuery,
 	useGoalSearchQuery,
+	useEditWorkoutGoalMutation,
+	useDeleteMyWorkoutGoalMutation,
 } from "@/app/api/workouts/workoutApi";
 import { getUser } from "@/utils/utils";
 import useToast from "@/app/hooks/useToast";
 import { useLoaderContext } from "@/app/context/LoaderContext";
 import { EditWorkoutModal } from "@/components/workout/EditWorkoutModal";
+import { EditGoalModal } from "@/components/workout/EditGoalModal";
 import { MyWorkoutsResponse } from "@/interfaces/api/workouts/response/my-workouts.interface";
+import { MyWorkoutGoalResponse } from "@/interfaces/api/workouts/response/workout-goals.interface";
 
 interface Exercise {
 	name: string;
@@ -63,6 +67,7 @@ export default function WorkoutPage() {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [isEditingWorkout, setIsEditingWorkout] = useState(false);
 
+	const [isEditingGoal, setIsEditingGoal] = useState(false);
 	const [workoutGoals, setWorkoutGoals] = useState<WorkoutGoal[]>([]);
 	const [workoutGoalName, setWorkoutGoalName] = useState("");
 	const [goalDescription, setWorkoutGoalDescription] = useState("");
@@ -76,7 +81,10 @@ export default function WorkoutPage() {
 	const [createWorkoutGoal] = useCreateWorkoutGoalMutation();
 
 	const [editWorkout] = useEditWorkoutMutation();
+	const [editWorkoutGoal] = useEditWorkoutGoalMutation();
+
 	const [deleteMyWorkout] = useDeleteMyWorkoutMutation();
+	const [deleteMyWorkoutGoal] = useDeleteMyWorkoutGoalMutation();
 
 	const { data: exerciseSearch, isLoading } = useExerciseSearchQuery({
 		Term: exerciseName,
@@ -176,18 +184,6 @@ export default function WorkoutPage() {
 		}
 	};
 
-	const handleGoalNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		setWorkoutGoalName(value);
-
-		if (value.length > 0) {
-			setShowDropdown(true);
-		} else {
-			setFilteredGoals([]);
-			setShowDropdown(false);
-		}
-	};
-
 	const handleSelectExercise = (exercise: string) => {
 		setExerciseName(exercise);
 		setShowDropdown(false);
@@ -234,24 +230,6 @@ export default function WorkoutPage() {
 		);
 	};
 
-	const handleCreateWorkoutGoal = async (e: FormEvent) => {
-		e.preventDefault();
-		startLoading();
-
-		if (workoutGoals.length === 0) {
-			showToast(
-				"Please add at least one goal. We know you can achieve it!",
-				"info"
-			);
-			stopLoading();
-			return;
-		}
-
-		await createWorkoutGoal({
-			Email: user.Email,
-			goals: workoutGoals,
-		});
-	};
 	//Handle goal features
 	const handleAddWorkoutGoal = (e: SyntheticEvent) => {
 		e.preventDefault();
@@ -276,13 +254,40 @@ export default function WorkoutPage() {
 			setGoalWeight("");
 		}
 	};
+	const handleGoalNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setWorkoutGoalName(value);
 
-	const handleCreateGoal = async (e: FormEvent) => {
+		if (value.length > 0) {
+			setShowDropdown(true);
+		} else {
+			setFilteredGoals([]);
+			setShowDropdown(false);
+		}
+	};
+
+	const handleEditGoal = async (goal: MyWorkoutGoalResponse) => {
+		startLoading();
+
+		await editWorkoutGoal({
+			Id: goal.id,
+			GoalTitle: goal.workoutGoalOwnerName,
+			GoalDescription: goal.workoutGoalDescrtiption,
+		});
+
+		showToast("Successfully edit workout", "success");
+
+		stopLoading();
+	};
+	const handleSetWorkoutGoal = async (e: FormEvent) => {
 		e.preventDefault();
 		startLoading();
 
 		if (workoutGoals.length === 0) {
-			showToast("Please add at least one goal to your workout", "info");
+			showToast(
+				"Please add at least one goal. We know you can achieve it!",
+				"info"
+			);
 			stopLoading();
 			return;
 		}
@@ -291,11 +296,16 @@ export default function WorkoutPage() {
 			Email: user.Email,
 			goals: workoutGoals,
 		});
+	};
 
-		showToast("Successfully created your goal", "success");
+	const handleDeleteGoal = async (id: number) => {
+		startLoading();
 
-		// Reset the form after creating the goal
-		setWorkoutGoals([]);
+		await deleteMyWorkoutGoal({
+			id: id,
+		}).unwrap();
+
+		showToast("Successfully delete workout goal", "success");
 		stopLoading();
 	};
 
@@ -653,7 +663,11 @@ export default function WorkoutPage() {
 										</ul>
 									</div>
 								)}
-								<Button type="submit" className="w-full">
+								<Button
+									type="submit"
+									className="w-full"
+									onSubmit={handleSetWorkoutGoal}
+								>
 									Set Goals
 								</Button>
 							</form>
@@ -662,14 +676,66 @@ export default function WorkoutPage() {
 				</TabsContent>
 
 				<TabsContent value="my-goals">
-					<h2 className="text-2xl font-bold mb-4">Your Goals</h2>
-					<Card>
-						<CardHeader>
-							<CardTitle> </CardTitle>
-							<CardDescription></CardDescription>
-						</CardHeader>
-						<CardContent></CardContent>
-					</Card>
+					<h2 className="text-2xl font-bold mb-4">Your Workout Goals</h2>
+					{myWorkouts?.length === 0 ? (
+						<p>You haven't created any goal yet.</p>
+					) : (
+						<div className="space-y-4">
+							{myWorkoutGoals?.map((goal) => (
+								<Card key={goal.id}>
+									<CardHeader>
+										<div className="flex justify-between items-start">
+											<div>
+												<CardTitle>{goal.workoutName}</CardTitle>
+												<CardDescription>
+													{goal.workoutGoalOwnerName}
+												</CardDescription>
+											</div>
+											<div className="flex space-x-2">
+												<Button
+													variant="outline"
+													size="sm"
+													onClick={() => setIsEditingGoal(true)}
+												>
+													<Pencil className="w-4 h-4 mr-2" />
+													Edit
+												</Button>
+												<Button
+													variant="destructive"
+													size="sm"
+													onClick={() => handleDeleteGoal(goal.id)}
+												>
+													<Trash2 className="w-4 h-4 mr-2" />
+													Delete
+												</Button>
+											</div>
+											<EditGoalModal
+												isOpen={isEditingGoal}
+												onClose={() => setIsEditingGoal(false)}
+												onEdit={handleEditGoal}
+												goal={goal}
+											/>
+										</div>
+									</CardHeader>
+									<CardContent>
+										<h3 className="font-semibold mb-2">Goals:</h3>
+										<ul className="space-y-2">
+											{goal.workoutGoal.map((goal, index) => (
+												<li key={index} className="flex items-center">
+													<Dumbbell className="w-4 h-4 mr-2 text-muted-foreground" />
+													<span>
+														{goal.goalName} - {goal.goalSets} sets of{" "}
+														{goal.goalReps} reps with goal weight to lift/push{" "}
+														{goal.goalWeight}
+													</span>
+												</li>
+											))}
+										</ul>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					)}
 				</TabsContent>
 			</Tabs>
 		</div>
